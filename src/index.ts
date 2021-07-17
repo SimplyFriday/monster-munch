@@ -25,6 +25,9 @@ class Game extends Engine {
 
     // Automatically load all default resources
     const loader = new Loader(Object.values(Resources));
+    
+    // We can change this later to make a cheapo start menu, if we don't have time to add saving or whatever
+    loader.suppressPlayButton = true;
 
     return super.start(loader);
   }
