@@ -1,39 +1,40 @@
 import { Engine, Loader, DisplayMode } from 'excalibur';
-import { LevelOne } from './scenes/level-one/level-one';
 import { Player } from './actors/player/player';
 import { Resources } from './resources';
+import { OverworldTest } from './scenes/overworld/overworldTest';
 
 /**
  * Managed game class
  */
 class Game extends Engine {
-  private player: Player;
-  private levelOne: LevelOne;
+    private player: Player;
 
-  constructor() {
-    super({ displayMode: DisplayMode.FullScreen });
-  }
+    private levelTest: OverworldTest;
 
-  public start() {
+    constructor() {
+        super({ displayMode: DisplayMode.FullScreen });
+    }
 
-    // Create new scene with a player
-    this.levelOne = new LevelOne(this);
-    this.player = new Player();
-    this.levelOne.add(this.player);
+    public start() {
 
-    game.add('levelOne', this.levelOne);
+        // Create new scene with a player
+        this.levelTest = new OverworldTest(this);
+        this.player = new Player();
+        this.levelTest.add(this.player);
 
-    // Automatically load all default resources
-    const loader = new Loader(Object.values(Resources));
-    
-    // We can change this later to make a cheapo start menu, if we don't have time to add saving or whatever
-    loader.suppressPlayButton = true;
+        game.add('levelTest', this.levelTest);
 
-    return super.start(loader);
-  }
+        // Automatically load all default resources
+        const loader = new Loader(Object.values(Resources));
+
+        // We can change this later to make a cheapo start menu, if we don't have time to add saving or whatever
+        loader.suppressPlayButton = true;
+
+        return super.start(loader);
+    }
 }
 
 const game = new Game();
 game.start().then(() => {
-  game.goToScene('levelOne');
+    game.goToScene('levelTest');
 });
