@@ -1,15 +1,13 @@
 import { Engine, Loader, DisplayMode } from 'excalibur';
 import { Player } from './actors/player/player';
 import { Resources } from './resources';
-import { OverworldTest } from './scenes/overworld/overworldTest';
+import { LevelTest } from './scenes/levels/levelTest';
 
 /**
  * Managed game class
  */
 class Game extends Engine {
-    private player: Player;
-
-    private levelTest: OverworldTest;
+    private levelTest: LevelTest;
 
     constructor() {
         super({ displayMode: DisplayMode.FullScreen });
@@ -18,9 +16,7 @@ class Game extends Engine {
     public start() {
 
         // Create new scene with a player
-        this.levelTest = new OverworldTest(this);
-        this.player = new Player();
-        this.levelTest.add(this.player);
+        this.levelTest = new LevelTest(this);
 
         game.add('levelTest', this.levelTest);
 
@@ -38,3 +34,7 @@ const game = new Game();
 game.start().then(() => {
     game.goToScene('levelTest');
 });
+
+document.oncontextmenu = () => {
+    return false;
+};

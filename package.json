@@ -12,8 +12,8 @@
     "build:dev": "webpack --config webpack.development.js",
     "build:prod": "webpack --config webpack.production.js"
   },
-  "author": "Excalibur.js Team",
-  "license": "BSD-2-Clause",
+  "author": "Joshua Greenlaw",
+  "license": "Other",
   "devDependencies": {
     "clean-webpack-plugin": "3.0.0",
     "compression-webpack-plugin": "7.1.2",
@@ -32,6 +32,6 @@
     "webpack-merge": "5.8.0"
   },
   "dependencies": {
-    "excalibur": "0.24.5"
+    "excalibur": "^0.24"
   }
 }
