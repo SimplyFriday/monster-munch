@@ -1,18 +1,52 @@
-import { Actor, Body, Collider, CollisionType, Color, vec } from "excalibur";
+import { Actor, Body, Collider, CollisionType, Color, Scene, ScreenElement, Sprite, Texture, vec } from "excalibur";
 
 export class levelBuildingHelper {
     static tileWidth = 50;
     static tileHeight = 50;
-    // Maybe
-    public static createWallTile(color: Color, xPos: number, yPos: number): Actor {
-        let a = new Actor();
-        a.width = this.tileWidth;
-        a.height = this.tileHeight;
-        a.color = color;
-        a.body.collider.type = CollisionType.Fixed;
-        
-        a.pos = vec(xPos * this.tileWidth, yPos * this.tileHeight);
 
-        return a;
+
+    public static createWallTile(scene: Scene, color: Color, xPos: number, yPos: number) {
+        this.createTile(scene, color, xPos, yPos, true, 1);
+    }
+
+    public static createBackgroundTile(scene: Scene, color: Color, xPos: number, yPos: number) {
+        this.createTile(scene, color, xPos, yPos, false, -1);
+    }
+
+    private static createTile(scene: Scene, color: Color, xPos: number, yPos: number, hasCollision: boolean, z: number) {
+        let a = new Actor({
+            scene: scene,
+            width: this.tileWidth,
+            height: this.tileHeight,
+            color: color,
+            pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
+        });
+
+        scene.add(a);
+        a.setZIndex(z);
+
+        if (hasCollision) {
+            a.body.collider.type = CollisionType.Fixed;
+        }
+    }
+
+    public static createItemOnTile(scene: Scene, sprite:Sprite, xPos: number, yPos: number) {
+        const itemScale = 0.75;
+        
+        let a = new Actor({
+            scene: scene,
+            width: this.tileWidth,
+            height: this.tileHeight,
+            pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
+        });
+
+        scene.add(a);
+        a.setZIndex(40);
+
+        let scaleX = this.tileWidth / sprite.width * itemScale;
+        let scaleY = this.tileHeight / sprite.height * itemScale;
+        sprite.scale = vec(scaleX, scaleY);
+
+        a.addDrawing(sprite);
     }
 }
