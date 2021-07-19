@@ -1,0 +1,7 @@
+/*!
+ * excalibur - 0.24.5 - 2020-9-8
+ * https://github.com/excaliburjs/Excalibur
+ * Copyright (c) 2020 Excalibur.js <https://github.com/excaliburjs/Excalibur/graphs/contributors>
+ * Licensed BSD-2-Clause
+ * @preserve
+ */
