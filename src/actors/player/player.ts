@@ -1,5 +1,6 @@
-import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet } from 'excalibur';
+import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation } from 'excalibur';
 import { Resources } from '../../resources';
+import { animationHelper } from '../objects/animationHelper';
 import { levelBuildingHelper } from '../objects/levelBuildingHelper';
 
 export class Player extends Actor {
@@ -14,13 +15,14 @@ export class Player extends Actor {
 
     private sprites:SpriteSheet;
     private baseSpeed: number = 200;
+    private facing:string;
 
-    onInitialize() {
+    onInitialize(engine:Engine) {
         this.body.collider.type = CollisionType.Active;
         this.body.collider.shape = Shape.Circle(levelBuildingHelper.tileHeight * 0.45);
         this.setZIndex(1000);
 
-        let plSpriteWidth = 15;
+        let plSpriteWidth = 16;
         let plSpriteHeight = 21;
         
         this.sprites = new SpriteSheet({
@@ -31,12 +33,15 @@ export class Player extends Actor {
             spHeight: plSpriteHeight
         });
 
-        let scaleX = levelBuildingHelper.tileHeight / plSpriteWidth;
-        let scaleY = levelBuildingHelper.tileHeight / plSpriteHeight;
-        let spr = this.sprites.getSprite(0);
-        spr.scale = vec(scaleX,scaleY);
-
-        this.addDrawing(spr);
+        this.addDrawing("standDown", animationHelper.getScaledSprite(this.sprites.getSprite(1),0.9));
+        this.addDrawing("standLeft", animationHelper.getScaledSprite(this.sprites.getSprite(4),0.9));
+        this.addDrawing("standRight", animationHelper.getScaledSprite(this.sprites.getSprite(7),0.9));
+        this.addDrawing("standUp", animationHelper.getScaledSprite(this.sprites.getSprite(10),0.9));
+        
+        this.addDrawing("walkDown", animationHelper.getScaledAnimation(engine, this.sprites, 0, 3, 0.9));
+        this.addDrawing("walkLeft", animationHelper.getScaledAnimation(engine, this.sprites, 3, 6, 0.9));
+        this.addDrawing("walkRight", animationHelper.getScaledAnimation(engine, this.sprites, 6, 9, 0.9));
+        this.addDrawing("walkUp", animationHelper.getScaledAnimation(engine, this.sprites, 9, 11, 0.9));
     }
 
     public onPreUpdate(engine: Engine, delta: number) {
@@ -75,23 +80,55 @@ export class Player extends Actor {
         /////////////////////////////////
         ///////////// Facing ////////////
         /////////////////////////////////
-        let facing: string = "d";
-
-        if (velY < 0) {
-            facing = "l";
-        } else if (velY > 0) {
-            facing = "r";
+        
+        if (velY > 0) {
+            this.facing = "d"
         } else if (velX < 0) {
-            facing = "u";
+            this.facing = "l";
+        } else if (velX > 0) {
+            this.facing = "r";
+        } else if (velY < 0) {
+            this.facing = "u";
         }
 
         /////////////////////////////////
         /////////// Animation ///////////
         /////////////////////////////////
+        if (velX === 0 && velY === 0) {
+            switch (this.facing) {
+                case "l":
+                    this.setDrawing("standLeft");
+                    break;
+                case "r":
+                    this.setDrawing("standRight");
+                    break;
+                case "u":
+                    this.setDrawing("standUp");
+                    break;
+                case "d":
+                    this.setDrawing("standDown");
+                    break;
+            }
+        } else {
+            switch (this.facing) {
+                case "l":
+                    this.setDrawing("walkLeft");
+                    break;
+                case "r":
+                    this.setDrawing("walkRight");
+                    break;
+                case "u":
+                    this.setDrawing("walkUp");
+                    break;
+                case "d":
+                    this.setDrawing("walkDown");
+                    break;
+            }
+        }
 
         /////////////////////////////////
         /////// Object Interaction //////
         /////////////////////////////////
-        
+                
     }
 }
