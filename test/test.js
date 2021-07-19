@@ -40,17 +40,12 @@ return (async () => {
         const page = await browser.newPage();
         await page.goto('http://localhost:8080/')
         
-        await page.waitForSelector('#excalibur-play', {visible: true});
         await page.waitForTimeout(1000); // give it a second
-        await page.screenshot({path: 'loaded.png'});
         
-        const start = await page.$('#excalibur-play');
-        await start.click();
         await page.screenshot({path: 'play.png'});
 
         await browser.close();
 
-        imageMatch('./test/images/expected-loaded.png', 'loaded.png');
         imageMatch('./test/images/expected-play.png', 'play.png');
         console.log('Test Success!');
 
