@@ -9,7 +9,7 @@ export class ItemIconSprites {
         spWidth: 12,
         spHeight: 12
     });
-
+    
     public static get Heart () {
         return this.iconSheet.getSprite(1);
     }

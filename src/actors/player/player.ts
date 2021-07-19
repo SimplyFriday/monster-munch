@@ -16,10 +16,11 @@ export class Player extends Actor {
     private sprites:SpriteSheet;
     private baseSpeed: number = 200;
     private facing:string;
+    private spriteScale: number = 0.9;
 
     onInitialize(engine:Engine) {
         this.body.collider.type = CollisionType.Active;
-        this.body.collider.shape = Shape.Circle(levelBuildingHelper.tileHeight * 0.45);
+        this.body.collider.shape = Shape.Box(levelBuildingHelper.tileHeight * this.spriteScale, levelBuildingHelper.tileHeight * this.spriteScale);
         this.setZIndex(1000);
 
         let plSpriteWidth = 16;
@@ -33,15 +34,15 @@ export class Player extends Actor {
             spHeight: plSpriteHeight
         });
 
-        this.addDrawing("standDown", animationHelper.getScaledSprite(this.sprites.getSprite(1),0.9));
-        this.addDrawing("standLeft", animationHelper.getScaledSprite(this.sprites.getSprite(4),0.9));
-        this.addDrawing("standRight", animationHelper.getScaledSprite(this.sprites.getSprite(7),0.9));
-        this.addDrawing("standUp", animationHelper.getScaledSprite(this.sprites.getSprite(10),0.9));
+        this.addDrawing("standDown", animationHelper.getScaledSprite(this.sprites.getSprite(1),this.spriteScale));
+        this.addDrawing("standLeft", animationHelper.getScaledSprite(this.sprites.getSprite(4),this.spriteScale));
+        this.addDrawing("standRight", animationHelper.getScaledSprite(this.sprites.getSprite(7),this.spriteScale));
+        this.addDrawing("standUp", animationHelper.getScaledSprite(this.sprites.getSprite(10),this.spriteScale));
         
-        this.addDrawing("walkDown", animationHelper.getScaledAnimation(engine, this.sprites, 0, 3, 0.9));
-        this.addDrawing("walkLeft", animationHelper.getScaledAnimation(engine, this.sprites, 3, 6, 0.9));
-        this.addDrawing("walkRight", animationHelper.getScaledAnimation(engine, this.sprites, 6, 9, 0.9));
-        this.addDrawing("walkUp", animationHelper.getScaledAnimation(engine, this.sprites, 9, 11, 0.9));
+        this.addDrawing("walkDown", animationHelper.getScaledAnimation(engine, this.sprites, 0, 3, this.spriteScale));
+        this.addDrawing("walkLeft", animationHelper.getScaledAnimation(engine, this.sprites, 3, 6, this.spriteScale));
+        this.addDrawing("walkRight", animationHelper.getScaledAnimation(engine, this.sprites, 6, 9, this.spriteScale));
+        this.addDrawing("walkUp", animationHelper.getScaledAnimation(engine, this.sprites, 9, 11, this.spriteScale));
     }
 
     public onPreUpdate(engine: Engine, delta: number) {
