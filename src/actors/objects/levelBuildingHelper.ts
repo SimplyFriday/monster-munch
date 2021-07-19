@@ -1,4 +1,5 @@
 import { Actor, Body, Collider, CollisionType, Color, Scene, ScreenElement, Sprite, Texture, vec } from "excalibur";
+import { Item } from "./item";
 
 export class levelBuildingHelper {
     static tileWidth = 50;
@@ -30,10 +31,10 @@ export class levelBuildingHelper {
         }
     }
 
-    public static createItemOnTile(scene: Scene, sprite:Sprite, xPos: number, yPos: number) {
+    public static createItemOnTile(scene: Scene, sprite:Sprite, xPos: number, yPos: number): Item {
         const itemScale = 0.75;
         
-        let a = new Actor({
+        let a = new Item({
             scene: scene,
             width: this.tileWidth,
             height: this.tileHeight,
@@ -48,5 +49,7 @@ export class levelBuildingHelper {
         sprite.scale = vec(scaleX, scaleY);
 
         a.addDrawing(sprite);
+
+        return a;
     }
 }
