@@ -13,7 +13,7 @@ export class LevelBase extends Scene {
         super(engine);
     }
 
-    public onInitialize () {
+    public onInitialize (engine:Engine) {
         UIHelper.addLevelUI(this);
         
         this.player = new Player;

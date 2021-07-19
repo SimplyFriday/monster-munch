@@ -1,11 +1,11 @@
-import { Color } from "excalibur";
+import { Color, Engine } from "excalibur";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
 import { levelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {
-    public onInitialize() {
-        super.onInitialize();
+    public onInitialize(engine:Engine) { 
+        super.onInitialize(engine);
 
         let wallColor = new Color(200, 200, 200);
 
@@ -42,11 +42,12 @@ export class LevelTest extends LevelBase {
         levelBuildingHelper.createBackgroundTile(this, wallColor, 7, 5);
         levelBuildingHelper.createBackgroundTile(this, wallColor, 8, 5);
 
-        levelBuildingHelper.createItemOnTile(this, ItemIconSprites.Banana, 5,5);
-        levelBuildingHelper.createItemOnTile(this, ItemIconSprites.Skull, 5,7);
-        levelBuildingHelper.createItemOnTile(this, ItemIconSprites.Posion, 9,6);
-        levelBuildingHelper.createItemOnTile(this, ItemIconSprites.Bread, 8,8);
+        levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Banana, "banana", 5,5);
+        levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Skull, "skull", 5,7);
+        levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Posion, "poison", 9,6);
+        levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Bread, "bread", 8,8);
 
+        levelBuildingHelper.createPanOnTile(this,engine, 7,8)
         //levelBuildingHelper.createBackgroundTile(this, wallColor, 8,5);
     }
 }

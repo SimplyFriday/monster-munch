@@ -164,6 +164,7 @@ export class Player extends Actor {
         }
 
         this.heldItem.pos = vec(this.pos.x + xOffset, this.pos.y + yOffset);
+        this.heldItem.isHeld = false;
         this.heldItem = null;
     }
 
