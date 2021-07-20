@@ -29,7 +29,8 @@ export abstract class LevelBase extends Scene {
         if (this.baseTile) {
             for (let r = 0; r < 20; r++) {
                 for (let c = 0; c < 20; c++) {
-                    LevelBuildingHelper.createBackgroundTile(this, this.baseTile, r, c);
+                    // TODO background tiles as actors seems to nuke performance...
+                    //LevelBuildingHelper.createBackgroundTile(this, this.baseTile, r, c);
                 }
             }
         }
