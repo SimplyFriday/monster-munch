@@ -141,7 +141,19 @@ export abstract class ItemIconSprites {
     public static get Burrito () {
         return this.iconSheet.getSprite(58);
     }
-    
+
+    public static get Ketchup () {
+        return this.iconSheet.getSprite(61);
+    }
+
+    public static get Mayo () {
+        return this.iconSheet.getSprite(62);
+    }
+
+    public static get Relish () {
+        return this.iconSheet.getSprite(63);
+    }
+
     public static get PieYellow () {
         return this.iconSheet.getSprite(71);
     }
@@ -154,4 +166,28 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(73);
     }
     
+    public static get Cake () {
+        return this.iconSheet.getSprite(74);
+    }
+
+    public static get IceCreamCone () {
+        return this.iconSheet.getSprite(75);
+    }
+
+    public static get FreezePopPink () {
+        return this.iconSheet.getSprite(76);
+    }
+
+    public static get FreezePopBlue () {
+        return this.iconSheet.getSprite(77);
+    }
+
+    public static get CandyRed () {
+        return this.iconSheet.getSprite(78);
+    }
+
+    public static get CandyYellow () {
+        return this.iconSheet.getSprite(79);
+    }
+
 }

@@ -13,9 +13,9 @@
     "build:prod": "webpack --config webpack.production.js"
   },
   "author": "Joshua Greenlaw",
-  "license" : {
-    "type" : "BSL1.1",
-    "url" : "https://mariadb.com/bsl11/"
+  "license": {
+    "type": "BSL1.1",
+    "url": "https://mariadb.com/bsl11/"
   },
   "devDependencies": {
     "clean-webpack-plugin": "3.0.0",
