@@ -4,7 +4,7 @@ import { LevelBase } from "../../scenes/levels/levelBase";
 import { BalloonIconSprites } from "./balloonIconSprites";
 import { ItemIconSprites } from "./itemIconSprites";
 
-export class UIHelper {
+export abstract class UIHelper {
     private static iconWidth:number = 50;
     private static iconHeight:number = 50;
 

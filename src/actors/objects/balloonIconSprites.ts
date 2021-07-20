@@ -1,7 +1,7 @@
 import { Sprite, SpriteSheet } from "excalibur";
 import { Resources } from "../../resources";
 
-export class BalloonIconSprites {
+export abstract class BalloonIconSprites {
     private static balloonSheet = new SpriteSheet({
         image: Resources.BalloonIconSheet,
         rows: 11,

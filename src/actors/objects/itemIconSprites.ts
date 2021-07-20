@@ -1,7 +1,7 @@
 import { Sprite, SpriteSheet } from "excalibur";
 import { Resources } from "../../resources";
 
-export class ItemIconSprites {
+export abstract class ItemIconSprites {
     private static iconSheet = new SpriteSheet({
         image: Resources.ItemIconSheet,
         rows: 11,
@@ -90,5 +90,68 @@ export class ItemIconSprites {
         return this.iconSheet.getSprite(44);
     }
     
+    public static get Cheese () {
+        return this.iconSheet.getSprite(45);
+    }
+    
+    public static get Drumstick () {
+        return this.iconSheet.getSprite(46);
+    }
+    
+    public static get Cookie () {
+        return this.iconSheet.getSprite(47);
+    }
+    
+    public static get Burger () {
+        return this.iconSheet.getSprite(48);
+    }
+    
+    public static get Fries () {
+        return this.iconSheet.getSprite(49);
+    }
+    
+    public static get Hotdog () {
+        return this.iconSheet.getSprite(50);
+    }
+    
+    public static get PizzaPlain () {
+        return this.iconSheet.getSprite(52);
+    }
+    
+    public static get PizzaToppings () {
+        return this.iconSheet.getSprite(53);
+    }
+    
+    public static get Meat () {
+        return this.iconSheet.getSprite(54);
+    }
+    
+    public static get EggRaw () {
+        return this.iconSheet.getSprite(55);
+    }
+    
+    public static get EggCooked () {
+        return this.iconSheet.getSprite(56);
+    }
+
+    public static get Taco () {
+        return this.iconSheet.getSprite(57);
+    }
+    
+    public static get Burrito () {
+        return this.iconSheet.getSprite(58);
+    }
+    
+    public static get PieYellow () {
+        return this.iconSheet.getSprite(71);
+    }
+
+    public static get PieRed () {
+        return this.iconSheet.getSprite(72);
+    }
+    
+    public static get PiePurple () {
+        return this.iconSheet.getSprite(73);
+    }
     
 }

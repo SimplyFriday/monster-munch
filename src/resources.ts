@@ -6,6 +6,7 @@ import playerSprites from './images/player_sprites.png'
 import panAttack from './images/pan_attack.png'
 import panEmpty from './images/pan_empty.png'
 import panFilled from './images/pan_filled.png'
+import insideTilesB from './images/tileB_inside4.png'
 
 const levelLoop1 = require('./audio/level_loop1.wav');
 /**
@@ -21,7 +22,8 @@ const Resources = {
     BalloonIconSheet: new Texture(balloonIcons),
     PanAttack: new Texture(panAttack),
     PanEmpty: new Texture(panEmpty),
-    PanFilled: new Texture(panFilled)
+    PanFilled: new Texture(panFilled),
+    InsideTilesB: new Texture(insideTilesB)
 }
 
 export { Resources }

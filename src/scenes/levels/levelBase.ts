@@ -3,7 +3,7 @@ import { UIHelper } from "../../actors/objects/uiHelper";
 import { Player } from "../../actors/player/player";
 import { Resources } from "../../resources";
 
-export class LevelBase extends Scene {
+export abstract class LevelBase extends Scene {
     protected grid: Actor[][] = [];
     protected player:Actor;
     protected musicTrack:Sound;

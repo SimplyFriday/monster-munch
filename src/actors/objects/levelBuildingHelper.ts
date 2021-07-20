@@ -4,27 +4,35 @@ import { Ingredient } from "./ingredient";
 import { Item } from "./item";
 import { Pan } from "./pan";
 
-export class levelBuildingHelper {
+export abstract class levelBuildingHelper {
     static tileWidth = 50;
     static tileHeight = 50;
 
 
-    public static createWallTile(scene: Scene, color: Color, xPos: number, yPos: number) {
-        this.createTile(scene, color, xPos, yPos, true, 1);
+    public static createWallTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number) {
+        this.createTile(scene, display, xPos, yPos, true, 1);
     }
 
-    public static createBackgroundTile(scene: Scene, color: Color, xPos: number, yPos: number) {
-        this.createTile(scene, color, xPos, yPos, false, -1);
+    public static createBackgroundTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number) {
+        this.createTile(scene, display, xPos, yPos, false, -1);
     }
 
-    private static createTile(scene: Scene, color: Color, xPos: number, yPos: number, hasCollision: boolean, z: number) {
+    private static createTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number, hasCollision: boolean, z: number) {
         let a = new Actor({
             scene: scene,
             width: this.tileWidth,
             height: this.tileHeight,
-            color: color,
             pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
         });
+
+        if (display instanceof Color) {
+            a.color = display;
+        } else {
+            let scaleX = this.tileWidth / display.width;
+            let scaleY = this.tileHeight / display.height;
+            display.scale = vec(scaleX, scaleY);
+            a.addDrawing(display);
+        }
 
         scene.add(a);
         a.setZIndex(z);

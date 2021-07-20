@@ -1,7 +1,7 @@
 import { Engine, Sprite, SpriteSheet, vec, Animation } from "excalibur";
 import { levelBuildingHelper } from "./levelBuildingHelper";
 
-export class animationHelper {
+export abstract class animationHelper {
     public static getScaledAnimation (engine:Engine, spritesheet:SpriteSheet, startIndex:number, endIndex:number, scaleFactor:number = 1): Animation {
         let a:Animation = spritesheet.getAnimationBetween(engine, startIndex, endIndex, 100);
         
