@@ -8,6 +8,9 @@ export class LevelTest extends LevelBase {
     public onInitialize(engine:Engine) { 
         super.onInitialize(engine);
 
+        // TODO something less shithouse
+        alert("Use WASD to move and Space to interact!");
+
         let wallColor = new Color(200, 200, 200);
 
         levelBuildingHelper.createWallTile(this, wallColor, 1, 1);
