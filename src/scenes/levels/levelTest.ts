@@ -48,7 +48,7 @@ export class LevelTest extends LevelBase {
         LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Posion, "poison", 9,6);
         LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.PiePurple, "piePurple", 8,8);
 
-        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 5, 3);
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 7);
         LevelBuildingHelper.createPanOnTile(this,engine, 7,8)
         LevelBuildingHelper.createPanOnTile(this,engine, 2,4)
 

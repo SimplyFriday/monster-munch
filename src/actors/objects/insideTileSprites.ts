@@ -38,7 +38,7 @@ export abstract class InsideTileSprites {
         return this.iconSheet.getSprite(51);
     }
      
-    public static get StovePlaceholder () {
+    public static get RedStool () {
         return this.iconSheet.getSprite(152);
     }
 }

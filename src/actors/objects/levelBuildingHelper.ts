@@ -74,7 +74,7 @@ export abstract class LevelBuildingHelper {
 
         switch (type) {
             case ApplianceType.Stove:
-                sprite = InsideTileSprites.StovePlaceholder
+                sprite = Resources.Stove.asSprite();
                 break;
             default:
                 throw new Error("unsupported appliance type: " + type);

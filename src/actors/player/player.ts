@@ -116,7 +116,7 @@ export class Player extends Actor {
 
         if (engine.input.keyboard.wasPressed(Input.Keys.E)) {
             if (this.heldItem instanceof Pan) {
-                this.heldItem.attack(this.getFacingTargetPos(), this.facing);
+                this.heldItem.attack(this.getFacingTargetPos(0.7), this.facing);
             }
         }
     }
@@ -163,21 +163,21 @@ export class Player extends Actor {
         }
     }
 
-    private getFacingTargetPos (): Vector {
+    private getFacingTargetPos (tilePercent:number): Vector {
         let xOffset = 0, yOffset = 0;
 
         switch (this.facing) {
             case "l":
-                xOffset -= LevelBuildingHelper.tileWidth / 2;
+                xOffset -= LevelBuildingHelper.tileWidth * tilePercent;
                 break;
             case "r":
-                xOffset += LevelBuildingHelper.tileWidth / 2;
+                xOffset += LevelBuildingHelper.tileWidth * tilePercent;
                 break;
             case "u":
-                yOffset -= LevelBuildingHelper.tileHeight / 2;
+                yOffset -= LevelBuildingHelper.tileHeight * tilePercent;
                 break;
             case "d":
-                yOffset += LevelBuildingHelper.tileHeight / 2;
+                yOffset += LevelBuildingHelper.tileHeight * tilePercent;
                 break;
         }
 
@@ -185,13 +185,13 @@ export class Player extends Actor {
     }
 
     private trySetDownItem() {
-        this.heldItem.pos = this.getFacingTargetPos();
+        this.heldItem.pos = this.getFacingTargetPos(1.0);
         this.heldItem.isHeld = false;
         this.heldItem = null;
     }
 
     private tryPickupItem() {
-        let tPos = this.getFacingTargetPos();
+        let tPos = this.getFacingTargetPos(0.55);
         var targets = this.scene.actors.filter(x => x instanceof Item &&
                                                     x.contains(tPos.x, tPos.y));
 
