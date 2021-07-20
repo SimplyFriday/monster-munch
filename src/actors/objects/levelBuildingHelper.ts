@@ -123,20 +123,43 @@ export abstract class LevelBuildingHelper {
 
         let scaleX = this.tileWidth / 18 * itemScale;
         let scaleY = this.tileHeight / 18 * itemScale;
-        let attackAnimation = panAttackSprites.getAnimationForAll(engine, 50);
+        let attackAnimation = panAttackSprites.getAnimationForAll(engine, 150);
         attackAnimation.scale = vec(scaleX, scaleY);
+        attackAnimation.loop = false;
+        a.attackAnimation = attackAnimation;
 
         scaleX = this.tileWidth / Resources.PanEmpty.width * itemScale;
         scaleY = this.tileHeight / Resources.PanEmpty.height * itemScale;
 
         let eSpr = Resources.PanEmpty.asSprite();
         let fSpr = Resources.PanFilled.asSprite();
-        eSpr.scale = vec(scaleX, scaleY);
-        fSpr.scale = vec(scaleX, scaleY);
+        let dSpr = Resources.PanDone.asSprite();
+        let bSpr = Resources.PanBurned.asSprite();
+        
+        let cookingSheet = new SpriteSheet({
+            image: Resources.PanCooking ,
+            rows:1,
+            columns:3,
+            spWidth:18,
+            spHeight:9
+        });
+
+        let cAnim = cookingSheet.getAnimationForAll(engine, 50);
+
+        let scale = vec(scaleX, scaleY);
+        eSpr.scale = scale;
+        fSpr.scale = scale;
+        cAnim.scale = scale;
+        dSpr.scale = scale;
+        bSpr.scale = scale;
 
         a.addDrawing("empty", eSpr);
         a.addDrawing("filled", fSpr);
         a.addDrawing("attack", attackAnimation);
+        a.addDrawing("cooking", cAnim);
+        a.addDrawing("burned", bSpr);
+        a.addDrawing("done", dSpr);
+        
         
         return a;
     }

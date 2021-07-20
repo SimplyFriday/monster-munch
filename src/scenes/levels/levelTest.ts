@@ -50,6 +50,7 @@ export class LevelTest extends LevelBase {
 
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 5, 3);
         LevelBuildingHelper.createPanOnTile(this,engine, 7,8)
+        LevelBuildingHelper.createPanOnTile(this,engine, 2,4)
 
         //LevelBuildingHelper.createBackgroundTile(this, wallColor, 8,5);
     }

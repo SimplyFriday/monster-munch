@@ -1,8 +1,9 @@
-import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation } from 'excalibur';
+import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector } from 'excalibur';
 import { Resources } from '../../resources';
 import { animationHelper } from '../objects/animationHelper';
 import { Item } from '../objects/item';
 import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
+import { Pan } from '../objects/pan';
 
 export class Player extends Actor {
     constructor() {
@@ -48,56 +49,23 @@ export class Player extends Actor {
     }
 
     public onPreUpdate(engine: Engine, delta: number) {
+        let attacking = false;
 
-        // now this feels right but uses math above a 3rd grade level
-        // Adapted from: https://gamedev.stackexchange.com/questions/162045/how-do-you-program-diagonal-movement
-        let velX: number = 0, velY: number = 0;
-
-        if (engine.input.keyboard.isHeld(Input.Keys.W)) {
-            velY -= 1;
+        if (this.heldItem instanceof Pan) {
+            attacking = this.heldItem.isAttacking;
         }
 
-        if (engine.input.keyboard.isHeld(Input.Keys.S)) {
-            velY += 1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.A)) {
-            velX -= 1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.D)) {
-            velX += 1;
-        }
-
-        let vecMag = Math.sqrt(Math.abs(velX) + Math.abs(velY));
-
-        let adjustedVelY = velY / vecMag * this.baseSpeed;
-        let adjustedVelX = velX / vecMag * this.baseSpeed;
-
-        if (vecMag > 0) {
-            this.vel = vec(adjustedVelX, adjustedVelY);
+        if (!attacking){
+            this.doMovement(engine);
+            this.doFacing();
         } else {
-            this.vel = vec(0, 0);
-        }
-
-        /////////////////////////////////
-        ///////////// Facing ////////////
-        /////////////////////////////////
-
-        if (velY > 0) {
-            this.facing = "d"
-        } else if (velX < 0) {
-            this.facing = "l";
-        } else if (velX > 0) {
-            this.facing = "r";
-        } else if (velY < 0) {
-            this.facing = "u";
+            this.vel = vec(0,0);
         }
 
         /////////////////////////////////
         /////////// Animation ///////////
         /////////////////////////////////
-        if (velX === 0 && velY === 0) {
+        if (this.vel.x === 0 && this.vel.y === 0) {
             switch (this.facing) {
                 case "l":
                     this.setDrawing("standLeft");
@@ -141,34 +109,61 @@ export class Player extends Actor {
         }
 
         if (this.heldItem) {
-            this.heldItem.pos = vec(this.pos.x, this.pos.y - 40);
+            if (!attacking) {
+                this.heldItem.pos = vec(this.pos.x, this.pos.y - 40);
+            }
+        }
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.E)) {
+            if (this.heldItem instanceof Pan) {
+                this.heldItem.attack(this.getFacingTargetPos(), this.facing);
+            }
+        }
+    }
+    private doFacing() {
+        if (this.vel.y > 0) {
+            this.facing = "d"
+        } else if (this.vel.x < 0) {
+            this.facing = "l";
+        } else if (this.vel.x > 0) {
+            this.facing = "r";
+        } else if (this.vel.y < 0) {
+            this.facing = "u";
         }
     }
 
-    private trySetDownItem() {
-        let xOffset = 0, yOffset = 0;
+    private doMovement(engine:Engine) {
+        let velX: number = 0, velY: number = 0;
 
-        switch (this.facing) {
-            case "l":
-                xOffset -= LevelBuildingHelper.tileWidth;
-                break;
-            case "r":
-                xOffset += LevelBuildingHelper.tileWidth;
-                break;
-            case "u":
-                yOffset -= LevelBuildingHelper.tileHeight;
-                break;
-            case "d":
-                yOffset += LevelBuildingHelper.tileHeight;
-                break;
+        if (engine.input.keyboard.isHeld(Input.Keys.W)) {
+            velY -= 1;
         }
 
-        this.heldItem.pos = vec(this.pos.x + xOffset, this.pos.y + yOffset);
-        this.heldItem.isHeld = false;
-        this.heldItem = null;
+        if (engine.input.keyboard.isHeld(Input.Keys.S)) {
+            velY += 1;
+        }
+
+        if (engine.input.keyboard.isHeld(Input.Keys.A)) {
+            velX -= 1;
+        }
+
+        if (engine.input.keyboard.isHeld(Input.Keys.D)) {
+            velX += 1;
+        }
+
+        let vecMag = Math.sqrt(Math.abs(velX) + Math.abs(velY));
+
+        let adjustedVelY = velY / vecMag * this.baseSpeed;
+        let adjustedVelX = velX / vecMag * this.baseSpeed;
+
+        if (vecMag > 0) {
+            this.vel = vec(adjustedVelX, adjustedVelY);
+        } else {
+            this.vel = vec(0, 0);
+        }
     }
 
-    private tryPickupItem() {
+    private getFacingTargetPos (): Vector {
         let xOffset = 0, yOffset = 0;
 
         switch (this.facing) {
@@ -186,8 +181,19 @@ export class Player extends Actor {
                 break;
         }
 
+        return vec(this.pos.x + xOffset, this.pos.y + yOffset);
+    }
+
+    private trySetDownItem() {
+        this.heldItem.pos = this.getFacingTargetPos();
+        this.heldItem.isHeld = false;
+        this.heldItem = null;
+    }
+
+    private tryPickupItem() {
+        let tPos = this.getFacingTargetPos();
         var targets = this.scene.actors.filter(x => x instanceof Item &&
-            x.contains(this.pos.x + xOffset, this.pos.y + yOffset));
+                                                    x.contains(tPos.x, tPos.y));
 
         if (targets.length > 0) {
             this.heldItem = targets[0] as Item;
