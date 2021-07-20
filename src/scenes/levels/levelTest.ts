@@ -38,6 +38,7 @@ export class LevelTest extends LevelBase {
         levelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceRight, 9, 9);
 
         levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Banana, "banana", 5,5);
+        levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Mayo, "mayo", 5,6);
         levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Skull, "skull", 5,7);
         levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Posion, "poison", 9,6);
         levelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.PiePurple, "piePurple", 8,8);
