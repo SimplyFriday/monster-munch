@@ -1,7 +1,7 @@
 import { Collider, CollisionStartEvent, CollisionType, Engine, Shape } from "excalibur";
 import { Ingredient } from "./ingredient";
 import { Item } from "./item";
-import { LevelBuildingHelper } from "./LevelBuildingHelper";
+import { LevelBuildingHelper } from "./levelBuildingHelper";
 
 export class Pan extends Item {
     public ingredients:string [] = [];

@@ -2,7 +2,7 @@ import { Color, Engine } from "excalibur";
 import { InsideFloorWallSprites } from "../../actors/objects/insideFloorWallSprites";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
-import { LevelBuildingHelper } from "../../actors/objects/LevelBuildingHelper";
+import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {

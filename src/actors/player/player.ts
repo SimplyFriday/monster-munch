@@ -2,7 +2,7 @@ import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, An
 import { Resources } from '../../resources';
 import { animationHelper } from '../objects/animationHelper';
 import { Item } from '../objects/item';
-import { LevelBuildingHelper } from '../objects/LevelBuildingHelper';
+import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
 
 export class Player extends Actor {
     constructor() {
