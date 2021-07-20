@@ -1,4 +1,5 @@
 import { Color, Engine } from "excalibur";
+import { ApplianceType } from "../../actors/objects/appliance";
 import { InsideFloorWallSprites } from "../../actors/objects/insideFloorWallSprites";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
@@ -47,7 +48,9 @@ export class LevelTest extends LevelBase {
         LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Posion, "poison", 9,6);
         LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.PiePurple, "piePurple", 8,8);
 
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 5, 3);
         LevelBuildingHelper.createPanOnTile(this,engine, 7,8)
+
         //LevelBuildingHelper.createBackgroundTile(this, wallColor, 8,5);
     }
 }

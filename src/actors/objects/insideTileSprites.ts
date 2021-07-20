@@ -37,5 +37,8 @@ export abstract class InsideTileSprites {
     public static get CounterFaceRight () {
         return this.iconSheet.getSprite(51);
     }
-        
+     
+    public static get StovePlaceholder () {
+        return this.iconSheet.getSprite(152);
+    }
 }

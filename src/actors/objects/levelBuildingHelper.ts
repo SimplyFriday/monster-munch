@@ -1,6 +1,8 @@
 import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenElement, Sprite, SpriteSheet, Texture, vec } from "excalibur";
 import { Resources } from "../../resources";
+import { Appliance, ApplianceType } from "./appliance";
 import { Ingredient } from "./ingredient";
+import { InsideTileSprites } from "./insideTileSprites";
 import { Item } from "./item";
 import { Pan } from "./pan";
 
@@ -61,6 +63,39 @@ export abstract class LevelBuildingHelper {
 
         a.addDrawing(sprite);
         a.Name = name;
+
+        return a;
+    }
+
+    public static createApplianceOnTile(scene: Scene, type:ApplianceType, xPos: number, yPos: number): Appliance {
+        const itemScale = 0.75;
+
+        let sprite:Sprite;
+
+        switch (type) {
+            case ApplianceType.Stove:
+                sprite = InsideTileSprites.StovePlaceholder
+                break;
+            default:
+                throw new Error("unsupported appliance type: " + type);
+        }
+
+        let a = new Appliance({
+            scene: scene,
+            width: this.tileWidth,
+            height: this.tileHeight,
+            pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
+        });
+
+        scene.add(a);
+        a.setZIndex(40);
+
+        let scaleX = this.tileWidth / sprite.width * itemScale;
+        let scaleY = this.tileHeight / sprite.height * itemScale;
+        sprite.scale = vec(scaleX, scaleY);
+
+        a.addDrawing(sprite);
+        a.applianceType = type;
 
         return a;
     }
