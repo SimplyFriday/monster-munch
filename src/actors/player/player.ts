@@ -2,7 +2,7 @@ import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, An
 import { Resources } from '../../resources';
 import { animationHelper } from '../objects/animationHelper';
 import { Item } from '../objects/item';
-import { levelBuildingHelper } from '../objects/levelBuildingHelper';
+import { LevelBuildingHelper } from '../objects/LevelBuildingHelper';
 
 export class Player extends Actor {
     constructor() {
@@ -22,7 +22,7 @@ export class Player extends Actor {
 
     onInitialize(engine: Engine) {
         this.body.collider.type = CollisionType.Active;
-        this.body.collider.shape = Shape.Box(levelBuildingHelper.tileHeight * this.spriteScale, levelBuildingHelper.tileHeight * this.spriteScale);
+        this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight * this.spriteScale, LevelBuildingHelper.tileHeight * this.spriteScale);
         this.setZIndex(1000);
 
         let plSpriteWidth = 16;
@@ -150,16 +150,16 @@ export class Player extends Actor {
 
         switch (this.facing) {
             case "l":
-                xOffset -= levelBuildingHelper.tileWidth;
+                xOffset -= LevelBuildingHelper.tileWidth;
                 break;
             case "r":
-                xOffset += levelBuildingHelper.tileWidth;
+                xOffset += LevelBuildingHelper.tileWidth;
                 break;
             case "u":
-                yOffset -= levelBuildingHelper.tileHeight;
+                yOffset -= LevelBuildingHelper.tileHeight;
                 break;
             case "d":
-                yOffset += levelBuildingHelper.tileHeight;
+                yOffset += LevelBuildingHelper.tileHeight;
                 break;
         }
 
@@ -173,16 +173,16 @@ export class Player extends Actor {
 
         switch (this.facing) {
             case "l":
-                xOffset -= levelBuildingHelper.tileWidth / 2;
+                xOffset -= LevelBuildingHelper.tileWidth / 2;
                 break;
             case "r":
-                xOffset += levelBuildingHelper.tileWidth / 2;
+                xOffset += LevelBuildingHelper.tileWidth / 2;
                 break;
             case "u":
-                yOffset -= levelBuildingHelper.tileHeight / 2;
+                yOffset -= LevelBuildingHelper.tileHeight / 2;
                 break;
             case "d":
-                yOffset += levelBuildingHelper.tileHeight / 2;
+                yOffset += LevelBuildingHelper.tileHeight / 2;
                 break;
         }
 

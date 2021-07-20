@@ -7,6 +7,7 @@ import panAttack from './images/pan_attack.png'
 import panEmpty from './images/pan_empty.png'
 import panFilled from './images/pan_filled.png'
 import insideTilesB from './images/tileB_inside4.png'
+import insideFloorsWalls from './images/tileA5_inside.png'
 
 const levelLoop1 = require('./audio/level_loop1.wav');
 /**
@@ -23,7 +24,8 @@ const Resources = {
     PanAttack: new Texture(panAttack),
     PanEmpty: new Texture(panEmpty),
     PanFilled: new Texture(panFilled),
-    InsideTilesB: new Texture(insideTilesB)
+    InsideTilesB: new Texture(insideTilesB),
+    InsideFloorsWalls: new Texture(insideFloorsWalls)
 }
 
 export { Resources }

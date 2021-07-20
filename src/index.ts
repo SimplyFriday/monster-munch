@@ -1,4 +1,4 @@
-import { Engine, Loader, DisplayMode } from 'excalibur';
+import { Engine, Loader, DisplayMode, Color } from 'excalibur';
 import { Player } from './actors/player/player';
 import { Resources } from './resources';
 import { LevelTest } from './scenes/levels/levelTest';
@@ -31,6 +31,7 @@ class Game extends Engine {
 }
 
 const game = new Game();
+game.backgroundColor = new Color(245, 242, 254);
 game.start().then(() => {
     game.goToScene('levelTest');
 });

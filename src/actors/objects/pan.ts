@@ -1,7 +1,7 @@
 import { Collider, CollisionStartEvent, CollisionType, Engine, Shape } from "excalibur";
 import { Ingredient } from "./ingredient";
 import { Item } from "./item";
-import { levelBuildingHelper } from "./levelBuildingHelper";
+import { LevelBuildingHelper } from "./LevelBuildingHelper";
 
 export class Pan extends Item {
     public ingredients:string [] = [];
@@ -10,7 +10,7 @@ export class Pan extends Item {
         super.onInitialize(engine);
 
         this.body.collider.type = CollisionType.Passive;
-        this.body.collider.shape = Shape.Box(levelBuildingHelper.tileHeight, levelBuildingHelper.tileHeight);
+        this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight, LevelBuildingHelper.tileHeight);
 
         this.body.collider.on("precollision", (e:CollisionStartEvent<Collider>) => {
             if (e.other.body.actor instanceof Ingredient){

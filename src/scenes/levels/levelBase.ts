@@ -1,21 +1,23 @@
-import { Actor, Engine, Scene, Sound, TileMap } from "excalibur";
+import { Actor, Engine, Scene, Sound, Sprite, TileMap } from "excalibur";
+import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { UIHelper } from "../../actors/objects/uiHelper";
 import { Player } from "../../actors/player/player";
 import { Resources } from "../../resources";
 
 export abstract class LevelBase extends Scene {
     protected grid: Actor[][] = [];
-    protected player:Actor;
-    protected musicTrack:Sound;
-    public muteMusic:boolean = false;
+    protected player: Actor;
+    protected musicTrack: Sound;
+    public muteMusic: boolean = false;
+    protected baseTile?: Sprite;
 
     constructor(engine: Engine) {
         super(engine);
     }
 
-    public onInitialize (engine:Engine) {
+    public onInitialize(engine: Engine) {
         UIHelper.addLevelUI(this);
-        
+
         this.player = new Player;
         this.add(this.player);
 
@@ -23,11 +25,19 @@ export abstract class LevelBase extends Scene {
         this.musicTrack = Resources.LevelLoop1;
         this.musicTrack.loop = true;
         this.musicTrack.play();
+
+        if (this.baseTile) {
+            for (let r = 0; r < 20; r++) {
+                for (let c = 0; c < 20; c++) {
+                    LevelBuildingHelper.createBackgroundTile(this, this.baseTile, r, c);
+                }
+            }
+        }
     }
 
-    public toggleMusic () {
+    public toggleMusic() {
         this.muteMusic = !this.muteMusic;
-        if (this.muteMusic){
+        if (this.muteMusic) {
             this.musicTrack.stop();
         } else {
             this.musicTrack.play();

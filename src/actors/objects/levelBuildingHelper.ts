@@ -4,7 +4,7 @@ import { Ingredient } from "./ingredient";
 import { Item } from "./item";
 import { Pan } from "./pan";
 
-export abstract class levelBuildingHelper {
+export abstract class LevelBuildingHelper {
     static tileWidth = 50;
     static tileHeight = 50;
 
