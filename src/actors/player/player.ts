@@ -1,6 +1,8 @@
 import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector } from 'excalibur';
 import { Resources } from '../../resources';
 import { animationHelper } from '../objects/animationHelper';
+import { Appliance } from '../objects/appliance';
+import { Ingredient } from '../objects/ingredient';
 import { Item } from '../objects/item';
 import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
 import { Pan } from '../objects/pan';
@@ -100,23 +102,27 @@ export class Player extends Actor {
         /////////////////////////////////
         /////// Object Interaction //////
         /////////////////////////////////
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
-            if (!this.heldItem) {
-                this.tryPickupItem();
-            } else {
-                this.trySetDownItem();
+        if (!attacking){
+            if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+                if (!this.heldItem) {
+                    this.tryPickupItem();
+                } else {
+                    this.trySetDownItem();
+                }
             }
-        }
 
-        if (this.heldItem) {
-            if (!attacking) {
+            if (engine.input.keyboard.wasPressed(Input.Keys.E)) {
+                if (this.heldItem instanceof Pan) {
+                    this.heldItem.attack(this.getFacingTargetPos(0.7), this.facing);
+                }
+            }
+
+            if (engine.input.keyboard.wasPressed(Input.Keys.Q)) {
+                this.examine();
+            }
+
+            if (this.heldItem) {
                 this.heldItem.pos = vec(this.pos.x, this.pos.y - 40);
-            }
-        }
-
-        if (engine.input.keyboard.wasPressed(Input.Keys.E)) {
-            if (this.heldItem instanceof Pan) {
-                this.heldItem.attack(this.getFacingTargetPos(0.7), this.facing);
             }
         }
     }
@@ -198,6 +204,28 @@ export class Player extends Actor {
         if (targets.length > 0) {
             this.heldItem = targets[0] as Item;
             this.heldItem.isHeld = true;
+        }
+    }
+
+    private examine () {
+        let tPos = this.getFacingTargetPos(0.55);
+        var targets = this.scene.actors.filter(x => (x instanceof Item || x instanceof Appliance) &&
+                                                    x.contains(tPos.x, tPos.y));
+
+        let item = targets[0];
+
+        if (item) {
+            if (item instanceof Pan) {
+                alert("Pan with contents: " + JSON.stringify(item.ingredients));
+            }
+
+            if (item instanceof Ingredient) {
+                alert("Ingredient: " + item.Name);
+            }
+
+            if (item instanceof Appliance) {
+                alert("Appliance: " + item.applianceType);
+            }
         }
     }
 }

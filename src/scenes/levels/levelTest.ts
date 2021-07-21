@@ -12,7 +12,7 @@ export class LevelTest extends LevelBase {
         super.onInitialize(engine);
 
         // TODO something less shithouse
-        alert("Use WASD to move and Space to interact!");
+        alert("Controls:\nWASD - Movement\nSpace - Pick up/put down\nE - Swing pan\nQ - Examine");
 
         let wallColor = new Color(200, 200, 200);
 
