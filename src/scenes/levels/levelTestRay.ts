@@ -23,7 +23,7 @@ export class LevelTestRay extends LevelBase {
 
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.StoolTopRed, 1, 7);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.StoolTopGrey, 2, 7);
-        LevelBuildingHelper.createWallTile(this, InsideTileSprites.StoolBottomRed, 3, 7);
+        LevelBuildingHelper.createWallTile(this, InsideTileSprites.StoolTopRed, 3, 7);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.Table_H_TopLeft, 1, 8);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.Table_H_TopMid, 2, 8);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.Table_H_TopRight, 3, 8);
