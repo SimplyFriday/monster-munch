@@ -202,9 +202,16 @@ export class Player extends Actor {
     }
 
     private trySetDownItem() {
-        this.heldItem.pos = this.getFacingTargetPos(1.0);
-        this.heldItem.isHeld = false;
-        this.heldItem = null;
+        let tPos = this.getFacingTargetPos(1.0);
+        var targets = this.scene.actors.filter(x => x instanceof Item && 
+                                                    !(x instanceof Pan) &&
+                                                    x.contains(tPos.x, tPos.y));
+
+        if (targets.length === 0) {
+            this.heldItem.pos = tPos
+            this.heldItem.isHeld = false;
+            this.heldItem = null;
+        }
     }
 
     private tryPickupItem() {
