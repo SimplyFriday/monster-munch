@@ -205,6 +205,7 @@ export class Player extends Actor {
         let tPos = this.getFacingTargetPos(1.0);
         var targets = this.scene.actors.filter(x => x instanceof Item && 
                                                     !(x instanceof Pan) &&
+                                                    !(x === this.heldItem) &&
                                                     x.contains(tPos.x, tPos.y));
 
         if (targets.length === 0) {
