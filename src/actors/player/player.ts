@@ -107,7 +107,7 @@ export class Player extends Actor {
             if (this.heldItem) {
                 this.heldItem.pos = vec(this.pos.x, this.pos.y - 40);
             }
-            
+
             if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
                 if (!this.heldItem) {
                     this.tryPickupItem();
@@ -124,6 +124,16 @@ export class Player extends Actor {
 
             if (engine.input.keyboard.wasPressed(Input.Keys.Q)) {
                 this.examine();
+            }
+        }
+
+        /////////////////////////////////
+        ////////////// DEBUG ////////////
+        /////////////////////////////////
+        if (engine.input.keyboard.wasPressed(Input.Keys.Semicolon)) {
+            let val = prompt("goto level", "level_test");
+            if (val) {
+                engine.goToScene(val);
             }
         }
     }

@@ -26,15 +26,27 @@ export abstract class LevelBase extends Scene {
         this.musicTrack.loop = true;
         this.musicTrack.play();
 
-        if (this.baseTile) {
-            for (let r = 0; r < 20; r++) {
-                for (let c = 0; c < 20; c++) {
-                    // TODO background tiles as actors seems to nuke performance...
-                    //LevelBuildingHelper.createBackgroundTile(this, this.baseTile, r, c);
-                }
-            }
-        }
+        // if (this.baseTile) {
+        //     for (let r = 0; r < 20; r++) {
+        //         for (let c = 0; c < 20; c++) {
+        //             // TODO background tiles as actors seems to nuke performance...
+        //             //LevelBuildingHelper.createBackgroundTile(this, this.baseTile, r, c);
+        //         }
+        //     }
+        // }
+
+        this.addBackgroundTiles();
+        this.addForegroundTiles();
+        this.addAppliances();
+        this.addPans(engine);
+        this.addItems();
     }
+
+    protected abstract addBackgroundTiles();
+    protected abstract addForegroundTiles();
+    protected abstract addAppliances();
+    protected abstract addPans(engine:Engine);
+    protected abstract addItems();
 
     public toggleMusic() {
         this.muteMusic = !this.muteMusic;
