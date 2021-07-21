@@ -1,17 +1,17 @@
-Cooktop
-Ingredient spawner
-pan
-	- track recipes/cook time
-	- e to swing
-		- hit customer lose dish
-		- hit plate, serve customer
-Customer plates
-Customers
-	- Desired food
-	- Angry after a while/attack
-	- drops useless items when defeated
-Player hitpoints (that work)
-level win
-	- number of customers served
-Trash bin
-	- empty pan, delete ingredients
+[x] Cooktop
+[x] Ingredient spawner
+[x] pan
+[x] 	- track recipes/cook time
+[x] 	- e to swing
+[ ] 		- hit customer lose dish
+[x] 		- hit plate, serve customer
+[ ] Customer plates
+[ ] Customers
+[ ] 	- Desired food
+[ ] 	- Angry after a while/attack
+[ ] 	- drops useless items when defeated
+[ ] Player hitpoints (that work)
+[ ] level win
+[ ] 	- number of customers served
+[ ] Trash bin
+[ ] 	- empty pan, delete ingredients
