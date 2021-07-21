@@ -1,8 +1,10 @@
-# Excalibur TypeScript & Webpack Starter
+# Monster Munch (Working Title)
+Game made for Callum Upton's first [game jam](https://itch.io/jam/callum-uptons-game-jam). It is made using [Excalibur](https://excaliburjs.com/).
 
-This is a barebones [Excalibur](https://excaliburjs.com) game engine starter built using Typescript 4 & Webpack 5. It's a great starting place to jumpstart building your game! This repo is a template and can be used to [create your own repository](https://github.com/excaliburjs/template-ts-webpack/generate) in GitHub.
+# License
+Images and audio are composed of licenced content from https://www.gamedevmarket.net/, and are included only so that the project can be built and run by anybody. These files cannot be used in any comercial product if downloaded from the repository.
 
-Check out our [other samples](https://excaliburjs.com/samples) while you build your game or [ask us questions](https://github.com/excaliburjs/Excalibur/discussions).
+All code is licensed under the [Business Source License 1.1](https://mariadb.com/bsl11/). In short, that means you can build a copy for yourself and/or use it for internal business purposes (whatever that means for game code ¯\\_(ツ)_/¯) but you can't use any particular version of the code in a comercial product until 3 years after the initial publication date for that version.
 
 ## Get Started
 
@@ -16,5 +18,3 @@ Check out our [other samples](https://excaliburjs.com/samples) while you build y
 
 * Run `npm run build:dev` to produce Javascript bundles for debugging in the `dist/` folder
 * Run `npm run build:prod` to produce Javascript bundles for production (minified) in the `dist/` folder
-
-The `dist/` folder can be deployed to a static web host. We recommend [Netlify](https://netlify.com) or [GitHub Pages](https://pages.github.com/) since they are free to use.
