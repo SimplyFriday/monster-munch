@@ -54,8 +54,7 @@ export class Pan extends Item {
                 if ( this.ingredients.length > 0 && 
                         otherActor instanceof Appliance && 
                         otherActor.applianceType === ApplianceType.ServingPlate &&
-                        this.isDone &&
-                        !this.isBurned ) {
+                        this.isDone ) {
                     let product:Recipe;
 
                     for (let r in Recipes) {
@@ -64,7 +63,7 @@ export class Pan extends Item {
                         }
                     }
 
-                    if (product) {
+                    if (product && !this.isBurned) {
                         LevelBuildingHelper.createMeal(this.scene, product.resultSprite, product.resultName, otherActor.pos);
                     } else {
                         LevelBuildingHelper.createMeal(this.scene, ItemIconSprites.Trash, "inedible mush", otherActor.pos);
