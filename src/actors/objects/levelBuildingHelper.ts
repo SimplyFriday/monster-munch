@@ -1,9 +1,10 @@
-import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenElement, Sprite, SpriteSheet, Texture, vec } from "excalibur";
+import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenElement, Sprite, SpriteSheet, Texture, vec, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { Appliance, ApplianceType } from "./appliance";
 import { Ingredient } from "./ingredient";
 import { InsideTileSprites } from "./insideTileSprites";
 import { Item } from "./item";
+import { Meal } from "./meal";
 import { Pan } from "./pan";
 
 export abstract class LevelBuildingHelper {
@@ -62,7 +63,30 @@ export abstract class LevelBuildingHelper {
         sprite.scale = vec(scaleX, scaleY);
 
         a.addDrawing(sprite);
-        a.Name = name;
+        a.name = name;
+
+        return a;
+    }
+
+    public static createMeal(scene: Scene, sprite:Sprite, name:string, position:Vector): Meal {
+        const itemScale = 0.75;
+        
+        let a = new Meal({
+            scene: scene,
+            width: this.tileWidth,
+            height: this.tileHeight,
+            pos: position
+        });
+
+        scene.add(a);
+        a.setZIndex(40);
+
+        let scaleX = this.tileWidth / sprite.width * itemScale;
+        let scaleY = this.tileHeight / sprite.height * itemScale;
+        sprite.scale = vec(scaleX, scaleY);
+
+        a.addDrawing(sprite);
+        a.name = name;
 
         return a;
     }
@@ -75,6 +99,9 @@ export abstract class LevelBuildingHelper {
         switch (type) {
             case ApplianceType.Stove:
                 sprite = Resources.Stove.asSprite();
+                break;
+            case ApplianceType.ServingPlate:
+                sprite = InsideTileSprites.Tray;
                 break;
             default:
                 throw new Error("unsupported appliance type: " + type);

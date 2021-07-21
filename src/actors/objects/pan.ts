@@ -1,8 +1,10 @@
-import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation } from "excalibur";
+import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider } from "excalibur";
 import { Appliance, ApplianceType } from "./appliance";
 import { Ingredient } from "./ingredient";
 import { Item } from "./item";
+import { ItemIconSprites } from "./itemIconSprites";
 import { LevelBuildingHelper } from "./levelBuildingHelper";
+import { Recipe, Recipes } from "./recipes";
 
 export class Pan extends Item {
     private cookTimeMultiplier: number = 1000;
@@ -21,15 +23,17 @@ export class Pan extends Item {
         this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight, LevelBuildingHelper.tileHeight);
 
         this.body.collider.on("precollision", (e: CollisionStartEvent<Collider>) => {
-            if (this.cookTime === 0 && e.other.body.actor instanceof Ingredient) {
-                if (!e.other.body.actor.isHeld && !this.isHeld) {
-                    this.ingredients.push(e.other.body.actor.Name); // slice because byref strings are sadness
-                    e.other.body.actor.kill();
+            let otherActor = e.other.body.actor;
+            
+            if (this.cookTime === 0 && otherActor instanceof Ingredient) {
+                if (!otherActor.isHeld && !this.isHeld) {
+                    this.ingredients.push(otherActor.name); // slice because byref strings are sadness
+                    otherActor.kill();
                 }
             }
 
-            if (e.other.body.actor instanceof Appliance &&
-                e.other.body.actor.applianceType === ApplianceType.Stove &&
+            if (otherActor instanceof Appliance &&
+                otherActor.applianceType === ApplianceType.Stove &&
                 this.ingredients.length > 0 &&
                 this.isHeld === false) {
 
@@ -43,6 +47,33 @@ export class Pan extends Item {
                 if (this.isDone && !this.isBurned &&
                     this.cookTime > this.ingredients.length * this.cookTimeMultiplier * 3) {
                     this.isBurned = true;
+                }
+            }
+
+            if (this.isAttacking) {
+                if ( this.ingredients.length > 0 && 
+                        otherActor instanceof Appliance && 
+                        otherActor.applianceType === ApplianceType.ServingPlate &&
+                        this.isDone &&
+                        !this.isBurned ) {
+                    let product:Recipe;
+
+                    for (let r in Recipes) {
+                        if (Recipes[r].ingredientsEqual(this.ingredients)) {
+                            product = Recipes[r];
+                        }
+                    }
+
+                    if (product) {
+                        LevelBuildingHelper.createMeal(this.scene, product.resultSprite, product.resultName, otherActor.pos);
+                    } else {
+                        LevelBuildingHelper.createMeal(this.scene, ItemIconSprites.Trash, "inedible mush", otherActor.pos);
+                    }
+
+                    this.ingredients = [];
+                    this.isBurned = false;
+                    this.isDone = false;
+                    this.cookTime = 0;
                 }
             }
         });

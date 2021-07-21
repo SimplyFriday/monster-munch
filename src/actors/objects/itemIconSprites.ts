@@ -18,7 +18,7 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(6);
     }
 
-    public static get MoneyBag () {
+    public static get FlourBag () {
         return this.iconSheet.getSprite(9);
     }
 
@@ -189,5 +189,10 @@ export abstract class ItemIconSprites {
     public static get CandyYellow () {
         return this.iconSheet.getSprite(79);
     }
+
+    public static get Trash () {
+        return this.iconSheet.getSprite(109);
+    }
+    
 
 }

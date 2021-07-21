@@ -42,13 +42,15 @@ export class LevelTest extends LevelBase {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 8, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceRight, 9, 9);
 
-        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Banana, "banana", 5,5);
+        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.FlourBag, "flour", 5,5);
         LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Mayo, "mayo", 5,6);
         LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Skull, "skull", 5,7);
         LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Posion, "poison", 9,6);
-        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.PiePurple, "piePurple", 8,8);
+        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Apple, "apple", 8,8);
 
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 7);
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 5);
+
         LevelBuildingHelper.createPanOnTile(this,engine, 7,8)
         LevelBuildingHelper.createPanOnTile(this,engine, 2,4)
 

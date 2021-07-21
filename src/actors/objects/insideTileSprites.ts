@@ -41,4 +41,8 @@ export abstract class InsideTileSprites {
     public static get RedStool () {
         return this.iconSheet.getSprite(152);
     }
+
+    public static get Tray () {
+        return this.iconSheet.getSprite(110);
+    }
 }

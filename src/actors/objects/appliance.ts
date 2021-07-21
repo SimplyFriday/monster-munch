@@ -5,5 +5,6 @@ export class Appliance extends Actor {
 }
 
 export enum ApplianceType {
-    Stove
+    Stove,
+    ServingPlate
 }

@@ -5,6 +5,7 @@ import { Appliance } from '../objects/appliance';
 import { Ingredient } from '../objects/ingredient';
 import { Item } from '../objects/item';
 import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
+import { Meal } from '../objects/meal';
 import { Pan } from '../objects/pan';
 
 export class Player extends Actor {
@@ -103,6 +104,10 @@ export class Player extends Actor {
         /////// Object Interaction //////
         /////////////////////////////////
         if (!attacking){
+            if (this.heldItem) {
+                this.heldItem.pos = vec(this.pos.x, this.pos.y - 40);
+            }
+            
             if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
                 if (!this.heldItem) {
                     this.tryPickupItem();
@@ -119,10 +124,6 @@ export class Player extends Actor {
 
             if (engine.input.keyboard.wasPressed(Input.Keys.Q)) {
                 this.examine();
-            }
-
-            if (this.heldItem) {
-                this.heldItem.pos = vec(this.pos.x, this.pos.y - 40);
             }
         }
     }
@@ -220,11 +221,15 @@ export class Player extends Actor {
             }
 
             if (item instanceof Ingredient) {
-                alert("Ingredient: " + item.Name);
+                alert("Ingredient: " + item.name);
             }
 
             if (item instanceof Appliance) {
                 alert("Appliance: " + item.applianceType);
+            }
+
+            if (item instanceof Meal) {
+                alert("Meal: " + item.name);
             }
         }
     }
