@@ -55,10 +55,10 @@ export class LevelTest extends LevelBase {
     };
 
     protected override addItems() {
-        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.FlourBag, "flour", 5,5);
-        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Mayo, "mayo", 5,6);
-        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Skull, "skull", 5,7);
-        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Posion, "poison", 9,6);
-        LevelBuildingHelper.createIngredientOnTile(this, ItemIconSprites.Apple, "apple", 8,8);
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 8, 8, "apple", ItemIconSprites.Apple )
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 5, "flour", ItemIconSprites.FlourBag )
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "mayo", ItemIconSprites.Mayo )
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "poison", ItemIconSprites.Posion )
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
     }
 }

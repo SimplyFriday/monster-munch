@@ -2,6 +2,7 @@ import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenEleme
 import { Resources } from "../../resources";
 import { Appliance, ApplianceType } from "./appliance";
 import { Ingredient } from "./ingredient";
+import { IngredientSpawner } from "./ingredientSpawner";
 import { InsideTileSprites } from "./insideTileSprites";
 import { Item } from "./item";
 import { Meal } from "./meal";
@@ -45,14 +46,40 @@ export abstract class LevelBuildingHelper {
         }
     }
 
-    public static createIngredientOnTile(scene: Scene, sprite:Sprite, name:string, xPos: number, yPos: number): Ingredient {
+    public static createIngrediantSpawnerOnTile(scene: Scene, 
+                                                xPos: number, 
+                                                yPos: number, 
+                                                ingredientName:string, 
+                                                ingredientSprite:Sprite, 
+                                                spawnerSprite?: Sprite): IngredientSpawner {
+        let a = new IngredientSpawner({
+            scene: scene,
+            width: this.tileWidth,
+            height: this.tileHeight,
+            pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
+        });
+
+        if (spawnerSprite) {
+            let scaleX = this.tileWidth / spawnerSprite.width;
+            let scaleY = this.tileHeight / spawnerSprite.height;
+            spawnerSprite.scale = vec(scaleX, scaleY);
+            a.addDrawing(spawnerSprite);
+        }
+
+        a.setupSpawner(ingredientName, ingredientSprite);
+
+        scene.add(a);
+        return a;
+    }
+
+    public static createIngredientAtPosition (scene: Scene, sprite:Sprite, name:string, xPos: number, yPos: number): Ingredient {
         const itemScale = 0.75;
         
         let a = new Ingredient({
             scene: scene,
             width: this.tileWidth,
             height: this.tileHeight,
-            pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
+            pos: vec(xPos, yPos)
         });
 
         scene.add(a);
@@ -66,6 +93,11 @@ export abstract class LevelBuildingHelper {
         a.name = name;
 
         return a;
+    }
+
+    public static createIngredientOnTile(scene: Scene, sprite:Sprite, name:string, xPos: number, yPos: number): Ingredient {
+        let xPosTile = xPos * this.tileWidth, yPosTile = yPos * this.tileHeight;
+        return this.createIngredientAtPosition (scene, sprite, name, xPosTile, yPosTile);
     }
 
     public static createMeal(scene: Scene, sprite:Sprite, name:string, position:Vector): Meal {
