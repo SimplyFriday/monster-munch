@@ -15,15 +15,19 @@ export abstract class LevelBuildingHelper {
     static tileHeight = 50;
 
 
-    public static createWallTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number) {
-        this.createTile(scene, display, xPos, yPos, true, 1);
+    public static createWallTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number): Actor {
+        return this.createTile(scene, display, xPos, yPos, true, 1);
     }
 
-    public static createBackgroundTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number) {
-        this.createTile(scene, display, xPos, yPos, false, -1);
+    public static createBackgroundTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number): Actor {
+        return this.createTile(scene, display, xPos, yPos, false, -1);
     }
 
-    private static createTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number, hasCollision: boolean, z: number) {
+    private static createTile(scene: Scene, 
+                              display: Color|Sprite, 
+                              xPos: number, yPos: number, 
+                              hasCollision: boolean, 
+                              z: number): Actor {
         let a = new Actor({
             scene: scene,
             width: this.tileWidth,
@@ -46,6 +50,8 @@ export abstract class LevelBuildingHelper {
         if (hasCollision) {
             a.body.collider.type = CollisionType.Fixed;
         }
+
+        return a;
     }
 
     public static createIngrediantSpawnerOnTile(scene: Scene, 
@@ -103,7 +109,7 @@ export abstract class LevelBuildingHelper {
     }
 
     public static createMeal(scene: Scene, sprite:Sprite, name:string, position:Vector): Meal {
-        const itemScale = 0.75;
+        const itemScale = 0.8;
         
         let a = new Meal({
             scene: scene,

@@ -1,4 +1,4 @@
-import { Color, Engine } from "excalibur";
+import { Actor, Color, Engine } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
@@ -6,14 +6,15 @@ import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { LevelBase } from "./levelBase";
 
 export class LevelTestRay extends LevelBase {
-    protected override addBackgroundTiles() {
+    protected addBackgroundTiles() {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceLeft, 5, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 6, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 7, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 8, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceRight, 9, 9);
-    };
-    protected override addForegroundTiles() {
+    }
+
+    protected addForegroundTiles() {
         let wallColor = new Color(200, 200, 200);
         LevelBuildingHelper.createWallTile(this, wallColor, 1, 1);
         LevelBuildingHelper.createWallTile(this, wallColor, 1, 3);
@@ -53,20 +54,28 @@ export class LevelTestRay extends LevelBase {
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterBottomCentral, 7, 8);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterBottomCentral, 8, 8);
     };
-    protected override addAppliances() {
+    protected addAppliances() {
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 7);
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 5);
     };
-    protected override addPans(engine:Engine) {
+    protected addPans(engine:Engine) {
         LevelBuildingHelper.createPanOnTile(this,engine, 7,8)
         LevelBuildingHelper.createPanOnTile(this,engine, 2,4)
     };
 
-    protected override addItems() {
+    protected addItems() {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 8, 8, "apple", ItemIconSprites.Apple )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 5, "flour", ItemIconSprites.FlourBag )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "mayo", ItemIconSprites.Mayo )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "poison", ItemIconSprites.Posion )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
+    }
+
+    protected addSeats(): Actor[] {
+        let seats:Actor[] = [];
+        
+        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 10, 10));
+
+        return seats;
     }
 }

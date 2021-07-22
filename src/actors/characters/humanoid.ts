@@ -1,5 +1,6 @@
-import { Actor, Engine, SpriteSheet, Texture } from "excalibur";
+import { Actor, Engine, SpriteSheet, Texture, vec, Vector } from "excalibur";
 import { AnimationHelper } from "../objects/animationHelper";
+import { LevelBuildingHelper } from "../objects/levelBuildingHelper";
 
 export abstract class Humanoid extends Actor {
     protected sprites: Texture;
@@ -78,5 +79,26 @@ export abstract class Humanoid extends Actor {
         } else if (this.vel.y < 0) {
             this.facing = "u";
         }
+    }
+
+    protected getFacingTargetPos(tilePercent: number): Vector {
+        let xOffset = 0, yOffset = 0;
+
+        switch (this.facing) {
+            case "l":
+                xOffset -= LevelBuildingHelper.tileWidth * tilePercent;
+                break;
+            case "r":
+                xOffset += LevelBuildingHelper.tileWidth * tilePercent;
+                break;
+            case "u":
+                yOffset -= LevelBuildingHelper.tileHeight * tilePercent;
+                break;
+            case "d":
+                yOffset += LevelBuildingHelper.tileHeight * tilePercent;
+                break;
+        }
+
+        return vec(this.pos.x + xOffset, this.pos.y + yOffset);
     }
 }

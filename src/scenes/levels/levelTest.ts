@@ -1,4 +1,4 @@
-import { Color, Engine, vec } from "excalibur";
+import { Actor, Color, Engine, vec } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
 import { InsideFloorWallSprites } from "../../actors/objects/insideFloorWallSprites";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
@@ -15,14 +15,19 @@ export class LevelTest extends LevelBase {
         alert("Controls:\nWASD - Movement\nSpace - Pick up/put down\nE - Swing pan\nQ - Examine");
     }
 
-    protected override addBackgroundTiles() {
+    protected addBackgroundTiles() {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceLeft, 5, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 6, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 7, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 8, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceRight, 9, 9);
-    };
-    protected override addForegroundTiles() {
+
+        LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.Table_V_BottomLeg, 6, 12);
+        LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.Table_V_BottomLeg, 8, 12);
+        LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.Table_V_BottomLeg, 10, 12);
+    }
+
+    protected addForegroundTiles() {
         let wallColor = new Color(200, 200, 200);
 
         LevelBuildingHelper.createWallTile(this, wallColor, 1, 1);
@@ -44,31 +49,45 @@ export class LevelTest extends LevelBase {
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterBottomCentral, 6, 8);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterBottomCentral, 7, 8);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterBottomCentral, 8, 8);
+
+        LevelBuildingHelper.createWallTile(this, InsideTileSprites.Table_V_TopLarge, 6, 11);
+        LevelBuildingHelper.createWallTile(this, InsideTileSprites.Table_V_TopLarge, 8, 11);
+        LevelBuildingHelper.createWallTile(this, InsideTileSprites.Table_V_TopLarge, 10, 11);
+        
     };
-    protected override addAppliances() {
+    protected addAppliances() {
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 7);
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 5);
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Trashcan, 7, 4);
     };
-    protected override addPans(engine:Engine) {
+    protected addPans(engine:Engine) {
         LevelBuildingHelper.createPanOnTile(this,engine, 7,8)
         LevelBuildingHelper.createPanOnTile(this,engine, 2,4)
     };
 
-    protected override addItems() {
+    protected addItems() {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 8, 8, "apple", ItemIconSprites.Apple )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 5, "flour", ItemIconSprites.FlourBag )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "mayo", ItemIconSprites.Mayo )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "poison", ItemIconSprites.Posion )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
+    }
+
+    protected addSeats(): Actor[] {
+        let seats:Actor[] = [];
+        
+        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 10, 12));
+        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 8, 12));
+        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 5, 11.5));
 
         let c = LevelBuildingHelper.createCustomer(this, vec(500,500) );
-        c.actions.moveTo(500, 450, 200)
-                 .moveTo(400, 450, 200)
-                 .moveTo(400, 500, 200)
-                 .moveTo(500, 500, 200)
-                 .repeatForever();
-
+        c.walkToSeat(seats[0].pos, "u");
         c.wantsMeal="monsterPie";
+
+        c = LevelBuildingHelper.createCustomer(this, vec(400,600) );
+        c.walkToSeat(seats[2].pos, "r");
+        c.wantsMeal="monsterPie";
+
+        return seats;
     }
 }

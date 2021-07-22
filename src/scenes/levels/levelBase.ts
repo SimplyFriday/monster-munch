@@ -8,9 +8,11 @@ export abstract class LevelBase extends Scene {
     protected grid: Actor[][] = [];
     protected player: Actor;
     protected musicTrack: Sound;
-    public muteMusic: boolean = false;
     protected baseTile?: Sprite;
+    protected customerSeats:Actor[];
 
+    public muteMusic: boolean = false;
+    
     constructor(engine: Engine) {
         super(engine);
     }
@@ -40,6 +42,7 @@ export abstract class LevelBase extends Scene {
         this.addAppliances();
         this.addPans(engine);
         this.addItems();
+        this.customerSeats = this.addSeats();
     }
 
     protected abstract addBackgroundTiles();
@@ -47,6 +50,7 @@ export abstract class LevelBase extends Scene {
     protected abstract addAppliances();
     protected abstract addPans(engine:Engine);
     protected abstract addItems();
+    protected abstract addSeats():Actor[];
 
     public toggleMusic() {
         this.muteMusic = !this.muteMusic;

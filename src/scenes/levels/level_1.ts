@@ -1,7 +1,10 @@
-import { Engine } from "excalibur";
+import { Actor, Engine } from "excalibur";
 import { LevelBase } from "./levelBase";
 
 export class Level1 extends LevelBase {
+    protected addSeats(): Actor[] {
+        throw new Error("Method not implemented.");
+    }
     protected addBackgroundTiles() {
         throw new Error("Method not implemented.");
     }

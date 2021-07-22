@@ -120,27 +120,6 @@ export class Player extends Humanoid {
         }
     }
 
-    private getFacingTargetPos(tilePercent: number): Vector {
-        let xOffset = 0, yOffset = 0;
-
-        switch (this.facing) {
-            case "l":
-                xOffset -= LevelBuildingHelper.tileWidth * tilePercent;
-                break;
-            case "r":
-                xOffset += LevelBuildingHelper.tileWidth * tilePercent;
-                break;
-            case "u":
-                yOffset -= LevelBuildingHelper.tileHeight * tilePercent;
-                break;
-            case "d":
-                yOffset += LevelBuildingHelper.tileHeight * tilePercent;
-                break;
-        }
-
-        return vec(this.pos.x + xOffset, this.pos.y + yOffset);
-    }
-
     private trySetDownItem() {
         let tPos = this.getFacingTargetPos(1.0);
 

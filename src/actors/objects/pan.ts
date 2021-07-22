@@ -28,7 +28,7 @@ export class Pan extends Item {
             
             if (this.cookTime === 0 && otherActor instanceof Ingredient) {
                 if (!otherActor.isHeld && !this.isHeld) {
-                    this.ingredients.push(otherActor.name); // slice because byref strings are sadness
+                    this.ingredients.push(otherActor.name);
                     otherActor.kill();
                 }
             }
