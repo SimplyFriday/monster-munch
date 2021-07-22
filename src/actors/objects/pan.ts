@@ -1,4 +1,5 @@
-import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider } from "excalibur";
+import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter } from "excalibur";
+import { Customer } from "../characters/customer";
 import { Appliance, ApplianceType } from "./appliance";
 import { Ingredient } from "./ingredient";
 import { Item } from "./item";
@@ -51,6 +52,9 @@ export class Pan extends Item {
             }
 
             if (this.isAttacking) {
+                /////////////////////////////////
+                ////////// Plate Meal ///////////
+                /////////////////////////////////
                 if ( this.ingredients.length > 0 && 
                         otherActor instanceof Appliance && 
                         otherActor.applianceType === ApplianceType.ServingPlate &&
@@ -69,13 +73,24 @@ export class Pan extends Item {
                         LevelBuildingHelper.createMeal(this.scene, ItemIconSprites.Trash, "inedible mush", otherActor.pos);
                     }
 
-                    this.ingredients = [];
-                    this.isBurned = false;
-                    this.isDone = false;
-                    this.cookTime = 0;
+                    this.reset();
                 }
             }
+            /////////////////////////////////
+            ///////// Hit Customer //////////
+            /////////////////////////////////
+            if (otherActor instanceof Customer) {
+                otherActor.kill();
+                this.reset();
+            }
         });
+    }
+    
+    private reset() {
+        this.ingredients = [];
+        this.isBurned = false;
+        this.isDone = false;
+        this.cookTime = 0;
     }
 
     public onPreUpdate(engine: Engine, delta: number) {

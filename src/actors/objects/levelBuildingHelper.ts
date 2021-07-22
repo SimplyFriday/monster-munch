@@ -2,6 +2,7 @@ import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenEleme
 import { Resources } from "../../resources";
 import { AnimationHelper } from "./AnimationHelper";
 import { Appliance, ApplianceType } from "./appliance";
+import { Customer } from "../characters/customer";
 import { Ingredient } from "./ingredient";
 import { IngredientSpawner } from "./ingredientSpawner";
 import { InsideTileSprites } from "./insideTileSprites";
@@ -209,6 +210,20 @@ export abstract class LevelBuildingHelper {
         a.addDrawing("burned", bSpr);
         a.addDrawing("done", dSpr);
         
+        return a;
+    }
+
+    public static createCustomer(scene: Scene, position:Vector): Customer {
+        let a = new Customer({
+            scene: scene,
+            width: this.tileWidth,
+            height: this.tileHeight,
+            pos: position
+        });
+
+        scene.add(a);
+        a.setZIndex(40);
+
         return a;
     }
 }

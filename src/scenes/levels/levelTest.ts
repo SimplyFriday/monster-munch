@@ -1,4 +1,4 @@
-import { Color, Engine } from "excalibur";
+import { Color, Engine, vec } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
 import { InsideFloorWallSprites } from "../../actors/objects/insideFloorWallSprites";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
@@ -61,5 +61,14 @@ export class LevelTest extends LevelBase {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "mayo", ItemIconSprites.Mayo )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "poison", ItemIconSprites.Posion )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
+
+        let c = LevelBuildingHelper.createCustomer(this, vec(500,500) );
+        c.actions.moveTo(500, 450, 200)
+                 .moveTo(400, 450, 200)
+                 .moveTo(400, 500, 200)
+                 .moveTo(500, 500, 200)
+                 .repeatForever();
+
+        c.wantsMeal="monsterPie";
     }
 }

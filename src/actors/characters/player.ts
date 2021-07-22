@@ -1,4 +1,4 @@
-import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector } from 'excalibur';
+import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector, Resource } from 'excalibur';
 import { Resources } from '../../resources';
 import { AnimationHelper } from '../objects/AnimationHelper';
 import { Appliance, ApplianceType } from '../objects/appliance';
@@ -7,8 +7,9 @@ import { Item } from '../objects/item';
 import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
 import { Meal } from '../objects/meal';
 import { Pan } from '../objects/pan';
+import { Humanoid } from './humanoid';
 
-export class Player extends Actor {
+export class Player extends Humanoid {
     constructor() {
         super({
             pos: vec(150, 150),
@@ -18,41 +19,22 @@ export class Player extends Actor {
         });
     }
 
-    private sprites: SpriteSheet;
-    private baseSpeed: number = 200;
-    private facing: string;
-    private spriteScale: number = 0.9;
+    protected spriteScale: number = 0.9;
     private hitboxScale: number = 0.8;
     private heldItem: Item;
 
     onInitialize(engine: Engine) {
+        this.sprites = Resources.PlayerSprites;
+
         this.body.collider.type = CollisionType.Active;
         this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight * this.hitboxScale, LevelBuildingHelper.tileHeight * this.hitboxScale);
-        this.setZIndex(1000);
-
-        let plSpriteWidth = 16;
-        let plSpriteHeight = 21;
-
-        this.sprites = new SpriteSheet({
-            image: Resources.PlayerSprites,
-            rows: 4,
-            columns: 3,
-            spWidth: plSpriteWidth,
-            spHeight: plSpriteHeight
-        });
-
-        this.addDrawing("standDown", AnimationHelper.getScaledSprite(this.sprites.getSprite(1), this.spriteScale));
-        this.addDrawing("standLeft", AnimationHelper.getScaledSprite(this.sprites.getSprite(4), this.spriteScale));
-        this.addDrawing("standRight", AnimationHelper.getScaledSprite(this.sprites.getSprite(7), this.spriteScale));
-        this.addDrawing("standUp", AnimationHelper.getScaledSprite(this.sprites.getSprite(10), this.spriteScale));
-
-        this.addDrawing("walkDown", AnimationHelper.getScaledAnimation(engine, this.sprites, 0, 3, this.spriteScale));
-        this.addDrawing("walkLeft", AnimationHelper.getScaledAnimation(engine, this.sprites, 3, 6, this.spriteScale));
-        this.addDrawing("walkRight", AnimationHelper.getScaledAnimation(engine, this.sprites, 6, 9, this.spriteScale));
-        this.addDrawing("walkUp", AnimationHelper.getScaledAnimation(engine, this.sprites, 9, 11, this.spriteScale));
+        
+        super.onInitialize(engine);
     }
 
     public onPreUpdate(engine: Engine, delta: number) {
+        super.onPreUpdate(engine, delta);
+
         let attacking = false;
 
         if (this.heldItem instanceof Pan) {
@@ -61,44 +43,8 @@ export class Player extends Actor {
 
         if (!attacking) {
             this.doMovement(engine);
-            this.doFacing();
         } else {
             this.vel = vec(0, 0);
-        }
-
-        /////////////////////////////////
-        /////////// Animation ///////////
-        /////////////////////////////////
-        if (this.vel.x === 0 && this.vel.y === 0) {
-            switch (this.facing) {
-                case "l":
-                    this.setDrawing("standLeft");
-                    break;
-                case "r":
-                    this.setDrawing("standRight");
-                    break;
-                case "u":
-                    this.setDrawing("standUp");
-                    break;
-                case "d":
-                    this.setDrawing("standDown");
-                    break;
-            }
-        } else {
-            switch (this.facing) {
-                case "l":
-                    this.setDrawing("walkLeft");
-                    break;
-                case "r":
-                    this.setDrawing("walkRight");
-                    break;
-                case "u":
-                    this.setDrawing("walkUp");
-                    break;
-                case "d":
-                    this.setDrawing("walkDown");
-                    break;
-            }
         }
 
         /////////////////////////////////
@@ -138,17 +84,7 @@ export class Player extends Actor {
             }
         }
     }
-    private doFacing() {
-        if (this.vel.y > 0) {
-            this.facing = "d"
-        } else if (this.vel.x < 0) {
-            this.facing = "l";
-        } else if (this.vel.x > 0) {
-            this.facing = "r";
-        } else if (this.vel.y < 0) {
-            this.facing = "u";
-        }
-    }
+    
 
     private doMovement(engine: Engine) {
         let velX: number = 0, velY: number = 0;

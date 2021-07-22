@@ -1,7 +1,7 @@
 import { Actor, Engine, Scene, Sound, Sprite, TileMap } from "excalibur";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { UIHelper } from "../../actors/objects/uiHelper";
-import { Player } from "../../actors/player/player";
+import { Player } from "../../actors/characters/player";
 import { Resources } from "../../resources";
 
 export abstract class LevelBase extends Scene {

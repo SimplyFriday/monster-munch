@@ -13,6 +13,7 @@ import insideTilesB from './images/tileB_inside4.png';
 import insideFloorsWalls from './images/tileA5_inside.png';
 import stove from './images/stove.png';
 import trashcan from './images/trashcan.png';
+import customer1 from './images/customer_1.png';
 
 const levelLoop1 = require('./audio/level_loop1.wav');
 /**
@@ -35,8 +36,8 @@ const Resources = {
     InsideTilesB: new Texture(insideTilesB),
     InsideFloorsWalls: new Texture(insideFloorsWalls),
     Stove: new Texture(stove),
-    Trashcan: new Texture(trashcan)
+    Trashcan: new Texture(trashcan),
+    Customer1: new Texture(customer1)
 }
 
 export { Resources }
-

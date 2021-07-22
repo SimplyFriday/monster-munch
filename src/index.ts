@@ -1,5 +1,5 @@
 import { Engine, Loader, DisplayMode, Color } from 'excalibur';
-import { Player } from './actors/player/player';
+import { Player } from './actors/characters/player';
 import { Resources } from './resources';
 import { LevelTest } from './scenes/levels/levelTest';
 import { LevelTestRay } from './scenes/levels/levelTestRay';
