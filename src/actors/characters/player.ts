@@ -1,6 +1,6 @@
 import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector, Resource } from 'excalibur';
 import { Resources } from '../../resources';
-import { AnimationHelper } from '../objects/AnimationHelper';
+import { AnimationHelper } from '../objects/animationHelper';
 import { Appliance, ApplianceType } from '../objects/appliance';
 import { Ingredient } from '../objects/ingredient';
 import { Item } from '../objects/item';

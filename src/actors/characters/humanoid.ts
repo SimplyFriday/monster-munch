@@ -1,5 +1,5 @@
 import { Actor, Engine, SpriteSheet, Texture } from "excalibur";
-import { AnimationHelper } from "../objects/AnimationHelper";
+import { AnimationHelper } from "../objects/animationHelper";
 
 export abstract class Humanoid extends Actor {
     protected sprites: Texture;
@@ -17,7 +17,7 @@ export abstract class Humanoid extends Actor {
         });
 
         this.setZIndex(1000);
-        
+
         this.addDrawing("standDown", AnimationHelper.getScaledSprite(sprites.getSprite(1), this.spriteScale));
         this.addDrawing("standLeft", AnimationHelper.getScaledSprite(sprites.getSprite(4), this.spriteScale));
         this.addDrawing("standRight", AnimationHelper.getScaledSprite(sprites.getSprite(7), this.spriteScale));

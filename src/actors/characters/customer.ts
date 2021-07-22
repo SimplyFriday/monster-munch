@@ -1,5 +1,4 @@
-import { ActionContext, Actor, CollisionType, Color, Engine, Resource, vec, Vector } from "excalibur";
-import { Action } from "excalibur/dist/Actions/Action";
+import { ActionContext, Engine, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { Humanoid } from "./humanoid";
 
