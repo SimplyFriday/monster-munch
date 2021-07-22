@@ -79,7 +79,7 @@ export class Pan extends Item {
             /////////////////////////////////
             ///////// Hit Customer //////////
             /////////////////////////////////
-            if (otherActor instanceof Customer) {
+            if (otherActor instanceof Customer && this.isAttacking) {
                 otherActor.kill();
                 this.reset();
             }
