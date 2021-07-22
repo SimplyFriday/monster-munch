@@ -48,6 +48,7 @@ export class LevelTest extends LevelBase {
     protected override addAppliances() {
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 7);
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 5);
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Trashcan, 7, 4);
     };
     protected override addPans(engine:Engine) {
         LevelBuildingHelper.createPanOnTile(this,engine, 7,8)

@@ -1,7 +1,7 @@
 import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector } from 'excalibur';
 import { Resources } from '../../resources';
 import { AnimationHelper } from '../objects/AnimationHelper';
-import { Appliance } from '../objects/appliance';
+import { Appliance, ApplianceType } from '../objects/appliance';
 import { Ingredient } from '../objects/ingredient';
 import { Item } from '../objects/item';
 import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
@@ -59,11 +59,11 @@ export class Player extends Actor {
             attacking = this.heldItem.isAttacking;
         }
 
-        if (!attacking){
+        if (!attacking) {
             this.doMovement(engine);
             this.doFacing();
         } else {
-            this.vel = vec(0,0);
+            this.vel = vec(0, 0);
         }
 
         /////////////////////////////////
@@ -104,7 +104,7 @@ export class Player extends Actor {
         /////////////////////////////////
         /////// Object Interaction //////
         /////////////////////////////////
-        if (!attacking){
+        if (!attacking) {
             if (this.heldItem) {
                 this.heldItem.pos = vec(this.pos.x, this.pos.y - 40);
             }
@@ -150,7 +150,7 @@ export class Player extends Actor {
         }
     }
 
-    private doMovement(engine:Engine) {
+    private doMovement(engine: Engine) {
         let velX: number = 0, velY: number = 0;
 
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
@@ -181,7 +181,7 @@ export class Player extends Actor {
         }
     }
 
-    private getFacingTargetPos (tilePercent:number): Vector {
+    private getFacingTargetPos(tilePercent: number): Vector {
         let xOffset = 0, yOffset = 0;
 
         switch (this.facing) {
@@ -204,10 +204,22 @@ export class Player extends Actor {
 
     private trySetDownItem() {
         let tPos = this.getFacingTargetPos(1.0);
-        var targets = this.scene.actors.filter(x => x instanceof Item && 
-                                                    !(x instanceof Pan) &&
-                                                    !(x === this.heldItem) &&
-                                                    x.contains(tPos.x, tPos.y));
+
+        // check for trashcan first
+        let tc = this.scene.actors.filter(x => x instanceof Appliance &&
+                                               x.applianceType === ApplianceType.Trashcan &&
+                                               x.contains(tPos.x, tPos.y));
+
+        if (tc.length > 0 && this.heldItem.canBeTrashed) {
+            this.heldItem.kill();
+            this.heldItem = null;
+            return;
+        }
+
+        var targets = this.scene.actors.filter(x => x instanceof Item &&
+            !(x instanceof Pan) &&
+            !(x === this.heldItem) &&
+            x.contains(tPos.x, tPos.y));
 
         if (targets.length === 0) {
             this.heldItem.pos = tPos
@@ -219,7 +231,7 @@ export class Player extends Actor {
     private tryPickupItem() {
         let tPos = this.getFacingTargetPos(0.55);
         var targets = this.scene.actors.filter(x => x instanceof Item &&
-                                                    x.contains(tPos.x, tPos.y));
+            x.contains(tPos.x, tPos.y));
 
         if (targets.length > 0) {
             this.heldItem = targets[0] as Item;
@@ -227,10 +239,10 @@ export class Player extends Actor {
         }
     }
 
-    private examine () {
+    private examine() {
         let tPos = this.getFacingTargetPos(0.55);
         var targets = this.scene.actors.filter(x => (x instanceof Item || x instanceof Appliance) &&
-                                                    x.contains(tPos.x, tPos.y));
+            x.contains(tPos.x, tPos.y));
 
         let item = targets[0];
 

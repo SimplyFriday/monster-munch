@@ -128,6 +128,12 @@ export abstract class LevelBuildingHelper {
         const itemScale = 0.75;
 
         let sprite:Sprite;
+        let a = new Appliance({
+            scene: scene,
+            width: this.tileWidth,
+            height: this.tileHeight,
+            pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
+        });
 
         switch (type) {
             case ApplianceType.Stove:
@@ -136,22 +142,20 @@ export abstract class LevelBuildingHelper {
             case ApplianceType.ServingPlate:
                 sprite = InsideTileSprites.Tray;
                 break;
+            case ApplianceType.Trashcan:
+                sprite = Resources.Trashcan.asSprite();
+                a.body.collider.shape = Shape.Box(a.width * itemScale, a.height * itemScale);
+                a.body.collider.type = CollisionType.Fixed;
+                break;
             default:
                 throw new Error("unsupported appliance type: " + type);
         }
-
-        let a = new Appliance({
-            scene: scene,
-            width: this.tileWidth,
-            height: this.tileHeight,
-            pos: vec(xPos * this.tileWidth, yPos * this.tileHeight)
-        });
 
         scene.add(a);
         a.setZIndex(40);
 
         AnimationHelper.getScaledSprite(sprite, itemScale);
-
+        
         a.addDrawing(sprite);
         a.applianceType = type;
 
