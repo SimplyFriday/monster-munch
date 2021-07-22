@@ -43,6 +43,9 @@ export class Player extends Humanoid {
 
         if (!attacking) {
             this.doMovement(engine);
+            // force facing here, otherwise it can get janky when a solid object blocks
+            // movement (and therefor facing).
+            this.doFacing();
         } else {
             this.vel = vec(0, 0);
         }
