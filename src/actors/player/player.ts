@@ -22,11 +22,12 @@ export class Player extends Actor {
     private baseSpeed: number = 200;
     private facing: string;
     private spriteScale: number = 0.9;
+    private hitboxScale: number = 0.8;
     private heldItem: Item;
 
     onInitialize(engine: Engine) {
         this.body.collider.type = CollisionType.Active;
-        this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight * this.spriteScale, LevelBuildingHelper.tileHeight * this.spriteScale);
+        this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight * this.hitboxScale, LevelBuildingHelper.tileHeight * this.hitboxScale);
         this.setZIndex(1000);
 
         let plSpriteWidth = 16;

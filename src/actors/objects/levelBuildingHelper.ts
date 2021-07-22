@@ -1,4 +1,4 @@
-import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenElement, Sprite, SpriteSheet, Texture, vec, Vector } from "excalibur";
+import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenElement, Shape, Sprite, SpriteSheet, Texture, vec, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { AnimationHelper } from "./AnimationHelper";
 import { Appliance, ApplianceType } from "./appliance";
@@ -90,6 +90,8 @@ export abstract class LevelBuildingHelper {
 
         a.addDrawing(sprite);
         a.name = name;
+        a.body.collider.shape = Shape.Box(a.width * itemScale, a.height * itemScale);
+        a.body.collider.type = CollisionType.Fixed;
 
         return a;
     }
@@ -116,6 +118,8 @@ export abstract class LevelBuildingHelper {
 
         a.addDrawing(sprite);
         a.name = name;
+        a.body.collider.shape = Shape.Box(a.width * itemScale, a.height * itemScale);
+        a.body.collider.type = CollisionType.Fixed;
 
         return a;
     }
@@ -200,7 +204,6 @@ export abstract class LevelBuildingHelper {
         a.addDrawing("cooking", cAnim);
         a.addDrawing("burned", bSpr);
         a.addDrawing("done", dSpr);
-        
         
         return a;
     }
