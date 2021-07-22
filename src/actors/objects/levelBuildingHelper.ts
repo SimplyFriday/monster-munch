@@ -1,5 +1,6 @@
 import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenElement, Sprite, SpriteSheet, Texture, vec, Vector } from "excalibur";
 import { Resources } from "../../resources";
+import { AnimationHelper } from "./AnimationHelper";
 import { Appliance, ApplianceType } from "./appliance";
 import { Ingredient } from "./ingredient";
 import { IngredientSpawner } from "./ingredientSpawner";
@@ -85,9 +86,7 @@ export abstract class LevelBuildingHelper {
         scene.add(a);
         a.setZIndex(40);
 
-        let scaleX = this.tileWidth / sprite.width * itemScale;
-        let scaleY = this.tileHeight / sprite.height * itemScale;
-        sprite.scale = vec(scaleX, scaleY);
+        AnimationHelper.getScaledSprite(sprite, itemScale);
 
         a.addDrawing(sprite);
         a.name = name;
@@ -113,9 +112,7 @@ export abstract class LevelBuildingHelper {
         scene.add(a);
         a.setZIndex(40);
 
-        let scaleX = this.tileWidth / sprite.width * itemScale;
-        let scaleY = this.tileHeight / sprite.height * itemScale;
-        sprite.scale = vec(scaleX, scaleY);
+        AnimationHelper.getScaledSprite(sprite, itemScale);
 
         a.addDrawing(sprite);
         a.name = name;
@@ -149,9 +146,7 @@ export abstract class LevelBuildingHelper {
         scene.add(a);
         a.setZIndex(40);
 
-        let scaleX = this.tileWidth / sprite.width * itemScale;
-        let scaleY = this.tileHeight / sprite.height * itemScale;
-        sprite.scale = vec(scaleX, scaleY);
+        AnimationHelper.getScaledSprite(sprite, itemScale);
 
         a.addDrawing(sprite);
         a.applianceType = type;
@@ -180,20 +175,14 @@ export abstract class LevelBuildingHelper {
             spHeight: 18
         });
 
-        let scaleX = this.tileWidth / 18 * itemScale;
-        let scaleY = this.tileHeight / 18 * itemScale;
-        let attackAnimation = panAttackSprites.getAnimationForAll(engine, 150);
-        attackAnimation.scale = vec(scaleX, scaleY);
+        let attackAnimation = AnimationHelper.getScaledAnimation(engine, panAttackSprites, 0,3, itemScale, 150);
         attackAnimation.loop = false;
         a.attackAnimation = attackAnimation;
 
-        scaleX = this.tileWidth / Resources.PanEmpty.width * itemScale;
-        scaleY = this.tileHeight / Resources.PanEmpty.height * itemScale;
-
-        let eSpr = Resources.PanEmpty.asSprite();
-        let fSpr = Resources.PanFilled.asSprite();
-        let dSpr = Resources.PanDone.asSprite();
-        let bSpr = Resources.PanBurned.asSprite();
+        let eSpr = AnimationHelper.getScaledSprite(Resources.PanEmpty.asSprite(), itemScale);
+        let fSpr = AnimationHelper.getScaledSprite(Resources.PanFilled.asSprite(), itemScale);
+        let dSpr = AnimationHelper.getScaledSprite(Resources.PanDone.asSprite(), itemScale);
+        let bSpr = AnimationHelper.getScaledSprite(Resources.PanBurned.asSprite(), itemScale);
         
         let cookingSheet = new SpriteSheet({
             image: Resources.PanCooking ,
@@ -203,14 +192,7 @@ export abstract class LevelBuildingHelper {
             spHeight:9
         });
 
-        let cAnim = cookingSheet.getAnimationForAll(engine, 50);
-
-        let scale = vec(scaleX, scaleY);
-        eSpr.scale = scale;
-        fSpr.scale = scale;
-        cAnim.scale = scale;
-        dSpr.scale = scale;
-        bSpr.scale = scale;
+        let cAnim = AnimationHelper.getScaledAnimation(engine, cookingSheet, 0,3,itemScale,50);
 
         a.addDrawing("empty", eSpr);
         a.addDrawing("filled", fSpr);
