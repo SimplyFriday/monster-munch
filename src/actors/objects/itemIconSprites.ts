@@ -194,5 +194,8 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(109);
     }
     
-
+    public static get ChocolateBar () {
+        return this.iconSheet.getSprite(137);
+    }
+    
 }

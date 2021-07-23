@@ -9,7 +9,7 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {
-    protected availableMeals: Recipe[] = [Recipes.MonsterPie, Recipes.GrossIceCream, Recipes.CandyCrunch];
+    protected availableMeals: Recipe[] = [Recipes.MonsterPie, Recipes.FriedEgg, Recipes.BananaPie];
     public onInitialize(engine:Engine) { 
         super.onInitialize(engine);
 
@@ -62,9 +62,9 @@ export class LevelTest extends LevelBase {
     protected addItems() {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 8, 8, "Apple" )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 5, "FlourBag")
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "Mayo")
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "Banana")
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "Poison")
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "Skull")
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "EggRaw")
     }
 
     protected addSeatsAndDoors() {

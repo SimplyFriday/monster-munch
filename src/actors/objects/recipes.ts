@@ -1,4 +1,4 @@
-import { Actor, Engine, ScreenElement, Sprite, UIActor, vec } from "excalibur";
+import { Actor, Engine, ScreenElement, Sprite, SpriteSheet, UIActor, vec } from "excalibur";
 import { Resources } from "../../resources";
 import { AnimationHelper } from "./animationHelper";
 import { ItemIconSprites } from "./itemIconSprites";
@@ -40,9 +40,17 @@ export class Recipe {
 }
 
 const Recipes = {
-    MonsterPie: new Recipe (["Poison", "FlourBag", "Apple"],"monsterPie",ItemIconSprites.PieRed),
-    GrossIceCream: new Recipe (["FlourBag", "Mayo"],"grossIceCream",ItemIconSprites.IceCreamCone),
-    CandyCrunch: new Recipe (["Mayo", "Skull", "Skull", "Poison"],"CandyCrunch",ItemIconSprites.CandyYellow),
+    MonsterPie: new Recipe (["Poison", "FlourBag", "Apple"],"Monster Pie",ItemIconSprites.PieRed),
+    Taco: new Recipe (["Meat", "Cheese", "GreenLeaf"],"Taco",ItemIconSprites.Taco),
+    Cookie: new Recipe (["FlourBag", "EggRaw"],"Cookie",ItemIconSprites.Cookie),
+    FriedEgg: new Recipe (["EggRaw"],"Fried Egg",ItemIconSprites.EggCooked),
+    Pizza: new Recipe (["FlourBag", "RedPot", "Cheese"],"Pizza",ItemIconSprites.PizzaPlain),
+    PepperoniPizza: new Recipe (["FlourBag", "RedPot", "Meat","Cheese"],"Pepperoni Pizza",ItemIconSprites.PizzaToppings),
+    BananaPie: new Recipe (["EggRaw", "FlourBag", "Banana"],"Banana Pie",ItemIconSprites.PieYellow),
+    SpecialCrunchPie: new Recipe (["EggRaw", "FlourBag", "PurpleGem"],"Special Crunch Pie",ItemIconSprites.PiePurple),
+    Burger: new Recipe (["Meat", "Bread", "GreenLeaf", "Cheese"],"Burger",ItemIconSprites.Burger),
+    CrunchyCake: new Recipe (["EggRaw", "FlourBag", "YellowPot", "WhiteGem"],"Crunchy Cake",ItemIconSprites.Cake),
+    IceCream: new Recipe (["YellowPot","EggRaw", "WhiteGem"],"Ice Cream",ItemIconSprites.IceCreamCone),
 }
 
 export {Recipes}
