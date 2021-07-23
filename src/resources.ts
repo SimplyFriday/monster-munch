@@ -17,6 +17,7 @@ import customer1 from './images/customer_1.png';
 import cardFrame from './images/card_frame.png';
 
 const levelLoop1 = require('./audio/level_loop1.wav');
+const bonk1 = require('./audio/bonk1.wav');
 /**
  * Default global resource dictionary. This gets loaded immediately
  * and holds available assets for the game.
@@ -39,7 +40,8 @@ const Resources = {
     Stove: new Texture(stove),
     Trashcan: new Texture(trashcan),
     Customer1: new Texture(customer1),
-    CardFrame: new Texture(cardFrame)
+    CardFrame: new Texture(cardFrame),
+    Bonk1: new Sound(bonk1)
 }
 
 export { Resources }

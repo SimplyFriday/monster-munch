@@ -1,4 +1,5 @@
 import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter } from "excalibur";
+import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { Customer } from "../characters/customer";
 import { Appliance, ApplianceType } from "./appliance";
@@ -84,6 +85,7 @@ export class Pan extends Item {
             /////////////////////////////////
             if (otherActor instanceof Customer && this.isAttacking) {
                 (this.scene as LevelBase).removeCustomer(otherActor);
+                Resources.Bonk1.play(1);
                 otherActor.kill();
                 this.reset();
             }
