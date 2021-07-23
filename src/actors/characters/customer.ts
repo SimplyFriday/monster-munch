@@ -1,6 +1,7 @@
-import { ActionContext, Engine, Timer, Vector } from "excalibur";
+import { ActionContext, Actor, Engine, Timer, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { Meal } from "../objects/meal";
+import { Seat } from "../objects/seat";
 import { Humanoid } from "./humanoid";
 
 export class Customer extends Humanoid {
@@ -12,7 +13,8 @@ export class Customer extends Humanoid {
     public wantsMeal: string;
     public frustratedTime: number;
     public attackTime: number;
-    
+    public seat:Seat;
+
     public onInitialize(engine: Engine) {
         this.sprites = Resources.Customer1;
         super.onInitialize(engine);
@@ -20,12 +22,12 @@ export class Customer extends Humanoid {
         this.initialPosition = this.pos.clone();
     }
 
-    public walkToSeat(seatPos: Vector, finalFacing:string) {
-        let p = this.actions.moveTo(seatPos.x, seatPos.y, this.speed).asPromise();
+    public walkToSeat() {
+        let p = this.actions.moveTo(this.seat.pos.x, this.seat.pos.y, this.speed).asPromise();
         
         p.then( () =>{
             console.log("customer arrived at seat")
-            this.facing = finalFacing;
+            this.facing = this.seat.facing;
             this.mealCheckPos = this.getFacingTargetPos(0.5);
 
             this.actionTimer = new CustomerTimer ({

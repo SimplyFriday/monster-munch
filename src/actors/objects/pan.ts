@@ -1,4 +1,5 @@
 import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter } from "excalibur";
+import { LevelBase } from "../../scenes/levels/levelBase";
 import { Customer } from "../characters/customer";
 import { Appliance, ApplianceType } from "./appliance";
 import { Ingredient } from "./ingredient";
@@ -8,7 +9,7 @@ import { LevelBuildingHelper } from "./levelBuildingHelper";
 import { Recipe, Recipes } from "./recipes";
 
 export class Pan extends Item {
-    private cookTimeMultiplier: number = 1000;
+    private cookTimeMultiplier: number = 500;
     public ingredients: string[] = [];
     public attackAnimation: Animation;
     public isAttacking: boolean = false;
@@ -23,9 +24,11 @@ export class Pan extends Item {
         this.body.collider.type = CollisionType.Passive;
         this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight, LevelBuildingHelper.tileHeight);
 
+        // TODO refactor this to use onPreUpdate or something with a delta
+        // Currently it takes longer to cook stuff on slower machines
         this.body.collider.on("precollision", (e: CollisionStartEvent<Collider>) => {
             let otherActor = e.other.body.actor;
-            
+
             if (this.cookTime === 0 && otherActor instanceof Ingredient) {
                 if (!otherActor.isHeld && !this.isHeld) {
                     this.ingredients.push(otherActor.name);
@@ -80,6 +83,7 @@ export class Pan extends Item {
             ///////// Hit Customer //////////
             /////////////////////////////////
             if (otherActor instanceof Customer && this.isAttacking) {
+                (this.scene as LevelBase).customers = (this.scene as LevelBase).customers.filter( x => x != otherActor);
                 otherActor.kill();
                 this.reset();
             }

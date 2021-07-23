@@ -71,11 +71,7 @@ export class LevelTestRay extends LevelBase {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
     }
 
-    protected addSeats(): Actor[] {
-        let seats:Actor[] = [];
-        
-        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 10, 10));
-
-        return seats;
+    protected addSeatsAndDoors(): Actor[] {
+        throw new Error("not implimented");
     }
 }

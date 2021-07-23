@@ -1,14 +1,14 @@
-import { Actor, Color, Engine, vec } from "excalibur";
+import { Actor, Color, Engine, Resource, vec } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
 import { InsideFloorWallSprites } from "../../actors/objects/insideFloorWallSprites";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
+import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {
     public onInitialize(engine:Engine) { 
-        this.baseTile = InsideFloorWallSprites.BlueTilePattern;
         super.onInitialize(engine);
 
         // TODO something less shithouse
@@ -73,21 +73,12 @@ export class LevelTest extends LevelBase {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
     }
 
-    protected addSeats(): Actor[] {
-        let seats:Actor[] = [];
-        
-        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 10, 12));
-        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 8, 12));
-        seats.push(LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.RedStool, 5, 11.5));
+    protected addSeatsAndDoors() {
+        this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 10, 12));
+        this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 8, 12));
+        this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "r", 5, 11.5));
 
-        let c = LevelBuildingHelper.createCustomer(this, vec(500,500) );
-        c.walkToSeat(seats[0].pos, "u");
-        c.wantsMeal="monsterPie";
-
-        c = LevelBuildingHelper.createCustomer(this, vec(400,600) );
-        c.walkToSeat(seats[2].pos, "r");
-        c.wantsMeal="monsterPie";
-
-        return seats;
+        this.doors.push(LevelBuildingHelper.createWallTile (this, Resources.Bag.asSprite(), 3, 12));
+        this.doors.push(LevelBuildingHelper.createWallTile (this, Resources.Bag.asSprite(), 14, 14));
     }
 }

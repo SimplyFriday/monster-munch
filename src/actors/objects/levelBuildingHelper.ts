@@ -9,6 +9,7 @@ import { InsideTileSprites } from "./insideTileSprites";
 import { Item } from "./item";
 import { Meal } from "./meal";
 import { Pan } from "./pan";
+import { Seat } from "./seat";
 
 export abstract class LevelBuildingHelper {
     static tileWidth = 50;
@@ -21,6 +22,12 @@ export abstract class LevelBuildingHelper {
 
     public static createBackgroundTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number): Actor {
         return this.createTile(scene, display, xPos, yPos, false, -1);
+    }
+
+    public static createSeat(scene: Scene, sprite: Sprite, facing:string, xPos: number, yPos: number): Seat {
+        let s = this.createTile(scene, sprite, xPos, yPos, false, -1) as Seat;
+        s.facing = facing;
+        return s;
     }
 
     private static createTile(scene: Scene, 

@@ -1,15 +1,19 @@
-import { Actor, Engine, Scene, Sound, Sprite, TileMap } from "excalibur";
+import { Actor, Engine, Scene, Sound, Sprite, TileMap, Timer } from "excalibur";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { UIHelper } from "../../actors/objects/uiHelper";
 import { Player } from "../../actors/characters/player";
 import { Resources } from "../../resources";
+import { Customer } from "../../actors/characters/customer";
+import { Seat } from "../../actors/objects/seat";
 
 export abstract class LevelBase extends Scene {
-    protected grid: Actor[][] = [];
     protected player: Actor;
     protected musicTrack: Sound;
-    protected baseTile?: Sprite;
-    protected customerSeats:Actor[];
+    protected customerSeats:Seat[] = [];
+    protected doors:Actor[] = [];
+    public customers:Customer[] = [];
+    protected customerSpawnSpeed:number = 8000; // average number of seconds before a new customer spawns
+    protected availableMeals:string[] = [];
 
     public muteMusic: boolean = false;
     
@@ -28,21 +32,44 @@ export abstract class LevelBase extends Scene {
         this.musicTrack.loop = true;
         this.musicTrack.play();
 
-        // if (this.baseTile) {
-        //     for (let r = 0; r < 20; r++) {
-        //         for (let c = 0; c < 20; c++) {
-        //             // TODO background tiles as actors seems to nuke performance...
-        //             //LevelBuildingHelper.createBackgroundTile(this, this.baseTile, r, c);
-        //         }
-        //     }
-        // }
-
         this.addBackgroundTiles();
         this.addForegroundTiles();
         this.addAppliances();
         this.addPans(engine);
         this.addItems();
-        this.customerSeats = this.addSeats();
+        this.addSeatsAndDoors();
+    }
+
+    public onPreUpdate(engine:Engine, delta:number) {
+        if (this.customers.length < this.customerSeats.length) {
+            console.log("Found " + (this.customerSeats.length - this.customers.length) + " empty seats")
+
+            let b = this.customerSpawnSpeed / 3;
+            let v = this.customerSpawnSpeed * (4/3);
+            let i = b + Math.random() * v;
+
+            let di = Math.floor(Math.random() * this.doors.length);
+            let door = this.doors[di];
+
+            let customer = LevelBuildingHelper.createCustomer(this, door.pos);
+            let nextFreeSeat = this.customerSeats.filter(x => !this.customers.some(c=>c.seat===x))[0];
+            customer.seat = nextFreeSeat;
+            customer.visible = false;
+
+            this.customers.push(customer);
+
+            let spawnTimer = new LevelTimer({
+                interval:i,
+                repeats:false,
+                fcn:this.spawnCustomer
+            });
+
+            spawnTimer.level = this;
+            spawnTimer.customer = customer;
+
+
+            this.add(spawnTimer);
+        }
     }
 
     protected abstract addBackgroundTiles();
@@ -50,7 +77,7 @@ export abstract class LevelBase extends Scene {
     protected abstract addAppliances();
     protected abstract addPans(engine:Engine);
     protected abstract addItems();
-    protected abstract addSeats():Actor[];
+    protected abstract addSeatsAndDoors();
 
     public toggleMusic() {
         this.muteMusic = !this.muteMusic;
@@ -60,4 +87,19 @@ export abstract class LevelBase extends Scene {
             this.musicTrack.play();
         }
     }
+
+    protected spawnCustomer () {
+        let timer = (this as unknown as LevelTimer);
+
+        if (timer) {
+            timer.level.add(timer.customer);
+            timer.customer.walkToSeat();
+            timer.customer.visible = true;
+        }
+    }
+}
+
+export class LevelTimer extends Timer {
+    public level:LevelBase;
+    public customer:Customer;
 }
