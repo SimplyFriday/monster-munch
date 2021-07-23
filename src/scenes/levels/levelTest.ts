@@ -14,7 +14,7 @@ export class LevelTest extends LevelBase {
         super.onInitialize(engine);
 
         // TODO something less shithouse
-        alert("Controls:\nWASD - Movement\nSpace - Pick up/put down\nE - Swing pan\nQ - Examine");
+        alert("Controls:\nWASD - Movement\nSpace - Pick up/put down\nE - Swing pan\nQ - Examine\n\nSwing a pan with cooked food (yellow) or burned food (red/grey) onto the brown serving tray to create a meal. Serve meals to customers.");
     }
 
     protected addBackgroundTiles() {
