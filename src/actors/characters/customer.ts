@@ -53,6 +53,7 @@ export class Customer extends Humanoid {
         if (a) {
             let m = a.customer.scene.actors.filter (x => x instanceof Meal &&
                                                          x.name === a.customer.wantsMeal &&
+                                                         !x.isHeld &&
                                                          x.contains(a.customer.mealCheckPos.x, a.customer.mealCheckPos.y))
             if (m.length > 0) {
                 // TODO eat animation or something
