@@ -1,10 +1,11 @@
-import { Actor, Engine, Scene, Sound, Sprite, TileMap, Timer } from "excalibur";
+import { Actor, Engine, Scene, Sound, Sprite, TileMap, Timer, vec } from "excalibur";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { UIHelper } from "../../actors/objects/uiHelper";
 import { Player } from "../../actors/characters/player";
 import { Resources } from "../../resources";
 import { Customer } from "../../actors/characters/customer";
 import { Seat } from "../../actors/objects/seat";
+import { Recipe, RecipeCard } from "../../actors/objects/recipes";
 
 export abstract class LevelBase extends Scene {
     protected player: Actor;
@@ -13,12 +14,13 @@ export abstract class LevelBase extends Scene {
     protected doors:Actor[] = [];
     public customers:Customer[] = [];
     protected customerSpawnSpeed:number = 8000; // average number of seconds before a new customer spawns
-    protected availableMeals:string[] = [];
+
+    protected abstract availableMeals:Recipe[];
 
     public muteMusic: boolean = false;
     
-    constructor(engine: Engine) {
-        super(engine);
+    removeCustomer(customer: Customer) {
+        this.customers = this.customers.filter( x => x != customer);
     }
 
     public onInitialize(engine: Engine) {
@@ -38,6 +40,17 @@ export abstract class LevelBase extends Scene {
         this.addPans(engine);
         this.addItems();
         this.addSeatsAndDoors();
+
+        for (let i = 0; i < this.availableMeals.length; i++) {
+            console.log("adding card for " + this.availableMeals[i].resultName);
+
+            let a = new RecipeCard ({
+                pos: vec(25 + i * 100, 50)
+            });
+
+            a.setRecipe(this.availableMeals[i]);
+            this.add(a);
+        }
     }
 
     public onPreUpdate(engine:Engine, delta:number) {
@@ -52,9 +65,12 @@ export abstract class LevelBase extends Scene {
             let door = this.doors[di];
 
             let customer = LevelBuildingHelper.createCustomer(this, door.pos);
-            let nextFreeSeat = this.customerSeats.filter(x => !this.customers.some(c=>c.seat===x))[0];
+            let nextFreeSeat = this.customerSeats.filter(x => !this.customers.some(c => c.seat === x))[0];
             customer.seat = nextFreeSeat;
             customer.visible = false;
+
+            let mi = Math.floor(Math.random() * this.availableMeals.length);
+            customer.wantsMeal = this.availableMeals[mi];
 
             this.customers.push(customer);
 
@@ -66,7 +82,6 @@ export abstract class LevelBase extends Scene {
 
             spawnTimer.level = this;
             spawnTimer.customer = customer;
-
 
             this.add(spawnTimer);
         }

@@ -74,7 +74,7 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(37);
     }
     
-    public static get Posion () {
+    public static get Poison () {
         return this.iconSheet.getSprite(39);
     }
     

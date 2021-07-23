@@ -10,6 +10,7 @@ import { Item } from "./item";
 import { Meal } from "./meal";
 import { Pan } from "./pan";
 import { Seat } from "./seat";
+import { ItemIconSprites } from "./itemIconSprites";
 
 export abstract class LevelBuildingHelper {
     static tileWidth = 50;
@@ -65,8 +66,10 @@ export abstract class LevelBuildingHelper {
                                                 xPos: number, 
                                                 yPos: number, 
                                                 ingredientName:string, 
-                                                ingredientSprite:Sprite, 
                                                 spawnerSprite?: Sprite): IngredientSpawner {
+        
+        console.log("adding spawner for: " + ingredientName);
+
         let a = new IngredientSpawner({
             scene: scene,
             width: this.tileWidth,
@@ -81,7 +84,7 @@ export abstract class LevelBuildingHelper {
             a.addDrawing(spawnerSprite);
         }
 
-        a.setupSpawner(ingredientName, ingredientSprite);
+        a.setupSpawner(ingredientName, ItemIconSprites[ingredientName]);
 
         scene.add(a);
         return a;

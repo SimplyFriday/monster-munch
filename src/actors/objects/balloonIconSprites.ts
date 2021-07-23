@@ -17,4 +17,8 @@ export abstract class BalloonIconSprites {
     public static get MusicBalloonOff () {
         return this.balloonSheet.getSprite(17);
     }
+
+    public static get EmptyBalloon() {
+        return this.balloonSheet.getSprite(82)
+    }
 }

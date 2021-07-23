@@ -3,6 +3,7 @@ import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { BalloonIconSprites } from "./balloonIconSprites";
 import { ItemIconSprites } from "./itemIconSprites";
+import { Recipe } from "./recipes";
 
 export abstract class UIHelper {
     private static iconWidth:number = 50;

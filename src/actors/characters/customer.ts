@@ -1,6 +1,10 @@
-import { ActionContext, Actor, Engine, Timer, Vector } from "excalibur";
+import { ActionContext, Actor, Engine, Sprite, Timer, Vector } from "excalibur";
 import { Resources } from "../../resources";
+import { LevelBase } from "../../scenes/levels/levelBase";
+import { AnimationHelper } from "../objects/animationHelper";
+import { BalloonIconSprites } from "../objects/balloonIconSprites";
 import { Meal } from "../objects/meal";
+import { Recipe } from "../objects/recipes";
 import { Seat } from "../objects/seat";
 import { Humanoid } from "./humanoid";
 
@@ -9,8 +13,10 @@ export class Customer extends Humanoid {
     private actionTimer:CustomerTimer;
     private mealCheckPos:Vector;
     private initialPosition:Vector;
+    private wantsBalloon:Sprite;
+    private wantsSprite:Sprite;
 
-    public wantsMeal: string;
+    public wantsMeal: Recipe;
     public frustratedTime: number;
     public attackTime: number;
     public seat:Seat;
@@ -20,6 +26,13 @@ export class Customer extends Humanoid {
         super.onInitialize(engine);
 
         this.initialPosition = this.pos.clone();
+        this.wantsBalloon = AnimationHelper.getScaledSprite(BalloonIconSprites.EmptyBalloon, 0.8);
+        this.wantsSprite = AnimationHelper.getScaledSprite(this.wantsMeal.resultSprite, 0.70)
+    }
+
+    public onPreDraw(ctx: CanvasRenderingContext2D, _delta: number) {
+        this.wantsBalloon.draw(ctx, 0, -50);
+        this.wantsMeal.resultSprite.draw(ctx, 0, -50);
     }
 
     public walkToSeat() {
@@ -54,12 +67,13 @@ export class Customer extends Humanoid {
 
         if (a) {
             let m = a.customer.scene.actors.filter (x => x instanceof Meal &&
-                                                         x.name === a.customer.wantsMeal &&
+                                                         x.name === a.customer.wantsMeal.resultName &&
                                                          !x.isHeld &&
                                                          x.contains(a.customer.mealCheckPos.x, a.customer.mealCheckPos.y))
             if (m.length > 0) {
                 // TODO eat animation or something
                 m[0].kill();
+                (a.scene as LevelBase).removeCustomer(a.customer);
                 a.customer.leaveHappy();
             }
         }

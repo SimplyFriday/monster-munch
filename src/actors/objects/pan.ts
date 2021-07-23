@@ -83,7 +83,7 @@ export class Pan extends Item {
             ///////// Hit Customer //////////
             /////////////////////////////////
             if (otherActor instanceof Customer && this.isAttacking) {
-                (this.scene as LevelBase).customers = (this.scene as LevelBase).customers.filter( x => x != otherActor);
+                (this.scene as LevelBase).removeCustomer(otherActor);
                 otherActor.kill();
                 this.reset();
             }

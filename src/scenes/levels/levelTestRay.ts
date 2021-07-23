@@ -3,9 +3,11 @@ import { ApplianceType } from "../../actors/objects/appliance";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
+import { Recipe } from "../../actors/objects/recipes";
 import { LevelBase } from "./levelBase";
 
 export class LevelTestRay extends LevelBase {
+    protected availableMeals: Recipe[];
     protected addBackgroundTiles() {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceLeft, 5, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 6, 9);
@@ -67,7 +69,7 @@ export class LevelTestRay extends LevelBase {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 8, 8, "apple", ItemIconSprites.Apple )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 5, "flour", ItemIconSprites.FlourBag )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "mayo", ItemIconSprites.Mayo )
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "poison", ItemIconSprites.Posion )
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "poison", ItemIconSprites.Poison )
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
     }
 

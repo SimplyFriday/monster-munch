@@ -4,10 +4,12 @@ import { InsideFloorWallSprites } from "../../actors/objects/insideFloorWallSpri
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
+import { Recipe, Recipes } from "../../actors/objects/recipes";
 import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {
+    protected availableMeals: Recipe[] = [Recipes.MonsterPie, Recipes.GrossIceCream, Recipes.CandyCrunch];
     public onInitialize(engine:Engine) { 
         super.onInitialize(engine);
 
@@ -28,14 +30,6 @@ export class LevelTest extends LevelBase {
     }
 
     protected addForegroundTiles() {
-        let wallColor = new Color(200, 200, 200);
-
-        LevelBuildingHelper.createWallTile(this, wallColor, 1, 1);
-        LevelBuildingHelper.createWallTile(this, wallColor, 1, 3);
-
-        LevelBuildingHelper.createWallTile(this, wallColor, 2, 2);
-        LevelBuildingHelper.createWallTile(this, wallColor, 2, 4);
-
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterVerticalFull, 5, 5);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterVerticalFull, 5, 6);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterVerticalFull, 5, 7);
@@ -66,11 +60,11 @@ export class LevelTest extends LevelBase {
     };
 
     protected addItems() {
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 8, 8, "apple", ItemIconSprites.Apple )
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 5, "flour", ItemIconSprites.FlourBag )
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "mayo", ItemIconSprites.Mayo )
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "poison", ItemIconSprites.Posion )
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "skull", ItemIconSprites.Skull )
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 8, 8, "Apple" )
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 5, "FlourBag")
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 6, "Mayo")
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 5, 7, "Poison")
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 9, 6, "Skull")
     }
 
     protected addSeatsAndDoors() {
