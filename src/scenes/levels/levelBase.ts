@@ -8,17 +8,19 @@ import { Seat } from "../../actors/objects/seat";
 import { Recipe, RecipeCard } from "../../actors/objects/recipes";
 
 export abstract class LevelBase extends Scene {
-    protected player: Actor;
     protected musicTrack: Sound;
     protected customerSeats:Seat[] = [];
     protected doors:Actor[] = [];
     public customers:Customer[] = [];
     protected customerSpawnSpeed:number = 8000; // average number of seconds before a new customer spawns
+    protected customerFrustratedTime = 10000; // ms
+    protected customerAttackTime = 25000; // ms
 
     protected abstract availableMeals:Recipe[];
 
     public muteMusic: boolean = false;
-    
+    public player: Player;
+
     removeCustomer(customer: Customer) {
         this.customers = this.customers.filter( x => x != customer);
     }
@@ -71,6 +73,8 @@ export abstract class LevelBase extends Scene {
 
             let mi = Math.floor(Math.random() * this.availableMeals.length);
             customer.wantsMeal = this.availableMeals[mi];
+            customer.frustratedTime = this.customerFrustratedTime;
+            customer.attackTime = this.customerAttackTime;
 
             this.customers.push(customer);
 

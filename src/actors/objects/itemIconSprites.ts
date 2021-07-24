@@ -14,6 +14,10 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(1);
     }
 
+    public static get BlackHeart () {
+        return this.iconSheet.getSprite(2);
+    }
+
     public static get Skull () {
         return this.iconSheet.getSprite(6);
     }

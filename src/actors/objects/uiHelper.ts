@@ -1,6 +1,7 @@
 import { Scene, ScreenElement, Texture, vec, Sprite, Timer } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
+import { AnimationHelper } from "./animationHelper";
 import { BalloonIconSprites } from "./balloonIconSprites";
 import { ItemIconSprites } from "./itemIconSprites";
 import { Recipe } from "./recipes";
@@ -9,30 +10,16 @@ export abstract class UIHelper {
     private static iconWidth:number = 50;
     private static iconHeight:number = 50;
 
-    private static createUIIcon(texture: Texture|Sprite, xPos: number, yPos: number): ViewportLockedUIElement {
+    private static createUIIcon(texture: Sprite, xPos: number, yPos: number): ViewportLockedUIElement {
         let se = new ViewportLockedUIElement({
             width:this.iconWidth,
             height: this.iconHeight,
             pos: vec(xPos,yPos)
         });
         
-        se.addDrawing(this.scaleSprite(texture));
+        se.addDrawing("default", AnimationHelper.getScaledSprite(texture, 0.65));
 
         return se;
-    }
-
-    private static scaleSprite (texture: Texture|Sprite) : Sprite{
-        let s:Sprite;
-
-        if (typeof(texture) === typeof(Texture)) {
-            s = (texture as Texture).asSprite();
-        } else{
-            s = texture as Sprite;
-        }
-    
-        s.scale = vec(3,3);
-
-        return s;
     }
 
     private static createUIToggleButton (spriteOn:Sprite, spriteOff:Sprite, xPos:number, yPos:number): ViewportLockedUIElement {
@@ -42,8 +29,8 @@ export abstract class UIHelper {
             pos: vec(xPos,yPos)
         });
         
-        se.addDrawing("on", this.scaleSprite(spriteOn));
-        se.addDrawing("off", this.scaleSprite(spriteOff));
+        se.addDrawing("on", AnimationHelper.getScaledSprite(spriteOn, 0.7));
+        se.addDrawing("off", AnimationHelper.getScaledSprite(spriteOff, 0.7));
 
         return se;
     }
@@ -70,16 +57,22 @@ export abstract class UIHelper {
         hp1.xRelativeTo = "right";
         hp1.x = -120;
         hp1.y = 50;
+        hp1.name = "hp1";
+        hp1.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
 
         let hp2 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 90, 50);
         hp2.xRelativeTo = "right";
         hp2.x = -90;
         hp2.y = 50;
+        hp2.name = "hp2";
+        hp2.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
 
         let hp3 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 60, 50);
         hp3.xRelativeTo = "right";
         hp3.x = -60;
         hp3.y = 50;
+        hp3.name = "hp3";
+        hp3.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
 
         scene.add (hp1);
         scene.add (hp2);
@@ -101,6 +94,7 @@ export class ViewportLockedUIElement extends ScreenElement {
     public y:number;
     public xRelativeTo:string;
     public yRelativeTo:string;
+    public name:string
 }
 export class UITimer extends Timer {
     public uiElements:ViewportLockedUIElement[] = [];
@@ -112,9 +106,9 @@ export class UITimer extends Timer {
         })
 
         console.log("added ui timer");
-        this.on(this.updateUILocations);
+        this.on(this.updateUI);
     }
-    private updateUILocations () {
+    private updateUI () {
         this.uiElements.forEach(element => {
             let xPos:number, yPos:number;
 
@@ -145,6 +139,18 @@ export class UITimer extends Timer {
             }
 
             element.pos = vec(xPos, yPos);
+
+            if (element.name && element.name.startsWith("hp")) {
+                let pHP = (element.scene as LevelBase).player.hp;
+
+                if (element.name === "hp2" && pHP < 2) {
+                    element.setDrawing("hurt");
+                }  else if (element.name === "hp3" && pHP < 3) {
+                    element.setDrawing("hurt");
+                } else {
+                    element.setDrawing("default");
+                }
+            }
         });
     }
 }

@@ -21,4 +21,8 @@ export abstract class BalloonIconSprites {
     public static get EmptyBalloon() {
         return this.balloonSheet.getSprite(82)
     }
+
+    public static get AngryBalloon() {
+        return this.balloonSheet.getSprite(34)
+    }
 }

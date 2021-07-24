@@ -10,6 +10,11 @@ import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {
     protected availableMeals: Recipe[] = [Recipes.MonsterPie, Recipes.FriedEgg, Recipes.BananaPie];
+
+    protected customerFrustratedTime = 2000; // ms
+    protected customerAttackTime = 5000; // ms
+    protected customerSpawnSpeed = 1;
+
     public onInitialize(engine:Engine) { 
         super.onInitialize(engine);
 

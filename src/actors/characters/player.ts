@@ -20,8 +20,12 @@ export class Player extends Humanoid {
     }
 
     protected spriteScale: number = 0.9;
+
     private hitboxScale: number = 0.8;
     private heldItem: Item;
+    private immunityTime = 0;
+
+    public hp:number = 3;
 
     onInitialize(engine: Engine) {
         this.sprites = Resources.PlayerSprites;
@@ -32,8 +36,25 @@ export class Player extends Humanoid {
         super.onInitialize(engine);
     }
 
+    public hurt() {
+        if (this.immunityTime <= 0) {
+
+            this.immunityTime = 1000;
+            this.hp -= 1
+            this.actions.blink(40,10,this.immunityTime/50);
+
+            if (this.hp <= 0) {
+                // TODO DIE
+            }
+        }
+    }
+
     public onPreUpdate(engine: Engine, delta: number) {
         super.onPreUpdate(engine, delta);
+
+        if (this.immunityTime > 0) {
+            this.immunityTime -= delta;
+        }
 
         let attacking = false;
 

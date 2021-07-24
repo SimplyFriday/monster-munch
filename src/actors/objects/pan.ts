@@ -65,7 +65,7 @@ export class Pan extends Item {
             /////////////////////////////////
             ///////// Hit Customer //////////
             /////////////////////////////////
-            if (otherActor instanceof Customer && this.isAttacking) {
+            if (otherActor instanceof Customer && this.isAttacking && otherActor.isAttacking) {
                 (this.scene as LevelBase).removeCustomer(otherActor);
                 Resources.Bonk1.play(0.6);
                 otherActor.kill();

@@ -1,4 +1,4 @@
-import { ActionContext, Actor, Engine, Sprite, Timer, Vector } from "excalibur";
+import { Animation, Engine, Sprite, SpriteSheet, Timer, vec, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { AnimationHelper } from "../objects/animationHelper";
@@ -9,17 +9,25 @@ import { Seat } from "../objects/seat";
 import { Humanoid } from "./humanoid";
 
 export class Customer extends Humanoid {
-    private speed: number = 200;
-    private actionTimer:CustomerTimer;
-    private mealCheckPos:Vector;
-    private initialPosition:Vector;
-    private wantsBalloon:Sprite;
-    private wantsSprite:Sprite;
+    private speed: number = 160;
+    private actionTimer: CustomerTimer;
+    private mealCheckPos: Vector;
+    private initialPosition: Vector;
+    private wantsBalloon: Sprite;
+    private wantsSprite: Sprite;
+    private grumpyBubble: Sprite;
+    private isHappy: boolean = false;
 
     public wantsMeal: Recipe;
     public frustratedTime: number;
     public attackTime: number;
-    public seat:Seat;
+    public seat: Seat;
+    public timeElapsed: number;
+    public tickSpeed:number = 100;
+    
+    public get isAttacking () {
+        return this.timeElapsed >= this.attackTime
+    }
 
     public onInitialize(engine: Engine) {
         this.sprites = Resources.Customer1;
@@ -27,59 +35,95 @@ export class Customer extends Humanoid {
 
         this.initialPosition = this.pos.clone();
         this.wantsBalloon = AnimationHelper.getScaledSprite(BalloonIconSprites.EmptyBalloon, 0.8);
-        this.wantsSprite = AnimationHelper.getScaledSprite(this.wantsMeal.resultSprite, 0.70)
+        this.wantsSprite = AnimationHelper.getScaledSprite(this.wantsMeal.resultSprite.clone(), 0.70)
+
+        this.grumpyBubble = AnimationHelper.getScaledSprite(BalloonIconSprites.AngryBalloon, 0.8)
     }
 
     public onPreDraw(ctx: CanvasRenderingContext2D, _delta: number) {
-        this.wantsBalloon.draw(ctx, 0, -50);
-        this.wantsMeal.resultSprite.draw(ctx, 0, -50);
+        if (!this.isAttacking && !this.isHappy) {
+            let drawGrumpy = false;
+
+            if (this.timeElapsed >= this.frustratedTime) {
+                drawGrumpy = this.timeElapsed % 1000 > 500;
+            }
+
+            if (drawGrumpy) {
+                this.grumpyBubble.draw(ctx, 0, -50);
+            } else {
+                this.wantsBalloon.draw(ctx, 0, -50);
+                this.wantsSprite.draw(ctx, 0, -50);
+            }
+        }
+
     }
 
     public walkToSeat() {
         let p = this.actions.moveTo(this.seat.pos.x, this.seat.pos.y, this.speed).asPromise();
-        
-        p.then( () =>{
+        this.timeElapsed = 0;
+
+        p.then(() => {
             console.log("customer arrived at seat")
             this.facing = this.seat.facing;
             this.mealCheckPos = this.getFacingTargetPos(0.5);
 
-            this.actionTimer = new CustomerTimer ({
-                interval:50,
-                fcn:this.routine,
-                 repeats:true
+            this.actionTimer = new CustomerTimer({
+                interval: this.tickSpeed,
+                fcn: this.routine,
+                repeats: true
             });
-    
+
             this.actionTimer.customer = this;
-            this.scene.add(this.actionTimer);   
-        }) ;
+            this.scene.add(this.actionTimer);
+        });
     }
 
     public leaveHappy() {
+        this.isHappy = true;
         let p = this.actions.moveTo(this.initialPosition.x, this.initialPosition.y, this.speed).asPromise();
-        
-        p.then( () =>{
+
+        p.then(() => {
             this.kill();
-        }) ;
+        });
     }
 
-    private routine () {
+    private routine() {
         let a = this as unknown as CustomerTimer;
 
         if (a) {
-            let m = a.customer.scene.actors.filter (x => x instanceof Meal &&
-                                                         x.name === a.customer.wantsMeal.resultName &&
-                                                         !x.isHeld &&
-                                                         x.contains(a.customer.mealCheckPos.x, a.customer.mealCheckPos.y))
-            if (m.length > 0) {
-                // TODO eat animation or something
-                m[0].kill();
-                (a.scene as LevelBase).removeCustomer(a.customer);
-                a.customer.leaveHappy();
+            if (a.customer.isKilled()) {
+                a.cancel();
+                return;
+            }
+
+            if (!a.customer.isAttacking) {
+                let m = a.customer.scene.actors.filter(x => x instanceof Meal &&
+                    x.name === a.customer.wantsMeal.resultName &&
+                    !x.isHeld &&
+                    x.contains(a.customer.mealCheckPos.x, a.customer.mealCheckPos.y))
+                if (m.length > 0) {
+                    // TODO eat animation or something
+                    m[0].kill();
+                    (a.scene as LevelBase).removeCustomer(a.customer);
+                    a.customer.leaveHappy();
+                } else {
+                    a.customer.timeElapsed += a.customer.tickSpeed;
+                }
+            } else {
+                let player = (a.customer.scene as LevelBase).player;
+ 
+                if (a.customer.actionQueue.getActions().filter(x=>!x.isComplete).length === 0) {
+                    a.customer.actions.moveTo (player.pos.x, player.pos.y, a.customer.speed);
+                }
+
+                if (a.customer.pos.distance(player.pos) <= 50 && a.customer.isAttacking) {
+                    player.hurt();
+                }
             }
         }
     }
 }
 
 export class CustomerTimer extends Timer {
-    public customer:Customer;
+    public customer: Customer;
 }
