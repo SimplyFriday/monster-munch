@@ -10,7 +10,8 @@ import { LevelBuildingHelper } from "./levelBuildingHelper";
 import { Recipe, Recipes } from "./recipes";
 
 export class Pan extends Item {
-    private cookTimeMultiplier: number = 500;
+    private cookTimeMultiplier: number = 3000; // ms per ingredient
+
     public ingredients: string[] = [];
     public attackAnimation: Animation;
     public isAttacking: boolean = false;
@@ -29,24 +30,6 @@ export class Pan extends Item {
         // Currently it takes longer to cook stuff on slower machines
         this.body.collider.on("precollision", (e: CollisionStartEvent<Collider>) => {
             let otherActor = e.other.body.actor;
-
-            if (otherActor instanceof Appliance &&
-                otherActor.applianceType === ApplianceType.Stove &&
-                this.ingredients.length > 0 &&
-                this.isHeld === false) {
-
-                this.cookTime++;
-
-                if (!this.isDone &&
-                    this.cookTime > this.ingredients.length * this.cookTimeMultiplier) {
-                    this.isDone = true;
-                }
-
-                if (this.isDone && !this.isBurned &&
-                    this.cookTime > this.ingredients.length * this.cookTimeMultiplier * 3) {
-                    this.isBurned = true;
-                }
-            }
 
             if (this.isAttacking) {
                 /////////////////////////////////
@@ -90,6 +73,28 @@ export class Pan extends Item {
             }
         });
     }
+
+    private tickCook(delta: number) {
+        let stoves = this.scene.actors.filter(x => x instanceof Appliance &&
+                                                   x.applianceType === ApplianceType.Stove &&
+                                                   this.body.collider.collide(x.body.collider) &&
+                                                   this.ingredients.length > 0 &&
+                                                   this.isHeld === false);
+
+        if (stoves.length > 0) {
+            this.cookTime += delta;
+
+            if (!this.isDone &&
+                this.cookTime > this.ingredients.length * this.cookTimeMultiplier) {
+                this.isDone = true;
+            }
+
+            if (this.isDone && !this.isBurned &&
+                this.cookTime > this.ingredients.length * this.cookTimeMultiplier * 3) {
+                this.isBurned = true;
+            }
+        }
+    }
     
     private reset() {
         this.ingredients = [];
@@ -99,6 +104,8 @@ export class Pan extends Item {
     }
 
     public onPreUpdate(engine: Engine, delta: number) {
+        this.tickCook(delta);
+
         // Render
         if (!this.isAttacking) {
             if (this.isBurned) {
