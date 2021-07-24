@@ -60,12 +60,14 @@ export abstract class UIHelper {
         musicToggle.y = 50;
         
         musicToggle.on ('pointerup', (event) =>{
-            scene.toggleMusic();
-            console.log("music button clicked");
-            if (Game.muteMusic) {
-                musicToggle.setDrawing("off");
-            } else {
-                musicToggle.setDrawing("on");
+            if (musicToggle.scene === Game.CurrentGame.currentScene) {
+                scene.toggleMusic();
+                console.log("music button clicked");
+                if (Game.muteMusic) {
+                    musicToggle.setDrawing("off");
+                } else {
+                    musicToggle.setDrawing("on");
+                }
             }
         });
 

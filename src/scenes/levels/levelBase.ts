@@ -9,6 +9,8 @@ import { Recipe, RecipeCard } from "../../actors/objects/recipes";
 import { Game } from "../..";
 
 export abstract class LevelBase extends Scene {
+    private uiInitialized:boolean = false;
+        
     protected musicTrack: Sound;
     protected customerSeats:Seat[] = [];
     protected doors:Actor[] = [];
@@ -40,9 +42,13 @@ export abstract class LevelBase extends Scene {
     public onInitialize(engine: Engine) {
         this.actors.forEach(a => {
             a.kill();
+            this.remove(a);
         });
 
-        UIHelper.addLevelUI(this);
+        if (!this.uiInitialized) {
+            UIHelper.addLevelUI(this);
+            this.uiInitialized = true;
+        }
 
         this.player = new Player;
         this.add(this.player);
