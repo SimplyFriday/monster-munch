@@ -305,6 +305,6 @@ export abstract class ItemIconSprites {
 
 
     public static get CowboyBoots () {
-        return this.iconSheet.getSprite(250);
+        return this.iconSheet.getSprite(0);
     }
 }
