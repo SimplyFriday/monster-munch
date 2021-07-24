@@ -115,6 +115,10 @@ export class Player extends Humanoid {
                 engine.goToScene(val);
             }
         }
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.L)) {
+            this.hurt();
+        }
     }
     
 
