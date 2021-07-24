@@ -11,6 +11,7 @@ import { Recipe, Recipes } from "./recipes";
 
 export class Pan extends Item {
     private cookTimeMultiplier: number = 3000; // ms per ingredient
+    private isOnStove: boolean = false;
 
     public ingredients: string[] = [];
     public attackAnimation: Animation;
@@ -83,6 +84,8 @@ export class Pan extends Item {
                                                    this.isHeld === false);
 
         if (stoves.length > 0) {
+            this.isOnStove = true;
+
             this.cookTime += delta;
 
             if (!this.isDone &&
@@ -94,6 +97,8 @@ export class Pan extends Item {
                 this.cookTime > this.ingredients.length * this.cookTimeMultiplier * 3) {
                 this.isBurned = true;
             }
+        } else {
+            this.isOnStove = false;
         }
     }
     
@@ -113,7 +118,7 @@ export class Pan extends Item {
                 this.setDrawing("burned");
             } else if (this.isDone) {
                 this.setDrawing("done");
-            } else if (this.cookTime > 0) {
+            } else if (this.cookTime > 0 && this.isOnStove) {
                 this.setDrawing("cooking");
             } else if (this.ingredients.length > 0) {
                 this.setDrawing("filled");
