@@ -36,7 +36,7 @@ export class Level1 extends LevelBase {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 5, 5);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceRight, 6, 5);
 
-        LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceStandalone, 9, 6);
+        LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceStandalone, 9, 7);
     }
     protected addForegroundTiles() {
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.Table_V_TopLarge, 4, 7);
@@ -57,13 +57,14 @@ export class Level1 extends LevelBase {
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterVerticalFull, 9, 3);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterVerticalFull, 9, 4);
         LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterVerticalFull, 9, 5);
+        LevelBuildingHelper.createWallTile(this, InsideTileSprites.CounterVerticalFull, 9, 6);
         
     }
     protected addAppliances() {
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 2.5);
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 3.3);
-        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 4.3);
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 5);
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 6);
         
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Trashcan, 4, 1);
     }

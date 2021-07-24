@@ -38,7 +38,8 @@ export class Pan extends Item {
                 if ( this.ingredients.length > 0 && 
                         otherActor instanceof Appliance && 
                         otherActor.applianceType === ApplianceType.ServingPlate &&
-                        this.isDone ) {
+                        this.isDone &&
+                        !otherActor.isOccupied ) {
                     let product:Recipe;
 
                     for (let r in Recipes) {
