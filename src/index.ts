@@ -6,6 +6,8 @@ import { LevelBase } from './scenes/levels/levelBase';
 import { LevelTest } from './scenes/levels/levelTest';
 import { LevelTestRay } from './scenes/levels/levelTestRay';
 import { Level1 } from './scenes/levels/level_1';
+import { Tutorial1 } from './scenes/levels/tutorial_1';
+import { Tutorial2 } from './scenes/levels/tutorial_2';
 
 /**
  * Managed game class
@@ -22,6 +24,8 @@ export class Game extends Engine {
         this.addLevel(new LevelTest(this));
         this.addLevel(new Level1(this));
         this.addLevel(new LevelTestRay(this));
+        this.addLevel(new Tutorial1(this));
+        this.addLevel(new Tutorial2(this));
 
         game.add('death', new DeathScreen(this));
 
@@ -42,7 +46,7 @@ export class Game extends Engine {
 const game = new Game();
 
 game.start().then(() => {
-    game.goToScene('level_test');
+    game.goToScene('tutorial_1');
 });
 
 document.oncontextmenu = () => {

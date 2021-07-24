@@ -1,4 +1,4 @@
-import { Sound, SpriteSheet, Texture } from 'excalibur';
+import { Sound, Texture } from 'excalibur';
 import bag from './images/bag.png';
 import itemIcons from './images/item_icons.png';
 import balloonIcons from './images/balloon_1.png';
@@ -16,6 +16,9 @@ import trashcan from './images/trashcan.png';
 import customer1 from './images/customer_1.png';
 import cardFrame from './images/card_frame.png';
 import restartButton from './images/restart_button.png';
+import warningSquare from './images/warning_square.png';
+import tutorialButton from './images/tutorial_button.png';
+import door from './images/door.png';
 
 const levelLoop1 = require('./audio/level_loop1.wav');
 const bonk1 = require('./audio/bonk1.wav');
@@ -43,7 +46,10 @@ const Resources = {
     Customer1: new Texture(customer1),
     CardFrame: new Texture(cardFrame),
     Bonk1: new Sound(bonk1),
-    RestartButton: new Texture(restartButton)
+    RestartButton: new Texture(restartButton),
+    WarningSquare: new Texture(warningSquare),
+    TutorialButton: new Texture (tutorialButton),
+    Door: new Texture (door)
 }
 
 export { Resources }

@@ -7,6 +7,8 @@ import { Recipe } from "../../actors/objects/recipes";
 import { LevelBase } from "./levelBase";
 
 export class LevelTestRay extends LevelBase {
+    protected borderWidth: number;
+    protected borderHeight: number;
     protected availableMeals: Recipe[];
     public levelName = "level_testray";
 

@@ -9,7 +9,9 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {
-    protected availableMeals: Recipe[] = [Recipes.MonsterPie, Recipes.FriedEgg, Recipes.BananaPie];
+    protected borderWidth: number = 15;
+    protected borderHeight: number = 20;
+    protected availableMeals: Recipe[] = [Recipes.FriedEgg];
 
     protected customerFrustratedTime = 1000; // ms
     protected customerAttackTime = 20000; // ms
@@ -75,8 +77,8 @@ export class LevelTest extends LevelBase {
     }
 
     protected addSeatsAndDoors() {
-        this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 10, 12));
-        this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 8, 12));
+        //this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 10, 12));
+        //this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 8, 12));
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "r", 5, 11.5));
 
         this.doors.push(LevelBuildingHelper.createWallTile (this, Resources.Bag.asSprite(), 3, 12));

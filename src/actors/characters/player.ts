@@ -190,14 +190,18 @@ export class Player extends Humanoid {
     }
 
     private tryPickupItem() {
-        let tPos = this.getFacingTargetPos(0.55);
-        var targets = this.scene.actors.filter(x => x instanceof Item &&
-            x.contains(tPos.x, tPos.y));
+        let tPos = [this.getFacingTargetPos(0.55), this.getFacingTargetPos(0.25), this.getFacingTargetPos(0.75)]
 
-        if (targets.length > 0) {
-            this.heldItem = targets[0] as Item;
-            this.heldItem.isHeld = true;
-        }
+        tPos.forEach(pos => {
+            var targets = this.scene.actors.filter(x => x instanceof Item &&
+                x.contains(pos.x, pos.y));
+    
+            if (targets.length > 0) {
+                this.heldItem = targets[0] as Item;
+                this.heldItem.isHeld = true;
+                return
+            } 
+        });
     }
 
     private examine() {

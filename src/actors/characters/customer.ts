@@ -1,8 +1,9 @@
-import { Animation, Engine, Sprite, SpriteSheet, Timer, vec, Vector } from "excalibur";
+import { Actor, Animation, Engine, Sprite, SpriteSheet, Timer, vec, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { AnimationHelper } from "../objects/animationHelper";
 import { BalloonIconSprites } from "../objects/balloonIconSprites";
+import { LevelBuildingHelper } from "../objects/levelBuildingHelper";
 import { Meal } from "../objects/meal";
 import { Recipe } from "../objects/recipes";
 import { Seat } from "../objects/seat";
@@ -11,7 +12,7 @@ import { Humanoid } from "./humanoid";
 export class Customer extends Humanoid {
     private speed: number = 160;
     private actionTimer: CustomerTimer;
-    private mealCheckPos: Vector;
+    private mealCheckPos: Vector[];
     private initialPosition: Vector;
     private wantsBalloon: Sprite;
     private wantsSprite: Sprite;
@@ -65,7 +66,14 @@ export class Customer extends Humanoid {
         p.then(() => {
             console.log("customer arrived at seat")
             this.facing = this.seat.facing;
-            this.mealCheckPos = this.getFacingTargetPos(0.5);
+            
+            let coreMealPos =this.getFacingTargetPos(0.5);
+
+            this.mealCheckPos = [coreMealPos, 
+                                 vec(coreMealPos.x - LevelBuildingHelper.tileWidth * 0.3, coreMealPos.y), 
+                                 vec(coreMealPos.x + LevelBuildingHelper.tileWidth * 0.3, coreMealPos.y), 
+                                 vec(coreMealPos.x, LevelBuildingHelper.tileHeight * coreMealPos.y - 0.3), 
+                                 vec(coreMealPos.x, LevelBuildingHelper.tileHeight * coreMealPos.y + 0.3)];
 
             this.actionTimer = new CustomerTimer({
                 interval: this.tickSpeed,
@@ -97,10 +105,19 @@ export class Customer extends Humanoid {
             }
 
             if (!a.customer.isAttacking) {
-                let m = a.customer.scene.actors.filter(x => x instanceof Meal &&
-                    x.name === a.customer.wantsMeal.resultName &&
-                    !x.isHeld &&
-                    x.contains(a.customer.mealCheckPos.x, a.customer.mealCheckPos.y))
+                let m: Actor[] = [];
+                
+                a.customer.mealCheckPos.forEach(pos => {
+                    if (m.length > 0) {
+                        return;
+                    }
+
+                    m = a.customer.scene.actors.filter(x => x instanceof Meal &&
+                        x.name === a.customer.wantsMeal.resultName &&
+                        !x.isHeld &&
+                        x.contains(pos.x, pos.y))
+                });
+
                 if (m.length > 0) {
                     // TODO eat animation or something
                     m[0].kill();

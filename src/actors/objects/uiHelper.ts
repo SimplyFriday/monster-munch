@@ -1,10 +1,12 @@
 import { Scene, ScreenElement, Texture, vec, Sprite, Timer, Engine } from "excalibur";
+import { Game } from "../..";
 import { Resources } from "../../resources";
 import { DeathScreen } from "../../scenes/levels/death";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { AnimationHelper } from "./animationHelper";
 import { BalloonIconSprites } from "./balloonIconSprites";
 import { ItemIconSprites } from "./itemIconSprites";
+import { LevelBuildingHelper } from "./levelBuildingHelper";
 import { Recipe } from "./recipes";
 
 export abstract class UIHelper {
@@ -89,9 +91,28 @@ export abstract class UIHelper {
         timer.reset();
     }
 
-    public static addDeathUI (scene:DeathScreen, engine:Engine) {
-        console.log("adding death ui");
+    public static addTutorialButton (scene:LevelBase, nextLevel:string) {
+        let tutorialButton = this.createUIIcon(Resources.TutorialButton.asSprite(), window.innerWidth / 2, window.innerHeight / 2);
+        tutorialButton.xRelativeTo = "right";
+        tutorialButton.yRelativeTo = "bottom";
+        tutorialButton.y = -150;
+        tutorialButton.x = -200;
 
+        tutorialButton.scale = vec(3,2);
+
+        scene.add(tutorialButton);
+        
+        let timer = new UITimer(50);
+        timer.uiElements.push(tutorialButton);
+        scene.add(timer);
+        timer.reset();
+
+        tutorialButton.on("pointerup", (e) => {
+            Game.CurrentGame.goToScene(nextLevel);
+        });
+    }
+
+    public static addDeathUI (scene:DeathScreen, engine:Engine) {
         let restartButton = this.createUIIcon(Resources.RestartButton.asSprite(), window.innerWidth / 2, window.innerHeight / 2);
         restartButton.xRelativeTo = "center";
         restartButton.yRelativeTo = "center";
@@ -154,10 +175,10 @@ export class UITimer extends Timer {
             if (element.yRelativeTo) {
                 switch(element.yRelativeTo) {
                     case "bottom":
-                        xPos = window.innerHeight + element.y;
+                        yPos = window.innerHeight + element.y;
                         break;
                     case "top":
-                        xPos = element.y;
+                        yPos = element.y;
                         break;
                     case "center":
                         yPos = (window.innerHeight / 2) - (element.height / 2) + element.y;

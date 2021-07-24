@@ -1,4 +1,4 @@
-import { Actor, Body, Collider, CollisionType, Color, Engine, Scene, ScreenElement, Shape, Sprite, SpriteSheet, Texture, vec, Vector } from "excalibur";
+import { Actor, Body, Collider, CollisionType, Color, Engine, FontStyle, Label, Scene, ScreenElement, Shape, Sprite, SpriteSheet, TextAlign, Texture, vec, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { AnimationHelper } from "./animationHelper";
 import { Appliance, ApplianceType } from "./appliance";
@@ -16,6 +16,18 @@ export abstract class LevelBuildingHelper {
     static tileWidth = 50;
     static tileHeight = 50;
 
+    public static createLabelAcrossTiles (scene:Scene, text:string, xPos:number, yPos:number, width:number, color:Color):Label {
+        let label = new Label(text, xPos * this.tileWidth, yPos * this.tileHeight);
+        label.maxWidth = width * this.tileWidth;
+        label.textAlign = TextAlign.Center;
+        label.color = color;
+        label.fontSize = 20;     
+        //label.useTextShadow(true);
+        
+        scene.add(label);
+        
+        return label;
+    }
 
     public static createWallTile(scene: Scene, display: Color|Sprite, xPos: number, yPos: number): Actor {
         return this.createTile(scene, display, xPos, yPos, true, 1);
@@ -103,9 +115,9 @@ export abstract class LevelBuildingHelper {
         scene.add(a);
         a.setZIndex(40);
 
-        AnimationHelper.getScaledSprite(sprite, itemScale);
+        let spr = AnimationHelper.getScaledSprite(sprite, itemScale);
 
-        a.addDrawing(sprite);
+        a.addDrawing(spr);
         a.name = name;
         a.body.collider.shape = Shape.Box(a.width * itemScale, a.height * itemScale);
         a.body.collider.type = CollisionType.Fixed;
@@ -131,9 +143,9 @@ export abstract class LevelBuildingHelper {
         scene.add(a);
         a.setZIndex(40);
 
-        AnimationHelper.getScaledSprite(sprite, itemScale);
+        let spr = AnimationHelper.getScaledSprite(sprite, itemScale);
 
-        a.addDrawing(sprite);
+        a.addDrawing(spr);
         a.name = name;
         a.body.collider.shape = Shape.Box(a.width * itemScale, a.height * itemScale);
         a.body.collider.type = CollisionType.Fixed;
@@ -171,9 +183,9 @@ export abstract class LevelBuildingHelper {
         scene.add(a);
         a.setZIndex(40);
 
-        AnimationHelper.getScaledSprite(sprite, itemScale);
+        let spr = AnimationHelper.getScaledSprite(sprite, itemScale);
         
-        a.addDrawing(sprite);
+        a.addDrawing(spr);
         a.applianceType = type;
 
         return a;

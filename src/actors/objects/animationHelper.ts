@@ -15,8 +15,9 @@ export abstract class AnimationHelper {
     public static getScaledSprite (sprite:Sprite, scaleFactor:number = 1): Sprite {
         let scaleX = LevelBuildingHelper.tileHeight / sprite.width * scaleFactor;
         let scaleY = LevelBuildingHelper.tileHeight / sprite.height * scaleFactor;
-        sprite.scale = vec(scaleX, scaleY);
+        let nSpr = sprite.clone();
+        nSpr.scale = vec(scaleX, scaleY);
 
-        return sprite;
+        return nSpr;
     }
 }

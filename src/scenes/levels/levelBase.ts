@@ -16,11 +16,15 @@ export abstract class LevelBase extends Scene {
     protected customerFrustratedTime = 10000; // ms
     protected customerAttackTime = 25000; // ms
 
+    protected abstract borderWidth:number;
+    protected abstract borderHeight:number;
+    
     protected abstract availableMeals:Recipe[];
 
     public muteMusic: boolean = false;
     public player: Player;
     public abstract levelName:string;
+    public isTutorial:boolean = false;
 
     removeCustomer(customer: Customer) {
         this.customers = this.customers.filter( x => x != customer);
@@ -41,6 +45,7 @@ export abstract class LevelBase extends Scene {
         this.musicTrack.loop = true;
         this.musicTrack.play();
 
+        this.createLevelBorder();
         this.addBackgroundTiles();
         this.addForegroundTiles();
         this.addAppliances();
@@ -104,6 +109,20 @@ export abstract class LevelBase extends Scene {
     protected abstract addPans(engine:Engine);
     protected abstract addItems();
     protected abstract addSeatsAndDoors();
+
+    private createLevelBorder() {
+        let borderColor = Resources.WarningSquare.asSprite();
+
+        for (let i = 0; i <= this.borderWidth; i++) {
+            LevelBuildingHelper.createWallTile(this, borderColor, i, 0);
+            LevelBuildingHelper.createWallTile(this, borderColor, i, this.borderHeight);
+        }
+
+        for (let i = 0; i < this.borderHeight; i++) {
+            LevelBuildingHelper.createWallTile(this, borderColor, 0, i);
+            LevelBuildingHelper.createWallTile(this, borderColor, this.borderWidth, i);
+        }
+    }
 
     public toggleMusic() {
         this.muteMusic = !this.muteMusic;
