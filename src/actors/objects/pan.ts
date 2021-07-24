@@ -15,9 +15,9 @@ export class Pan extends Item {
     public attackAnimation: Animation;
     public isAttacking: boolean = false;
 
-    private cookTime: number = 0;
-    private isDone: boolean = false;
-    private isBurned: boolean = false;
+    public cookTime: number = 0;
+    public isDone: boolean = false;
+    public isBurned: boolean = false;
 
     public onInitialize(engine: Engine) {
         super.onInitialize(engine);
@@ -29,13 +29,6 @@ export class Pan extends Item {
         // Currently it takes longer to cook stuff on slower machines
         this.body.collider.on("precollision", (e: CollisionStartEvent<Collider>) => {
             let otherActor = e.other.body.actor;
-
-            if (this.cookTime === 0 && otherActor instanceof Ingredient) {
-                if (!otherActor.isHeld && !this.isHeld) {
-                    this.ingredients.push(otherActor.name);
-                    otherActor.kill();
-                }
-            }
 
             if (otherActor instanceof Appliance &&
                 otherActor.applianceType === ApplianceType.Stove &&
@@ -77,6 +70,12 @@ export class Pan extends Item {
                         LevelBuildingHelper.createMeal(this.scene, ItemIconSprites.Trash, "inedible mush", otherActor.pos);
                     }
 
+                    this.reset();
+                }
+
+                if (this.ingredients.length > 0 && 
+                        otherActor instanceof Appliance && 
+                        otherActor.applianceType === ApplianceType.Trashcan) {
                     this.reset();
                 }
             }

@@ -134,6 +134,20 @@ export class Player extends Humanoid {
             return;
         }
 
+        // Now check for pans
+        let pans = this.scene.actors.filter(x => x instanceof Pan &&
+                                                 x.cookTime === 0 &&
+                                                 x.contains(tPos.x, tPos.y));   
+        
+        if (this.heldItem instanceof Ingredient && pans.length > 0) {
+            let p = pans[0] as Pan;
+            p.ingredients.push(this.heldItem.name);
+            this.heldItem.kill();
+            this.heldItem = null;
+
+            return;
+        }
+
         var targets = this.scene.actors.filter(x => x instanceof Item &&
             !(x instanceof Pan) &&
             !(x === this.heldItem) &&

@@ -1,5 +1,6 @@
 import { Actor, Color, Engine, Sprite, Timer } from "excalibur";
 import { Ingredient } from "./ingredient";
+import { Item } from "./item";
 import { LevelBuildingHelper } from "./levelBuildingHelper";
 
 export class IngredientSpawner extends Actor {
@@ -17,7 +18,7 @@ export class IngredientSpawner extends Actor {
         this.body.collider.on("collisionend", (e) => {
             let otherActor = e.other.body.actor;
 
-            if (otherActor instanceof Ingredient && otherActor.name === this._ingredientName) {
+            if (otherActor instanceof Item) {
                 if (! this.newItemTimer) {
                     this.newItemTimer = new IngredientTimer({
                         interval: 5000, // ms
@@ -35,12 +36,18 @@ export class IngredientSpawner extends Actor {
     }
 
     public spawnIngredient () {
+        
         if (this instanceof IngredientTimer) {
-            LevelBuildingHelper.createIngredientAtPosition(this.spawner.scene, 
+            let spawner = this.spawner;
+            let obstructions = spawner.scene.actors.filter(x => x.contains(spawner.pos.x, spawner.pos.y) && x instanceof Item);
+
+            if (obstructions.length === 0) {
+                LevelBuildingHelper.createIngredientAtPosition(this.spawner.scene, 
                                                            this.spawner._ingredientSprite.clone(), 
                                                            this.spawner._ingredientName, 
                                                            this.spawner.pos.x, 
                                                            this.spawner.pos.y)
+            }
         } else {
             LevelBuildingHelper.createIngredientAtPosition(this.scene, 
                                                            this._ingredientSprite.clone(), 

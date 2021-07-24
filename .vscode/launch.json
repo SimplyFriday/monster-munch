@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "command": "npm start",
+            "name": "Run npm start",
+            "request": "launch",
+            "type": "node-terminal",
+            "trace": true,
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack://excalibur-webpack/./src/*": "${webRoot}/dist/*",
+                "webpack://excalibur-webpack/src/*": "${webRoot}/dist/*"
+            }
+        }
+    ]
+}
