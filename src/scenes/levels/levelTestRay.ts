@@ -8,6 +8,8 @@ import { LevelBase } from "./levelBase";
 
 export class LevelTestRay extends LevelBase {
     protected availableMeals: Recipe[];
+    public levelName = "level_testray";
+
     protected addBackgroundTiles() {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceLeft, 5, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 6, 9);

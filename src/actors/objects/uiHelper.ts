@@ -1,5 +1,6 @@
-import { Scene, ScreenElement, Texture, vec, Sprite, Timer } from "excalibur";
+import { Scene, ScreenElement, Texture, vec, Sprite, Timer, Engine } from "excalibur";
 import { Resources } from "../../resources";
+import { DeathScreen } from "../../scenes/levels/death";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { AnimationHelper } from "./animationHelper";
 import { BalloonIconSprites } from "./balloonIconSprites";
@@ -87,11 +88,33 @@ export abstract class UIHelper {
         scene.add(timer);
         timer.reset();
     }
+
+    public static addDeathUI (scene:DeathScreen, engine:Engine) {
+        console.log("adding death ui");
+
+        let restartButton = this.createUIIcon(Resources.RestartButton.asSprite(), window.innerWidth / 2, window.innerHeight / 2);
+        restartButton.xRelativeTo = "center";
+        restartButton.yRelativeTo = "center";
+        restartButton.y = 70;
+
+        restartButton.scale = vec(5,5);
+
+        scene.add(restartButton);
+        let timer = new UITimer(50);
+        timer.uiElements.push(restartButton);
+        scene.add(timer);
+        timer.reset();
+
+        restartButton.on("pointerup", (e) => {
+            scene.lastLevel.onInitialize(engine);
+            engine.goToScene(scene.lastLevel.levelName)
+        });
+    }
 }
 
 export class ViewportLockedUIElement extends ScreenElement {
-    public x:number;
-    public y:number;
+    public x:number = 0;
+    public y:number = 0;
     public xRelativeTo:string;
     public yRelativeTo:string;
     public name:string
@@ -120,6 +143,9 @@ export class UITimer extends Timer {
                     case "left":
                         xPos = element.x;
                         break;
+                    case "center":
+                        xPos = (window.innerWidth / 2) - (element.width / 2) + element.x;
+                        break;
                 }
             } else {
                 xPos = element.x;
@@ -132,6 +158,9 @@ export class UITimer extends Timer {
                         break;
                     case "top":
                         xPos = element.y;
+                        break;
+                    case "center":
+                        yPos = (window.innerHeight / 2) - (element.height / 2) + element.y;
                         break;
                 }
             } else {

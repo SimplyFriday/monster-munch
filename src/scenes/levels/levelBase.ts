@@ -1,4 +1,4 @@
-import { Actor, Engine, Scene, Sound, Sprite, TileMap, Timer, vec } from "excalibur";
+import { Actor, Color, Engine, Scene, Sound, Sprite, TileMap, Timer, vec } from "excalibur";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
 import { UIHelper } from "../../actors/objects/uiHelper";
 import { Player } from "../../actors/characters/player";
@@ -20,12 +20,17 @@ export abstract class LevelBase extends Scene {
 
     public muteMusic: boolean = false;
     public player: Player;
+    public abstract levelName:string;
 
     removeCustomer(customer: Customer) {
         this.customers = this.customers.filter( x => x != customer);
     }
 
     public onInitialize(engine: Engine) {
+        this.actors.forEach(a => {
+            a.kill();
+        });
+
         UIHelper.addLevelUI(this);
 
         this.player = new Player;
@@ -53,6 +58,8 @@ export abstract class LevelBase extends Scene {
             a.setRecipe(this.availableMeals[i]);
             this.add(a);
         }
+
+        engine.backgroundColor = new Color(245, 242, 254);
     }
 
     public onPreUpdate(engine:Engine, delta:number) {

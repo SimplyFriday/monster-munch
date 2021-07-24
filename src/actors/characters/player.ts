@@ -1,5 +1,8 @@
 import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector, Resource } from 'excalibur';
+import { Game } from '../..';
 import { Resources } from '../../resources';
+import { DeathScreen } from '../../scenes/levels/death';
+import { LevelBase } from '../../scenes/levels/levelBase';
 import { AnimationHelper } from '../objects/animationHelper';
 import { Appliance, ApplianceType } from '../objects/appliance';
 import { Ingredient } from '../objects/ingredient';
@@ -44,7 +47,12 @@ export class Player extends Humanoid {
             this.actions.blink(40,10,this.immunityTime/50);
 
             if (this.hp <= 0) {
-                // TODO DIE
+                let deathScene = Game.CurrentGame.scenes["death"];
+                
+                if (deathScene instanceof DeathScreen) {
+                    deathScene.lastLevel = this.scene as LevelBase;
+                    Game.CurrentGame.goToScene("death");
+                }
             }
         }
     }

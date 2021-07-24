@@ -4,6 +4,7 @@ import { LevelBase } from "./levelBase";
 
 export class Level1 extends LevelBase {
     protected availableMeals: Recipe[];
+    public levelName = "level_1";
     
     protected addSeatsAndDoors(): Actor[] {
         throw new Error("Method not implemented.");

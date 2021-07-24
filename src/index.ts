@@ -1,6 +1,8 @@
-import { Engine, Loader, DisplayMode, Color } from 'excalibur';
+import { Engine, Loader, DisplayMode, Color, Timer } from 'excalibur';
 import { Player } from './actors/characters/player';
 import { Resources } from './resources';
+import { DeathScreen } from './scenes/levels/death';
+import { LevelBase } from './scenes/levels/levelBase';
 import { LevelTest } from './scenes/levels/levelTest';
 import { LevelTestRay } from './scenes/levels/levelTestRay';
 import { Level1 } from './scenes/levels/level_1';
@@ -8,17 +10,21 @@ import { Level1 } from './scenes/levels/level_1';
 /**
  * Managed game class
  */
-class Game extends Engine {
+export class Game extends Engine {
+    public static CurrentGame:Game;
 
     constructor() {
         super({ displayMode: DisplayMode.FullScreen });
+        Game.CurrentGame = this;
     }
 
     public start() {
+        this.addLevel(new LevelTest(this));
+        this.addLevel(new Level1(this));
+        this.addLevel(new LevelTestRay(this));
 
-        game.add('level_test', new LevelTest(this));
-        game.add('level_1', new Level1(this));
-        game.add('levelTestRay', new LevelTestRay(this));
+        game.add('death', new DeathScreen(this));
+
         // Automatically load all default resources
         const loader = new Loader(Object.values(Resources));
 
@@ -27,10 +33,14 @@ class Game extends Engine {
 
         return super.start(loader);
     }
+
+    private addLevel(level: LevelBase) {
+        game.add(level.levelName, level);
+    }
 }
 
 const game = new Game();
-game.backgroundColor = new Color(245, 242, 254);
+
 game.start().then(() => {
     game.goToScene('level_test');
 });
