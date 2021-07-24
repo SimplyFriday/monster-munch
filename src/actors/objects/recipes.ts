@@ -51,6 +51,18 @@ const Recipes = {
     Burger: new Recipe (["Meat", "Bread", "GreenLeaf", "Cheese"],"Burger",ItemIconSprites.Burger),
     CrunchyCake: new Recipe (["EggRaw", "FlourBag", "YellowPot", "WhiteGem"],"Crunchy Cake",ItemIconSprites.Cake),
     IceCream: new Recipe (["YellowPot","EggRaw", "WhiteGem"],"Ice Cream",ItemIconSprites.IceCreamCone),
+    Bone: new Recipe (["Poison","Skull","Drumstick"],"Bone",ItemIconSprites.Bone),
+    CowboyBoots: new Recipe (["Poison","SyringeGreen","Meat"],"Cowboy Boots",ItemIconSprites.CowboyBoots),
+    FlipPhone: new Recipe (["StormCloud","FloppyDisk","Skull"],"Flip Phone",ItemIconSprites.FlipPhone),
+    Hotdog: new Recipe (["ToiletPaper","Meat","Bread"],"Hot Dog",ItemIconSprites.Hotdog),
+    Fries: new Recipe (["Potato","TennisRacket","Salt"],"Fries",ItemIconSprites.Fries),
+    BananaCandy: new Recipe (["Banana","SyringeYellow","WhiteGem"],"Banana Candy",ItemIconSprites.CandyYellow),
+    BluePopsicle: new Recipe (["BlueGem","BluePot","SyringeBlue"],"Blue Popsicle",ItemIconSprites.FreezePopBlue),
+    PinkPopsicle: new Recipe (["RedGem","SyringeRed","Snowflake"],"Banana Candy",ItemIconSprites.CandyYellow),
+    BananaPeel: new Recipe (["Banana","Axe","SyringeYellow"],"Banana Peel",ItemIconSprites.CandyYellow),
+
+
+
 }
 
 export {Recipes}

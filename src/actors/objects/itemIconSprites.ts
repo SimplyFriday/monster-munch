@@ -26,6 +26,14 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(9);
     }
 
+    public static get StormCloud () {
+        return this.iconSheet.getSprite(11);
+    }
+
+    public static get SnowFlake () {
+        return this.iconSheet.getSprite(13);
+    }
+
     public static get RedGem () {
         return this.iconSheet.getSprite(25);
     }
@@ -88,6 +96,10 @@ export abstract class ItemIconSprites {
     
     public static get Banana () {
         return this.iconSheet.getSprite(42);
+    }
+
+    public static get BananaPeel () {
+        return this.iconSheet.getSprite(43);
     }
 
     public static get Bread () {
@@ -194,12 +206,105 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(79);
     }
 
+    public static get SyringeRed () {
+        return this.iconSheet.getSprite(80);
+    }
+
+    public static get SyringeGreen () {
+        return this.iconSheet.getSprite(81);
+    }
+
+    public static get SyringeBlue () {
+        return this.iconSheet.getSprite(82);
+    }
+
+    public static get SyringePurple () {
+        return this.iconSheet.getSprite(83);
+    }
+
+    public static get SyringeYEllow () {
+        return this.iconSheet.getSprite(84);
+    }
+
+    public static get PinkBottle () {
+        return this.iconSheet.getSprite(85);
+    }
+
+    public static get BrownBottle () {
+        return this.iconSheet.getSprite(86);
+    }
+
+    public static get Champagne () {
+        return this.iconSheet.getSprite(87);
+    }
+
+    public static get FlipPhone () {
+        return this.iconSheet.getSprite(88);
+    }
+
+    public static get ToiletPaper () {
+        return this.iconSheet.getSprite(89);
+    }
+
+    public static get FloppyDisk () {
+        return this.iconSheet.getSprite(107);
+    }
+
+    public static get FloppyDiskTilt () {
+        return this.iconSheet.getSprite(108);
+    }
+
     public static get Trash () {
         return this.iconSheet.getSprite(109);
     }
-    
+
+    public static get Salt () {
+        return this.iconSheet.getSprite(110);
+    }
+
+    public static get Sword () {
+        return this.iconSheet.getSprite(112);
+    }
+
+    public static get Branch () {
+        return this.iconSheet.getSprite(113);
+    }
+
+    public static get Bat () {
+        return this.iconSheet.getSprite(114);
+    }
+
+    public static get Axe () {
+        return this.iconSheet.getSprite(115);
+    }
+
+    public static get Snake () {
+        return this.iconSheet.getSprite(116);
+    }
+
+    public static get Staff () {
+        return this.iconSheet.getSprite(117);
+    }
+
+    public static get TennisRacket () {
+        return this.iconSheet.getSprite(118);
+    }
+
+    public static get Bone () {
+        return this.iconSheet.getSprite(126);
+    }
+
     public static get ChocolateBar () {
         return this.iconSheet.getSprite(137);
     }
+
+    public static get Potato () {
+        return this.iconSheet.getSprite(144);
+    }
     
+
+
+    public static get CowboyBoots () {
+        return this.iconSheet.getSprite(250);
+    }
 }
