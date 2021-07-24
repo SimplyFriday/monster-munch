@@ -1,4 +1,4 @@
-import { Actor, Color, Engine } from "excalibur";
+import { Actor, Color, Engine, Scene } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
 import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
 import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
@@ -7,6 +7,7 @@ import { Recipe } from "../../actors/objects/recipes";
 import { LevelBase } from "./levelBase";
 
 export class LevelTestRay extends LevelBase {
+    protected nextLevel: string;
     protected borderWidth: number;
     protected borderHeight: number;
     protected availableMeals: Recipe[];
@@ -19,7 +20,7 @@ export class LevelTestRay extends LevelBase {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 8, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceRight, 9, 9);
     }
-
+    
     protected addForegroundTiles() {
         let wallColor = new Color(200, 200, 200);
         LevelBuildingHelper.createWallTile(this, wallColor, 1, 1);

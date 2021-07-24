@@ -222,7 +222,7 @@ export abstract class ItemIconSprites {
         return this.iconSheet.getSprite(83);
     }
 
-    public static get SyringeYEllow () {
+    public static get SyringeYellow () {
         return this.iconSheet.getSprite(84);
     }
 
@@ -301,8 +301,6 @@ export abstract class ItemIconSprites {
     public static get Potato () {
         return this.iconSheet.getSprite(144);
     }
-    
-
 
     public static get CowboyBoots () {
         return this.iconSheet.getSprite(0);

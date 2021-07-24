@@ -7,6 +7,7 @@ import { UIHelper } from "../../actors/objects/uiHelper";
 import { LevelBase } from "./levelBase";
 
 export class Tutorial1 extends LevelBase {
+    protected nextLevel: string = "tutorial_2";
     protected borderWidth: number = 10;
     protected borderHeight: number = 10;
 
@@ -17,7 +18,7 @@ export class Tutorial1 extends LevelBase {
     public override onInitialize(engine:Engine) {
         super.onInitialize(engine);
 
-        UIHelper.addTutorialButton(this, "tutorial_2");
+        UIHelper.addTutorialButton(this, this.nextLevel);
     }
 
     protected addBackgroundTiles() {

@@ -7,13 +7,17 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class Level1 extends LevelBase {
+    protected nextLevel: string = "level_1a";
+
     protected borderWidth: number = 10;
     protected borderHeight: number = 10;
     protected availableMeals: Recipe[] = [Recipes.FriedEgg, Recipes.Cookie, Recipes.MonsterPie];
     public levelName = "level_1";
     protected customerFrustratedTime = 25000;
-    protected customerAttackTime = 50000;
+    protected customerAttackTime = 60000;
     protected customerSpawnSpeed = 15000;
+    
+    public customersToServe = 5;
 
     protected addSeatsAndDoors() {
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 4, 8));
@@ -56,8 +60,9 @@ export class Level1 extends LevelBase {
         
     }
     protected addAppliances() {
-        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 3);
-        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 4);
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 2.5);
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Stove, 9, 3.3);
+        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 4.3);
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 9, 5);
         
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Trashcan, 4, 1);

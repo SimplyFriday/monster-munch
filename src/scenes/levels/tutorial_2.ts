@@ -8,6 +8,7 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class Tutorial2 extends LevelBase {
+    protected nextLevel: string = "level_1";
     protected borderWidth: number = 10;
     protected borderHeight: number = 10;
     
@@ -21,7 +22,7 @@ export class Tutorial2 extends LevelBase {
     public override onInitialize(engine:Engine) {
         super.onInitialize(engine);
 
-        UIHelper.addTutorialButton(this, "level_1");
+        UIHelper.addTutorialButton(this, this.nextLevel);
     }
 
     protected addBackgroundTiles() {

@@ -22,6 +22,7 @@ import door from './images/door.png';
 
 const levelLoop1 = require('./audio/level_loop1.wav');
 const bonk1 = require('./audio/bonk1.wav');
+const levelWin = require('./audio/level_win.wav');
 /**
  * Default global resource dictionary. This gets loaded immediately
  * and holds available assets for the game.
@@ -49,7 +50,8 @@ const Resources = {
     RestartButton: new Texture(restartButton),
     WarningSquare: new Texture(warningSquare),
     TutorialButton: new Texture (tutorialButton),
-    Door: new Texture (door)
+    Door: new Texture (door),
+    LevelWin: new Sound(levelWin)
 }
 
 export { Resources }

@@ -88,6 +88,8 @@ export class Customer extends Humanoid {
 
     public leaveHappy() {
         this.isHappy = true;
+        (this.scene as LevelBase).customersToServe--;
+
         let p = this.actions.moveTo(this.initialPosition.x, this.initialPosition.y, this.speed).asPromise();
 
         p.then(() => {

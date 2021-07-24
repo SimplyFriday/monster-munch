@@ -1,4 +1,4 @@
-import { Scene, ScreenElement, Texture, vec, Sprite, Timer, Engine } from "excalibur";
+import { Scene, ScreenElement, Texture, vec, Sprite, Timer, Engine, Label } from "excalibur";
 import { Game } from "../..";
 import { Resources } from "../../resources";
 import { DeathScreen } from "../../scenes/levels/death";
@@ -25,6 +25,21 @@ export abstract class UIHelper {
         return se;
     }
 
+    private static createUILabel(text: string, xPos: number, yPos: number, maxWidth:number): ViewportLockedUIElement {
+        let se = new ViewportLockedUIElement({
+            width:this.iconWidth,
+            height: this.iconHeight,
+            pos: vec(xPos,yPos)
+        });
+        
+        let label = new Label(text, 0, 0);
+        label.fontSize = 30;
+        label.maxWidth = maxWidth;
+        se.add(label);
+        
+        return se;
+    }
+
     private static createUIToggleButton (spriteOn:Sprite, spriteOff:Sprite, xPos:number, yPos:number): ViewportLockedUIElement {
         let se = new ViewportLockedUIElement({
             width:this.iconWidth,
@@ -46,8 +61,8 @@ export abstract class UIHelper {
         
         musicToggle.on ('pointerup', (event) =>{
             scene.toggleMusic();
-
-            if (scene.muteMusic) {
+            console.log("music button clicked");
+            if (Game.muteMusic) {
                 musicToggle.setDrawing("off");
             } else {
                 musicToggle.setDrawing("on");
@@ -55,6 +70,10 @@ export abstract class UIHelper {
         });
 
         scene.add(musicToggle);
+
+        if (Game.muteMusic) {
+            musicToggle.setDrawing("off");
+        }
 
         let hp1 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 120, 50);
         hp1.xRelativeTo = "right";
@@ -81,12 +100,20 @@ export abstract class UIHelper {
         scene.add (hp2);
         scene.add (hp3);
 
+        let feedLabel = this.createUILabel("Customers Left: ", 0, 0, 120);
+        feedLabel.xRelativeTo = "right";
+        feedLabel.x = -150;
+        feedLabel.y = 130;
+        feedLabel.name = "feedlabel";
+        scene.add(feedLabel);
+
         let timer = new UITimer(50);
         timer.uiElements.push(musicToggle);
         timer.uiElements.push(hp1);
         timer.uiElements.push(hp2);
         timer.uiElements.push(hp3);
-        
+        timer.uiElements.push(feedLabel);
+
         scene.add(timer);
         timer.reset();
     }
@@ -108,7 +135,10 @@ export abstract class UIHelper {
         timer.reset();
 
         tutorialButton.on("pointerup", (e) => {
-            Game.CurrentGame.goToScene(nextLevel);
+            if (tutorialButton.scene === Game.CurrentGame.currentScene) {
+                Game.CurrentGame.goToScene(nextLevel);
+                console.log("tutorial button clicked");
+            }
         });
     }
 
@@ -127,8 +157,11 @@ export abstract class UIHelper {
         timer.reset();
 
         restartButton.on("pointerup", (e) => {
-            scene.lastLevel.onInitialize(engine);
-            engine.goToScene(scene.lastLevel.levelName)
+            if (Game.CurrentGame.currentScene instanceof DeathScreen) {
+                scene.lastLevel.onInitialize(engine);
+                engine.goToScene(scene.lastLevel.levelName)
+                console.log("restart button clicked");
+            }
         });
     }
 }
@@ -149,9 +182,9 @@ export class UITimer extends Timer {
             repeats: true
         })
 
-        console.log("added ui timer");
         this.on(this.updateUI);
     }
+
     private updateUI () {
         this.uiElements.forEach(element => {
             let xPos:number, yPos:number;
@@ -199,6 +232,15 @@ export class UITimer extends Timer {
                     element.setDrawing("hurt");
                 } else {
                     element.setDrawing("default");
+                }
+            }
+
+            if (element.name === "feedlabel") {
+                let l = element.children[0];
+
+                if (l && l instanceof Label)
+                { 
+                    l.text = "Customers Left: " + (element.scene as LevelBase).customersToServe;
                 }
             }
         });

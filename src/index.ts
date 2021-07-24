@@ -6,6 +6,7 @@ import { LevelBase } from './scenes/levels/levelBase';
 import { LevelTest } from './scenes/levels/levelTest';
 import { LevelTestRay } from './scenes/levels/levelTestRay';
 import { Level1 } from './scenes/levels/level_1';
+import { Level1a } from './scenes/levels/level_1a';
 import { Tutorial1 } from './scenes/levels/tutorial_1';
 import { Tutorial2 } from './scenes/levels/tutorial_2';
 
@@ -14,6 +15,7 @@ import { Tutorial2 } from './scenes/levels/tutorial_2';
  */
 export class Game extends Engine {
     public static CurrentGame:Game;
+    public static muteMusic:boolean = false;
 
     constructor() {
         super({ displayMode: DisplayMode.FullScreen });
@@ -26,7 +28,8 @@ export class Game extends Engine {
         this.addLevel(new LevelTestRay(this));
         this.addLevel(new Tutorial1(this));
         this.addLevel(new Tutorial2(this));
-
+        this.addLevel(new Level1a(this));
+        
         game.add('death', new DeathScreen(this));
 
         // Automatically load all default resources

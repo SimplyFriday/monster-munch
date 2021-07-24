@@ -6,6 +6,7 @@ import { Resources } from "../../resources";
 import { Customer } from "../../actors/characters/customer";
 import { Seat } from "../../actors/objects/seat";
 import { Recipe, RecipeCard } from "../../actors/objects/recipes";
+import { Game } from "../..";
 
 export abstract class LevelBase extends Scene {
     protected musicTrack: Sound;
@@ -20,14 +21,20 @@ export abstract class LevelBase extends Scene {
     protected abstract borderHeight:number;
     
     protected abstract availableMeals:Recipe[];
+    protected abstract nextLevel:string;
 
-    public muteMusic: boolean = false;
     public player: Player;
     public abstract levelName:string;
     public isTutorial:boolean = false;
+    public customersToServe:number = 10;
 
     removeCustomer(customer: Customer) {
         this.customers = this.customers.filter( x => x != customer);
+    }
+
+    public onDeactivate (oldScene:Scene, newScene:Scene) {
+        super.onDeactivate(oldScene, newScene);
+        this.musicTrack.stop();
     }
 
     public onInitialize(engine: Engine) {
@@ -43,7 +50,10 @@ export abstract class LevelBase extends Scene {
         this.camera.strategy.lockToActor(this.player);
         this.musicTrack = Resources.LevelLoop1;
         this.musicTrack.loop = true;
-        this.musicTrack.play();
+        
+        if (!Game.muteMusic) {
+            this.musicTrack.play();
+        }
 
         this.createLevelBorder();
         this.addBackgroundTiles();
@@ -100,6 +110,14 @@ export abstract class LevelBase extends Scene {
             spawnTimer.customer = customer;
 
             this.add(spawnTimer);
+
+            if (this.customersToServe <= 0) {
+                this.musicTrack.stop();
+
+                Resources.LevelWin.play(1).then (() => {
+                    engine.goToScene(this.nextLevel);
+                });
+            }
         }
     }
 
@@ -125,8 +143,9 @@ export abstract class LevelBase extends Scene {
     }
 
     public toggleMusic() {
-        this.muteMusic = !this.muteMusic;
-        if (this.muteMusic) {
+        Game.muteMusic = !Game.muteMusic;
+        
+        if (Game.muteMusic) {
             this.musicTrack.stop();
         } else {
             this.musicTrack.play();
