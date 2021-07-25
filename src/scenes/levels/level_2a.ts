@@ -16,7 +16,7 @@ export class Level2a extends Level2 {
     protected customerFrustratedTime = 35000;
     protected customerAttackTime = 55000;
     protected customerSpawnSpeed = 13000;
-    public customersToServe = 12;
+    public initialCustomersToServe = 12;
 
     protected addSeatsAndDoors() {
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.GreyStool, "u", 3, 8));

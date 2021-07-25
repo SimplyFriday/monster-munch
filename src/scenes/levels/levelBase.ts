@@ -30,7 +30,8 @@ export abstract class LevelBase extends Scene {
     public player: Player;
     public abstract levelName:string;
     public isTutorial:boolean = false;
-    public customersToServe:number = 10;
+    public customersToServe:number;
+    protected abstract initialCustomersToServe:number;
 
     removeCustomer(customer: Customer) {
         this.customers = this.customers.filter( x => x != customer);
@@ -52,6 +53,8 @@ export abstract class LevelBase extends Scene {
             this.uiInitialized = true;
         }
 
+        this.customersToServe = this.initialCustomersToServe;
+        
         this.player = new Player;
         this.add(this.player);
 

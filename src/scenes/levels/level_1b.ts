@@ -9,7 +9,7 @@ export class Level1b extends Level1 {
     protected customerSpawnSpeed = 10000;
     public nextLevel:string = "level_2";
 
-    public customersToServe = 10;
+    public initialCustomersToServe = 10;
 
     protected addItems () {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 2, 4, "FlourBag" )

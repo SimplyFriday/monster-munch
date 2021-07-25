@@ -20,6 +20,7 @@ export class LevelTest extends LevelBase {
     protected customerSpawnSpeed = 1;
 
     public levelName = "level_test";
+    protected initialCustomersToServe: number = 9001;
 
     public onInitialize(engine:Engine) { 
         super.onInitialize(engine);

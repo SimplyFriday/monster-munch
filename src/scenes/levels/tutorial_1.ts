@@ -15,6 +15,8 @@ export class Tutorial1 extends LevelBase {
     public levelName: string = "tutorial_1";
     public isTutorial = true;
 
+    protected initialCustomersToServe: number = 9001;
+    
     public override onInitialize(engine:Engine) {
         super.onInitialize(engine);
 

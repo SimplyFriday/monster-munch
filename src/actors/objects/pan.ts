@@ -1,4 +1,4 @@
-import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter, Sound } from "excalibur";
+import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter, Sound, Sprite } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { Customer } from "../characters/customer";
@@ -22,6 +22,15 @@ export class Pan extends Item {
 
     private cookingSounds:Sound[] = [Resources.CookPop1, Resources.CookPop2, Resources.CookPop3];
     private soundDelay:number = 0;
+
+    public onPreDraw (ctx: CanvasRenderingContext2D, _delta: number) {
+        if (this.cookTime === 0) {
+            for (let i = 0; i < this.ingredients.length; i++) {
+                let ispr = ItemIconSprites[this.ingredients[i]] as Sprite;
+                ispr.draw(ctx,i * 9, -6)
+            }
+        }   
+    }
 
     public onInitialize(engine: Engine) {
         super.onInitialize(engine);

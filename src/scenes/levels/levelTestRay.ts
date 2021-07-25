@@ -12,7 +12,8 @@ export class LevelTestRay extends LevelBase {
     protected borderHeight: number;
     protected availableMeals: Recipe[];
     public levelName = "level_testray";
-
+    protected initialCustomersToServe: number = 9001;
+    
     protected addBackgroundTiles() {
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceLeft, 5, 9);
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.CounterFaceCenter, 6, 9);
