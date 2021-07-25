@@ -33,7 +33,7 @@ export abstract class UIHelper {
         });
         
         let label = new Label(text, 0, 0);
-        label.fontSize = 30;
+        label.fontSize = 38;
         label.maxWidth = maxWidth;
         se.add(label);
         
@@ -102,7 +102,7 @@ export abstract class UIHelper {
         scene.add (hp2);
         scene.add (hp3);
 
-        let feedLabel = this.createUILabel("Customers Left: ", 0, 0, 120);
+        let feedLabel = this.createUILabel("Customers Left: ", 0, 0, 140);
         feedLabel.xRelativeTo = "center";
         feedLabel.x = 270;
         feedLabel.y = 130;
@@ -124,10 +124,10 @@ export abstract class UIHelper {
 
     public static addTutorialButton (scene:LevelBase, nextLevel:string) {
         let tutorialButton = this.createUIIcon(Resources.TutorialButton.asSprite(), window.innerWidth / 2, window.innerHeight / 2);
-        tutorialButton.xRelativeTo = "right";
+        tutorialButton.xRelativeTo = "center";
         tutorialButton.yRelativeTo = "bottom";
         tutorialButton.y = -150;
-        tutorialButton.x = -200;
+        tutorialButton.x = 100;
 
         tutorialButton.scale = vec(3,2);
 
