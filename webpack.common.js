@@ -41,7 +41,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
-      title: "Callum Horror Jam (change me)",
+      title: "Monster Munch",
     }),
   ],
 };
