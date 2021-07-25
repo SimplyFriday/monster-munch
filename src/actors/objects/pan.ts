@@ -32,7 +32,7 @@ export class Pan extends Item {
                 ispr.scale = vec(1.5, 1.5);
                 ispr.draw(ctx,i * 16, -9)
             }
-        } else if (!this.isDone) {
+        } else if (!this.isDone && this.isOnStove) {
             // Draw progress bar
             AnimationHelper.drawLine(ctx, vec(0,-6), vec(this.width, -6), 6, '#666666');
 
@@ -40,7 +40,7 @@ export class Pan extends Item {
             let start = vec(0, -6);
             let end = vec(pDone * this.width, -6);
             AnimationHelper.drawLine(ctx, start, end, 6, '#00ff00')
-        } else if (!this.isBurned) {
+        } else if (!this.isBurned && this.isOnStove) {
             // Draw progress bar
             AnimationHelper.drawLine(ctx, vec(0,-6), vec(this.width, -6), 6, '#00ff00');
 

@@ -60,6 +60,12 @@ export class Player extends Humanoid {
         }
     }
 
+    public onPreDraw (ctx: CanvasRenderingContext2D, delta:number) {
+        if (this.boostTime > 0) {
+            AnimationHelper.drawLine(ctx, vec(0,this.height + 20), vec(this.boostTime / 500, this.height + 20), 6, '#00FFFF')
+        }
+    }
+
     public onPreUpdate(engine: Engine, delta: number) {
         if (this.boostTime > 0) {
             this.boostTime -= delta;
