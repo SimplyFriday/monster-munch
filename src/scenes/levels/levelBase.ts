@@ -1,16 +1,17 @@
 import { Actor, Color, Engine, Scene, Sound, Sprite, TileMap, Timer, vec } from "excalibur";
 import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
-import { UIHelper } from "../../actors/objects/uiHelper";
+import { RecipeCard, UIHelper, UITimer } from "../../actors/objects/uiHelper";
 import { Player } from "../../actors/characters/player";
 import { Resources } from "../../resources";
 import { Customer } from "../../actors/characters/customer";
 import { Seat } from "../../actors/objects/seat";
-import { Recipe, RecipeCard } from "../../actors/objects/recipes";
+import { Recipe } from "../../actors/objects/recipes";
 import { Game } from "../..";
 
 export abstract class LevelBase extends Scene {
     private uiInitialized:boolean = false;
-        
+    private uiTimer:UITimer;
+
     protected suppressBorder:boolean = false;
     protected musicTrack: Sound;
     protected customerSeats:Seat[] = [];
@@ -47,7 +48,7 @@ export abstract class LevelBase extends Scene {
         });
 
         if (!this.uiInitialized) {
-            UIHelper.addLevelUI(this);
+            this.uiTimer = UIHelper.addLevelUI(this);
             this.uiInitialized = true;
         }
 
@@ -76,11 +77,14 @@ export abstract class LevelBase extends Scene {
         for (let i = 0; i < this.availableMeals.length; i++) {
             console.log("adding card for " + this.availableMeals[i].resultName);
 
-            let a = new RecipeCard ({
-                pos: vec(25 + i * 100, 50)
-            });
+            let a = new RecipeCard ();
+            a.x = 25 + i * -100;
+            a.y = 50;
+            a.xRelativeTo = "center"
 
             a.setRecipe(this.availableMeals[i]);
+            this.uiTimer.uiElements.push(a);
+
             this.add(a);
         }
 

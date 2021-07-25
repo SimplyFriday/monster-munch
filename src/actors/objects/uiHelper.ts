@@ -53,10 +53,10 @@ export abstract class UIHelper {
         return se;
     }
 
-    public static addLevelUI (scene:LevelBase) {
+    public static addLevelUI (scene:LevelBase): UITimer {
         let musicToggle = this.createUIToggleButton(BalloonIconSprites.MusicBalloon, BalloonIconSprites.MusicBalloonOff, window.innerWidth - 220, 50);
-        musicToggle.xRelativeTo = "right";
-        musicToggle.x = -220;
+        musicToggle.xRelativeTo = "center";
+        musicToggle.x = 220;
         musicToggle.y = 50;
         
         musicToggle.on ('pointerup', (event) =>{
@@ -78,22 +78,22 @@ export abstract class UIHelper {
         }
 
         let hp1 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 120, 50);
-        hp1.xRelativeTo = "right";
-        hp1.x = -120;
+        hp1.xRelativeTo = "center";
+        hp1.x = 300;
         hp1.y = 50;
         hp1.name = "hp1";
         hp1.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
 
         let hp2 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 90, 50);
-        hp2.xRelativeTo = "right";
-        hp2.x = -90;
+        hp2.xRelativeTo = "center";
+        hp2.x = 330;
         hp2.y = 50;
         hp2.name = "hp2";
         hp2.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
 
         let hp3 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 60, 50);
-        hp3.xRelativeTo = "right";
-        hp3.x = -60;
+        hp3.xRelativeTo = "center";
+        hp3.x = 360;
         hp3.y = 50;
         hp3.name = "hp3";
         hp3.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
@@ -103,8 +103,8 @@ export abstract class UIHelper {
         scene.add (hp3);
 
         let feedLabel = this.createUILabel("Customers Left: ", 0, 0, 120);
-        feedLabel.xRelativeTo = "right";
-        feedLabel.x = -150;
+        feedLabel.xRelativeTo = "center";
+        feedLabel.x = 270;
         feedLabel.y = 130;
         feedLabel.name = "feedlabel";
         scene.add(feedLabel);
@@ -118,6 +118,8 @@ export abstract class UIHelper {
 
         scene.add(timer);
         timer.reset();
+
+        return timer;
     }
 
     public static addTutorialButton (scene:LevelBase, nextLevel:string) {
@@ -246,5 +248,45 @@ export class UITimer extends Timer {
                 }
             }
         });
+    }
+}
+
+export class RecipeCard extends ViewportLockedUIElement {
+    private cardTargetWidth = 75;
+    private cardTargetHeight = 120;
+    
+    private cardFrame:Sprite;
+    private resultSprite:Sprite;
+    private ingredientSprites:Sprite[] = [];
+
+    public setRecipe(recipe:Recipe) {
+        this.cardFrame = Resources.CardFrame.asSprite();
+        this.cardFrame.scale = vec(this.cardTargetWidth / this.cardFrame.width, this.cardTargetHeight / this.cardFrame.height );
+
+        this.resultSprite =AnimationHelper.getScaledSprite(recipe.resultSprite, 0.6);
+        
+        recipe.ingredients.forEach(i => {
+            console.log("Adding sprite for ingredient: " + i)
+            this.ingredientSprites.push(AnimationHelper.getScaledSprite(ItemIconSprites[i], 0.6));
+        });
+    }
+
+    public onPreDraw (ctx: CanvasRenderingContext2D, _delta: number) {
+        this.cardFrame.draw(ctx, 0,0);
+        this.resultSprite.draw(ctx, this.cardTargetWidth / 2 - this.resultSprite.width,5);
+
+        this.ingredientSprites[0].draw(ctx, 5,50)
+        
+        if (this.ingredientSprites.length >= 2) {
+            this.ingredientSprites[1].draw(ctx, 40,50)
+        }
+
+        if (this.ingredientSprites.length >= 3) {
+            this.ingredientSprites[2].draw(ctx, 5, 85)
+        }
+
+        if (this.ingredientSprites.length >= 4) {
+            this.ingredientSprites[3].draw(ctx, 40, 85)
+        }
     }
 }
