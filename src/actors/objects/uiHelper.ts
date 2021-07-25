@@ -244,7 +244,11 @@ export class UITimer extends Timer {
 
                 if (l && l instanceof Label)
                 { 
-                    l.text = "Customers Left: " + (element.scene as LevelBase).customersToServe;
+                    if ((element.scene as LevelBase).nextLevel) {
+                        l.text = "Customers Left: " + (element.scene as LevelBase).customersToServe;
+                    } else {
+                        l.text = "Customers Fed: " + (element.scene as LevelBase).customersToServe;
+                    }
                 }
             }
         });
@@ -266,7 +270,6 @@ export class RecipeCard extends ViewportLockedUIElement {
         this.resultSprite =AnimationHelper.getScaledSprite(recipe.resultSprite, 0.6);
         
         recipe.ingredients.forEach(i => {
-            console.log("Adding sprite for ingredient: " + i)
             this.ingredientSprites.push(AnimationHelper.getScaledSprite(ItemIconSprites[i], 0.6));
         });
     }

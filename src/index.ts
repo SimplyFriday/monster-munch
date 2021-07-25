@@ -9,6 +9,8 @@ import { Level1 } from './scenes/levels/level_1';
 import { Level1a } from './scenes/levels/level_1a';
 import { Level1b } from './scenes/levels/level_1b';
 import { Level2 } from './scenes/levels/level_2';
+import { Level2a } from './scenes/levels/level_2a';
+import { Level2b } from './scenes/levels/level_2b';
 import { Tutorial1 } from './scenes/levels/tutorial_1';
 import { Tutorial2 } from './scenes/levels/tutorial_2';
 
@@ -33,6 +35,8 @@ export class Game extends Engine {
         this.addLevel(new Level1a(this));
         this.addLevel(new Level1b(this));
         this.addLevel(new Level2(this));
+        this.addLevel(new Level2a(this));
+        this.addLevel(new Level2b(this));
 
         game.add('death', new DeathScreen(this));
 

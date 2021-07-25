@@ -25,8 +25,8 @@ export abstract class LevelBase extends Scene {
     protected abstract borderHeight:number;
     
     protected abstract availableMeals:Recipe[];
-    protected abstract nextLevel:string;
-
+    
+    public abstract nextLevel:string;
     public player: Player;
     public abstract levelName:string;
     public isTutorial:boolean = false;
@@ -125,12 +125,14 @@ export abstract class LevelBase extends Scene {
 
             this.add(spawnTimer);
 
-            if (this.customersToServe <= 0) {
-                this.musicTrack.stop();
+            if (this.nextLevel != null) {
+                if (this.customersToServe <= 0) {
+                    this.musicTrack.stop();
 
-                Resources.LevelWin.play(1).then (() => {
-                    engine.goToScene(this.nextLevel);
-                });
+                    Resources.LevelWin.play(1).then (() => {
+                        engine.goToScene(this.nextLevel);
+                    });
+                }
             }
         }
     }

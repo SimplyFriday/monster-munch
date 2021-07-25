@@ -56,11 +56,9 @@ const Recipes = {
     Fries: new Recipe (["Potato","TennisRacket","Salt"],"Fries",ItemIconSprites.Fries),
     BananaCandy: new Recipe (["Banana","SyringeYellow","WhiteGem"],"BananaCandy",ItemIconSprites.CandyYellow),
     BluePopsicle: new Recipe (["BlueGem","BluePot","SyringeBlue"],"BluePopsicle",ItemIconSprites.FreezePopBlue),
-    PinkPopsicle: new Recipe (["RedGem","SyringeRed","Snowflake"],"PinkPopsicle",ItemIconSprites.CandyYellow),
-    BananaPeel: new Recipe (["Banana","Axe","SyringeYellow"],"BananaPeel",ItemIconSprites.CandyYellow),
-
-
-
+    PinkPopsicle: new Recipe (["RedGem","SyringeRed","Snowflake"],"PinkPopsicle",ItemIconSprites.FreezePopPink),
+    BananaPeel: new Recipe (["Banana","Axe","SyringeYellow"],"BananaPeel",ItemIconSprites.BananaPeel),
+    EnergyDrink: new Recipe(["Poison", "StormCloud"],"EnergyDrink",ItemIconSprites.EnergyDrink)
 }
 
 export {Recipes}

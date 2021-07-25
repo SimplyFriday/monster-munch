@@ -9,14 +9,14 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class LevelTest extends LevelBase {
-    protected nextLevel: string = this.levelName;
+    public nextLevel: string = this.levelName;
     
     protected borderWidth: number = 15;
     protected borderHeight: number = 20;
     protected availableMeals: Recipe[] = [Recipes.FriedEgg];
 
     protected customerFrustratedTime = 1000; // ms
-    protected customerAttackTime = 20000; // ms
+    protected customerAttackTime = 3000; // ms
     protected customerSpawnSpeed = 1;
 
     public levelName = "level_test";

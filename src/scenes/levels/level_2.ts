@@ -7,7 +7,7 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class Level2 extends LevelBase {
-    protected nextLevel: string = "level_2a";
+    public nextLevel: string = "level_2a";
 
     protected borderWidth: number = 0;
     protected borderHeight: number = 0;
@@ -19,7 +19,7 @@ export class Level2 extends LevelBase {
     protected customerAttackTime = 55000;
     protected customerSpawnSpeed = 15000;
     
-    public customersToServe = 5;
+    public customersToServe = 8;
 
     protected addSeatsAndDoors() {
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.GreyStool, "u", 3, 8));

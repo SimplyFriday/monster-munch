@@ -8,7 +8,7 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class Tutorial2 extends LevelBase {
-    protected nextLevel: string = "level_1";
+    public nextLevel: string = "level_1";
     protected borderWidth: number = 10;
     protected borderHeight: number = 10;
     

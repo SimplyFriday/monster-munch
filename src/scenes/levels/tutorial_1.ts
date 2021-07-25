@@ -7,7 +7,7 @@ import { UIHelper } from "../../actors/objects/uiHelper";
 import { LevelBase } from "./levelBase";
 
 export class Tutorial1 extends LevelBase {
-    protected nextLevel: string = "tutorial_2";
+    public nextLevel: string = "tutorial_2";
     protected borderWidth: number = 10;
     protected borderHeight: number = 10;
 

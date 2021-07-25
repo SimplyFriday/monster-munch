@@ -88,7 +88,13 @@ export class Customer extends Humanoid {
 
     public leaveHappy() {
         this.isHappy = true;
-        (this.scene as LevelBase).customersToServe--;
+        let level = (this.scene as LevelBase);
+        
+        if (level.nextLevel) {
+            level.customersToServe--;
+        } else {
+            level.customersToServe++;
+        }
 
         Resources.CustomerBite.play().then(() => {
             Resources.CashRegister.play().then(() => {
