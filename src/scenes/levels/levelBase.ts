@@ -60,7 +60,7 @@ export abstract class LevelBase extends Scene {
         this.musicTrack.loop = true;
         
         if (!Game.muteMusic) {
-            this.musicTrack.play();
+            this.musicTrack.play(0.3);
         }
 
         if (!this.suppressBorder) {
@@ -173,6 +173,7 @@ export abstract class LevelBase extends Scene {
             timer.level.add(timer.customer);
             timer.customer.walkToSeat();
             timer.customer.visible = true;
+            Resources.NewCustomer.play();
         }
     }
 }

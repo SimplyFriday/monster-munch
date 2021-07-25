@@ -24,6 +24,18 @@ import worldTiles from './images/tileB_world.png';
 const levelLoop1 = require('./audio/level_loop1.wav');
 const bonk1 = require('./audio/bonk1.wav');
 const levelWin = require('./audio/level_win.wav');
+const cookPop1 = require('./audio/cook_pop_1.wav');
+const cookPop2 = require('./audio/cook_pop_2.wav');
+const cookPop3 = require('./audio/cook_pop_3.wav');
+const customerBite = require('./audio/customer_bite.wav');
+const cashRegister = require('./audio/cash_register.wav');
+const mealBurned = require('./audio/meal_burned.wav');
+const mealDone = require('./audio/meal_done.wav');
+const playerHurt = require('./audio/player_hurt.wav');
+const swingPan = require('./audio/swing_pan.wav');
+const trash = require('./audio/trash.wav');
+const newCustomer = require('./audio/new_customer.wav');
+
 /**
  * Default global resource dictionary. This gets loaded immediately
  * and holds available assets for the game.
@@ -53,7 +65,18 @@ const Resources = {
     TutorialButton: new Texture (tutorialButton),
     Door: new Texture (door),
     LevelWin: new Sound(levelWin),
-    WorldTiles: new Texture(worldTiles)
+    WorldTiles: new Texture(worldTiles),
+    CookPop1: new Sound(cookPop1),
+    CookPop2: new Sound(cookPop2),
+    CookPop3: new Sound(cookPop3),
+    CustomerBite: new Sound(customerBite),
+    CashRegister: new Sound(cashRegister),
+    MealBurned: new Sound(mealBurned),
+    MealDone: new Sound(mealDone),
+    PlayerHurt: new Sound(playerHurt),
+    SwingPan: new Sound(swingPan),
+    Trash: new Sound(trash),
+    NewCustomer: new Sound(newCustomer)
 }
 
 export { Resources }

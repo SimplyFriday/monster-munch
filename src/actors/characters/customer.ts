@@ -90,11 +90,18 @@ export class Customer extends Humanoid {
         this.isHappy = true;
         (this.scene as LevelBase).customersToServe--;
 
-        let p = this.actions.moveTo(this.initialPosition.x, this.initialPosition.y, this.speed).asPromise();
-
-        p.then(() => {
-            this.kill();
+        Resources.CustomerBite.play().then(() => {
+            Resources.CashRegister.play().then(() => {
+                this.actions.moveTo(this.initialPosition.x, this.initialPosition.y, this.speed).asPromise().then(() => {
+                    this.kill();
+                });
+            });
         });
+        // let p = this.actions.moveTo(this.initialPosition.x, this.initialPosition.y, this.speed).asPromise();
+
+        // p.then(() => {
+        //     this.kill();
+        // });
     }
 
     private routine() {
@@ -137,6 +144,10 @@ export class Customer extends Humanoid {
 
                 if (a.customer.pos.distance(player.pos) <= 50 && a.customer.isAttacking) {
                     player.hurt();
+
+                    if (!Resources.CustomerBite.isPlaying()) {
+                        Resources.CustomerBite.play();
+                    }
                 }
             }
         }

@@ -1,4 +1,5 @@
 import { Actor, Color, Engine, Sprite, Timer } from "excalibur";
+import { Resources } from "../../resources";
 import { Ingredient } from "./ingredient";
 import { Item } from "./item";
 import { LevelBuildingHelper } from "./levelBuildingHelper";
@@ -47,6 +48,7 @@ export class IngredientSpawner extends Actor {
                                                            this.spawner._ingredientName, 
                                                            this.spawner.pos.x, 
                                                            this.spawner.pos.y)
+                Resources.CookPop1.play(0.75);
             }
         } else {
             LevelBuildingHelper.createIngredientAtPosition(this.scene, 

@@ -1,9 +1,8 @@
-import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter } from "excalibur";
+import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter, Sound } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { Customer } from "../characters/customer";
 import { Appliance, ApplianceType } from "./appliance";
-import { Ingredient } from "./ingredient";
 import { Item } from "./item";
 import { ItemIconSprites } from "./itemIconSprites";
 import { LevelBuildingHelper } from "./levelBuildingHelper";
@@ -20,6 +19,9 @@ export class Pan extends Item {
     public cookTime: number = 0;
     public isDone: boolean = false;
     public isBurned: boolean = false;
+
+    private cookingSounds:Sound[] = [Resources.CookPop1, Resources.CookPop2, Resources.CookPop3];
+    private soundDelay:number = 0;
 
     public onInitialize(engine: Engine) {
         super.onInitialize(engine);
@@ -88,14 +90,24 @@ export class Pan extends Item {
 
             this.cookTime += delta;
 
+            if (!this.isDone && this.soundDelay <= 0) {
+                let sr = Math.floor(Math.random() * this.cookingSounds.length);
+                this.cookingSounds[sr].play(0.1);
+                this.soundDelay = 100;
+            } else if (this.soundDelay > 0) {
+                this.soundDelay -= delta
+            }
+
             if (!this.isDone &&
                 this.cookTime > this.ingredients.length * this.cookTimeMultiplier) {
                 this.isDone = true;
+                Resources.MealDone.play();
             }
 
             if (this.isDone && !this.isBurned &&
                 this.cookTime > this.ingredients.length * this.cookTimeMultiplier * 3) {
                 this.isBurned = true;
+                Resources.MealBurned.play();
             }
         } else {
             this.isOnStove = false;
@@ -136,6 +148,7 @@ export class Pan extends Item {
         this.isAttacking = true;
         this.pos = pos;
         this.setDrawing("attack");
+        Resources.SwingPan.play();
 
         switch (facing) {
             case "r":

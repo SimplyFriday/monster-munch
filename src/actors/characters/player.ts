@@ -10,6 +10,7 @@ import { Item } from '../objects/item';
 import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
 import { Meal } from '../objects/meal';
 import { Pan } from '../objects/pan';
+import { Recipes } from '../objects/recipes';
 import { Humanoid } from './humanoid';
 
 export class Player extends Humanoid {
@@ -27,9 +28,10 @@ export class Player extends Humanoid {
     private hitboxScale: number = 0.8;
     private heldItem: Item;
     private immunityTime = 0;
+    private boostTime = 0;
 
     public hp:number = 3;
-
+    
     onInitialize(engine: Engine) {
         this.sprites = Resources.PlayerSprites;
 
@@ -45,6 +47,7 @@ export class Player extends Humanoid {
             this.immunityTime = 1000;
             this.hp -= 1
             this.actions.blink(40,10,this.immunityTime/50);
+            Resources.PlayerHurt.play();
 
             if (this.hp <= 0) {
                 let deathScene = Game.CurrentGame.scenes["death"];
@@ -58,6 +61,10 @@ export class Player extends Humanoid {
     }
 
     public onPreUpdate(engine: Engine, delta: number) {
+        if (this.boostTime > 0) {
+            this.boostTime -= delta;
+        }
+
         super.onPreUpdate(engine, delta);
 
         if (this.immunityTime > 0) {
@@ -99,6 +106,15 @@ export class Player extends Humanoid {
                 if (this.heldItem instanceof Pan) {
                     this.heldItem.attack(this.getFacingTargetPos(0.7), this.facing);
                 }
+
+                if (this.heldItem instanceof Meal) {
+                    if (this.heldItem.name != "inedible mush") {
+                        this.boostTime += 5000 * Recipes[this.heldItem.name].ingredients.length;
+                        this.heldItem.kill();
+                        this.heldItem = null;
+                        Resources.CustomerBite.play();
+                    }
+                }
             }
 
             if (engine.input.keyboard.wasPressed(Input.Keys.Q)) {
@@ -124,6 +140,11 @@ export class Player extends Humanoid {
 
     private doMovement(engine: Engine) {
         let velX: number = 0, velY: number = 0;
+        let boost:number = 1;
+
+        if (this.boostTime > 0) {
+            boost = 1.3;
+        }
 
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             velY -= 1;
@@ -143,8 +164,8 @@ export class Player extends Humanoid {
 
         let vecMag = Math.sqrt(Math.abs(velX) + Math.abs(velY));
 
-        let adjustedVelY = velY / vecMag * this.baseSpeed;
-        let adjustedVelX = velX / vecMag * this.baseSpeed;
+        let adjustedVelY = velY / vecMag * this.baseSpeed * boost;
+        let adjustedVelX = velX / vecMag * this.baseSpeed * boost;
 
         if (vecMag > 0) {
             this.vel = vec(adjustedVelX, adjustedVelY);
@@ -164,6 +185,7 @@ export class Player extends Humanoid {
         if (tc.length > 0 && this.heldItem.canBeTrashed) {
             this.heldItem.kill();
             this.heldItem = null;
+            Resources.Trash.play();
             return;
         }
 
@@ -177,6 +199,7 @@ export class Player extends Humanoid {
             p.ingredients.push(this.heldItem.name);
             this.heldItem.kill();
             this.heldItem = null;
+            Resources.CookPop3.play(0.45);
 
             return;
         }

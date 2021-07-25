@@ -15,8 +15,6 @@ export class Recipe {
     }
 
     public ingredientsEqual(ingredientCheck:string[]) {
-        console.log("looking for: " + JSON.stringify(ingredientCheck));
-        
         if (
           !Array.isArray(this.ingredients)
           || !Array.isArray(ingredientCheck)
@@ -40,26 +38,26 @@ export class Recipe {
 }
 
 const Recipes = {
-    MonsterPie: new Recipe (["Poison", "FlourBag", "Apple"],"Monster Pie",ItemIconSprites.PieRed),
+    MonsterPie: new Recipe (["Poison", "FlourBag", "Apple"],"MonsterPie",ItemIconSprites.PieRed),
     Taco: new Recipe (["Meat", "Cheese", "GreenLeaf"],"Taco",ItemIconSprites.Taco),
     Cookie: new Recipe (["FlourBag", "EggRaw"],"Cookie",ItemIconSprites.Cookie),
-    FriedEgg: new Recipe (["EggRaw"],"Fried Egg",ItemIconSprites.EggCooked),
+    FriedEgg: new Recipe (["EggRaw"],"FriedEgg",ItemIconSprites.EggCooked),
     Pizza: new Recipe (["FlourBag", "RedPot", "Cheese"],"Pizza",ItemIconSprites.PizzaPlain),
-    PepperoniPizza: new Recipe (["FlourBag", "RedPot", "Meat","Cheese"],"Pepperoni Pizza",ItemIconSprites.PizzaToppings),
-    BananaPie: new Recipe (["EggRaw", "FlourBag", "Banana"],"Banana Pie",ItemIconSprites.PieYellow),
-    SpecialCrunchPie: new Recipe (["EggRaw", "FlourBag", "PurpleGem"],"Special Crunch Pie",ItemIconSprites.PiePurple),
+    PepperoniPizza: new Recipe (["FlourBag", "RedPot", "Meat","Cheese"],"PepperoniPizza",ItemIconSprites.PizzaToppings),
+    BananaPie: new Recipe (["EggRaw", "FlourBag", "Banana"],"BananaPie",ItemIconSprites.PieYellow),
+    SpecialCrunchPie: new Recipe (["EggRaw", "FlourBag", "PurpleGem"],"SpecialCrunchPie",ItemIconSprites.PiePurple),
     Burger: new Recipe (["Meat", "Bread", "GreenLeaf", "Cheese"],"Burger",ItemIconSprites.Burger),
-    CrunchyCake: new Recipe (["EggRaw", "FlourBag", "YellowPot", "WhiteGem"],"Crunchy Cake",ItemIconSprites.Cake),
-    IceCream: new Recipe (["YellowPot","EggRaw", "WhiteGem"],"Ice Cream",ItemIconSprites.IceCreamCone),
+    CrunchyCake: new Recipe (["EggRaw", "FlourBag", "YellowPot", "WhiteGem"],"CrunchyCake",ItemIconSprites.Cake),
+    IceCream: new Recipe (["YellowPot","EggRaw", "WhiteGem"],"IceCream",ItemIconSprites.IceCreamCone),
     Bone: new Recipe (["Poison","Skull","Drumstick"],"Bone",ItemIconSprites.Bone),
-    CowboyBoots: new Recipe (["Poison","SyringeGreen","Meat"],"Cowboy Boots",ItemIconSprites.CowboyBoots),
-    FlipPhone: new Recipe (["StormCloud","FloppyDisk","Skull"],"Flip Phone",ItemIconSprites.FlipPhone),
-    Hotdog: new Recipe (["ToiletPaper","Meat","Bread"],"Hot Dog",ItemIconSprites.Hotdog),
+    CowboyBoots: new Recipe (["Poison","SyringeGreen","Meat"],"CowboyBoots",ItemIconSprites.CowboyBoots),
+    FlipPhone: new Recipe (["StormCloud","FloppyDisk","Skull"],"FlipPhone",ItemIconSprites.FlipPhone),
+    Hotdog: new Recipe (["ToiletPaper","Meat","Bread"],"Hotdog",ItemIconSprites.Hotdog),
     Fries: new Recipe (["Potato","TennisRacket","Salt"],"Fries",ItemIconSprites.Fries),
-    BananaCandy: new Recipe (["Banana","SyringeYellow","WhiteGem"],"Banana Candy",ItemIconSprites.CandyYellow),
-    BluePopsicle: new Recipe (["BlueGem","BluePot","SyringeBlue"],"Blue Popsicle",ItemIconSprites.FreezePopBlue),
-    PinkPopsicle: new Recipe (["RedGem","SyringeRed","Snowflake"],"Banana Candy",ItemIconSprites.CandyYellow),
-    BananaPeel: new Recipe (["Banana","Axe","SyringeYellow"],"Banana Peel",ItemIconSprites.CandyYellow),
+    BananaCandy: new Recipe (["Banana","SyringeYellow","WhiteGem"],"BananaCandy",ItemIconSprites.CandyYellow),
+    BluePopsicle: new Recipe (["BlueGem","BluePot","SyringeBlue"],"BluePopsicle",ItemIconSprites.FreezePopBlue),
+    PinkPopsicle: new Recipe (["RedGem","SyringeRed","Snowflake"],"PinkPopsicle",ItemIconSprites.CandyYellow),
+    BananaPeel: new Recipe (["Banana","Axe","SyringeYellow"],"BananaPeel",ItemIconSprites.CandyYellow),
 
 
 
