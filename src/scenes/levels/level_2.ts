@@ -133,7 +133,6 @@ export class Level2 extends LevelBase {
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.ServingPlate, 5, 0);
 
         LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Trashcan, 1, 9);
-        LevelBuildingHelper.createApplianceOnTile(this, ApplianceType.Trashcan, 9, 9);
     }
     protected addPans(engine: Engine) {
         LevelBuildingHelper.createPanOnTile(this,engine, 0,1);
