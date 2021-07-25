@@ -1,4 +1,4 @@
-import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter, Sound, Sprite } from "excalibur";
+import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter, Sound, Sprite, vec } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { Customer } from "../characters/customer";
@@ -27,7 +27,8 @@ export class Pan extends Item {
         if (this.cookTime === 0) {
             for (let i = 0; i < this.ingredients.length; i++) {
                 let ispr = ItemIconSprites[this.ingredients[i]] as Sprite;
-                ispr.draw(ctx,i * 9, -6)
+                ispr.scale = vec(1.5, 1.5);
+                ispr.draw(ctx,i * 16, -9)
             }
         }   
     }
