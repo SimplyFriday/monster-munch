@@ -1,4 +1,4 @@
-import { Engine, Sprite, SpriteSheet, vec, Animation } from "excalibur";
+import { Engine, Sprite, SpriteSheet, vec, Animation, Vector } from "excalibur";
 import { LevelBuildingHelper } from "./levelBuildingHelper";
 
 export abstract class AnimationHelper {
@@ -19,5 +19,14 @@ export abstract class AnimationHelper {
         nSpr.scale = vec(scaleX, scaleY);
 
         return nSpr;
+    }
+
+    public static drawLine (ctx: CanvasRenderingContext2D, startPoint:Vector, endPoint:Vector, lineWidth:number, lineColorHex:string) {
+        ctx.beginPath();
+        ctx.moveTo(startPoint.x,startPoint.y);
+        ctx.lineTo(endPoint.x, endPoint.y);
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = lineColorHex;
+        ctx.stroke();
     }
 }

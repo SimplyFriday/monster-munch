@@ -2,6 +2,7 @@ import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, An
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { Customer } from "../characters/customer";
+import { AnimationHelper } from "./animationHelper";
 import { Appliance, ApplianceType } from "./appliance";
 import { Item } from "./item";
 import { ItemIconSprites } from "./itemIconSprites";
@@ -22,6 +23,7 @@ export class Pan extends Item {
 
     private cookingSounds:Sound[] = [Resources.CookPop1, Resources.CookPop2, Resources.CookPop3];
     private soundDelay:number = 0;
+    private burnTimeMultiplier: number = 3;
 
     public onPreDraw (ctx: CanvasRenderingContext2D, _delta: number) {
         if (this.cookTime === 0) {
@@ -30,7 +32,25 @@ export class Pan extends Item {
                 ispr.scale = vec(1.5, 1.5);
                 ispr.draw(ctx,i * 16, -9)
             }
-        }   
+        } else if (!this.isDone) {
+            // Draw progress bar
+            AnimationHelper.drawLine(ctx, vec(0,-6), vec(this.width, -6), 6, '#666666');
+
+            let pDone = this.cookTime / (this.ingredients.length * this.cookTimeMultiplier);
+            let start = vec(0, -6);
+            let end = vec(pDone * this.width, -6);
+            AnimationHelper.drawLine(ctx, start, end, 6, '#00ff00')
+        } else if (!this.isBurned) {
+            // Draw progress bar
+            AnimationHelper.drawLine(ctx, vec(0,-6), vec(this.width, -6), 6, '#00ff00');
+
+            let doneBase = this.ingredients.length * this.cookTimeMultiplier
+            let pBurn = (this.cookTime - doneBase) / ((this.ingredients.length * this.cookTimeMultiplier * this.burnTimeMultiplier) - doneBase);
+
+            let start = vec(0, -6);
+            let end = vec(pBurn * this.width, -6);
+            AnimationHelper.drawLine(ctx, start, end, 6, '#ff0000')
+        }
     }
 
     public onInitialize(engine: Engine) {
@@ -115,7 +135,7 @@ export class Pan extends Item {
             }
 
             if (this.isDone && !this.isBurned &&
-                this.cookTime > this.ingredients.length * this.cookTimeMultiplier * 3) {
+                this.cookTime > this.ingredients.length * this.cookTimeMultiplier * this.burnTimeMultiplier) {
                 this.isBurned = true;
                 Resources.MealBurned.play();
             }
