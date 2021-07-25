@@ -30,6 +30,18 @@ export abstract class InsideTileSprites {
         return this.iconSheet.getSprite(32);
     }
 
+    public static get CounterCornerTopLeft () {
+        return this.iconSheet.getSprite(33);
+    }
+
+    public static get CounterMiddleFull () {
+        return this.iconSheet.getSprite(34);
+    }
+
+    public static get CounterCornerTopRight () {
+        return this.iconSheet.getSprite(35);
+    }
+
     public static get CounterFaceStandalone () {
         return this.iconSheet.getSprite(48);
     }

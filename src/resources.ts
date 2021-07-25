@@ -19,6 +19,7 @@ import restartButton from './images/restart_button.png';
 import warningSquare from './images/warning_square.png';
 import tutorialButton from './images/tutorial_button.png';
 import door from './images/door.png';
+import worldTiles from './images/tileB_world.png';
 
 const levelLoop1 = require('./audio/level_loop1.wav');
 const bonk1 = require('./audio/bonk1.wav');
@@ -51,7 +52,8 @@ const Resources = {
     WarningSquare: new Texture(warningSquare),
     TutorialButton: new Texture (tutorialButton),
     Door: new Texture (door),
-    LevelWin: new Sound(levelWin)
+    LevelWin: new Sound(levelWin),
+    WorldTiles: new Texture(worldTiles)
 }
 
 export { Resources }

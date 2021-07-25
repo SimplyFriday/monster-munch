@@ -7,7 +7,8 @@ export class Level1a extends Level1 {
     public levelName = "level_1a";
     protected availableMeals: Recipe[] = [Recipes.BananaPie, Recipes.BananaCandy, Recipes.Cookie ];
     protected customerSpawnSpeed = 10000;
-
+    public nextLevel:string = "level_1b";
+    
     public customersToServe = 10;
 
     protected addItems () {

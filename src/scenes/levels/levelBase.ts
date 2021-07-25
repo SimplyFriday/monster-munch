@@ -11,6 +11,7 @@ import { Game } from "../..";
 export abstract class LevelBase extends Scene {
     private uiInitialized:boolean = false;
         
+    protected suppressBorder:boolean = false;
     protected musicTrack: Sound;
     protected customerSeats:Seat[] = [];
     protected doors:Actor[] = [];
@@ -61,7 +62,10 @@ export abstract class LevelBase extends Scene {
             this.musicTrack.play();
         }
 
-        this.createLevelBorder();
+        if (!this.suppressBorder) {
+            this.createLevelBorder();
+        }
+
         this.addBackgroundTiles();
         this.addForegroundTiles();
         this.addAppliances();
@@ -135,16 +139,16 @@ export abstract class LevelBase extends Scene {
     protected abstract addSeatsAndDoors();
 
     private createLevelBorder() {
-        let borderColor = Resources.WarningSquare.asSprite();
+        let border = Resources.WarningSquare.asSprite();
 
         for (let i = 0; i <= this.borderWidth; i++) {
-            LevelBuildingHelper.createWallTile(this, borderColor, i, 0);
-            LevelBuildingHelper.createWallTile(this, borderColor, i, this.borderHeight);
+            LevelBuildingHelper.createWallTile(this, border, i, 0);
+            LevelBuildingHelper.createWallTile(this, border, i, this.borderHeight);
         }
 
         for (let i = 0; i < this.borderHeight; i++) {
-            LevelBuildingHelper.createWallTile(this, borderColor, 0, i);
-            LevelBuildingHelper.createWallTile(this, borderColor, this.borderWidth, i);
+            LevelBuildingHelper.createWallTile(this, border, 0, i);
+            LevelBuildingHelper.createWallTile(this, border, this.borderWidth, i);
         }
     }
 
