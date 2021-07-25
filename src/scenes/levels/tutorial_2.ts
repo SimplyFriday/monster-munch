@@ -41,6 +41,11 @@ export class Tutorial2 extends LevelBase {
         LevelBuildingHelper.createLabelAcrossTiles(this, "you! Swing your pans at them (E)", -3, 8, 4.5, Color.Magenta);
         LevelBuildingHelper.createLabelAcrossTiles(this, "to fend off angry customers!", -3, 8.5, 4.5, Color.Magenta);
 
+        LevelBuildingHelper.createLabelAcrossTiles(this, "Recipe cards are show on the", 5, 2, 4.5, Color.Magenta);
+        LevelBuildingHelper.createLabelAcrossTiles(this, "top left of your UI, HP and", 5, 2.5, 4.5, Color.Magenta);
+        LevelBuildingHelper.createLabelAcrossTiles(this, "remaining customers in this", 5, 3, 4.5, Color.Magenta);
+        LevelBuildingHelper.createLabelAcrossTiles(this, "stage are in the top left.", 5, 3.5, 4.5, Color.Magenta);
+
         LevelBuildingHelper.createBackgroundTile(this, InsideTileSprites.Table_V_BottomLeg, 4, 8);
     }
     protected addForegroundTiles() {
