@@ -115,9 +115,9 @@ export class Level3 extends LevelBase {
 
     protected addSeatsAndDoors() {
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "u", 8, 8));
-        this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "L", 11, 7.5));
+        this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "l", 11, 7.5));
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.RedStool, "r", 5, 7.5));
 
-        this.doors.push(LevelBuildingHelper.createWallTile (this, Resources.Door.asSprite(), 3, 12));
+        this.doors.push(LevelBuildingHelper.createWallTile (this, Resources.Door.asSprite(), 3, 10));
     }
 }
