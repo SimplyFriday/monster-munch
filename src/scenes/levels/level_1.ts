@@ -7,15 +7,15 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class Level1 extends LevelBase {
-    public nextLevel: string = "level_1a";
+    public nextLevel: string = "level_2";
 
     protected borderWidth: number = 10;
     protected borderHeight: number = 10;
     protected availableMeals: Recipe[] = [Recipes.FriedEgg, Recipes.Cookie, Recipes.MonsterPie];
     public levelName = "level_1";
-    protected customerFrustratedTime = 25000;
-    protected customerAttackTime = 60000;
-    protected customerSpawnSpeed = 15000;
+    protected customerFrustratedTime = 45000;
+    protected customerAttackTime = 65000;
+    protected customerSpawnSpeed = 18000;
     
     public initialCustomersToServe = 5;
 

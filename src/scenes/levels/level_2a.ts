@@ -5,18 +5,18 @@ import { Resources } from "../../resources";
 import { Level2 } from "./level_2";
 
 export class Level2a extends Level2 {
-    public nextLevel: string = "level_2b";
+    public nextLevel: string = "level_3a";
 
     protected borderWidth: number = 0;
     protected borderHeight: number = 0;
     protected suppressBorder:boolean = true;
 
-    protected availableMeals: Recipe[] = [Recipes.Bone, Recipes.FlipPhone, Recipes.Hotdog, Recipes.EnergyDrink];
+    protected availableMeals: Recipe[] = [Recipes.Drumstick, Recipes.FlipPhone, Recipes.Hotdog, Recipes.EnergyDrink];
     public levelName = "level_2a";
-    protected customerFrustratedTime = 35000;
-    protected customerAttackTime = 55000;
-    protected customerSpawnSpeed = 13000;
-    public initialCustomersToServe = 12;
+    protected customerFrustratedTime = 45000;
+    protected customerAttackTime = 60000;
+    protected customerSpawnSpeed = 14000;
+    public initialCustomersToServe = 10;
 
     protected addSeatsAndDoors() {
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.GreyStool, "u", 3, 8));
@@ -30,7 +30,7 @@ export class Level2a extends Level2 {
 
     protected addItems() {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 2, "Poison" );
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 3, "Skull" );
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 3, "ToiletPaper" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 4, "Drumstick" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 5, "StormCloud" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 6, "FloppyDisk" );

@@ -7,9 +7,10 @@ export class Level1b extends Level1 {
     public levelName = "level_1b";
     protected availableMeals: Recipe[] = [Recipes.Taco, Recipes.Pizza, Recipes.PepperoniPizza ];
     protected customerSpawnSpeed = 10000;
-    public nextLevel:string = "level_2";
-
-    public initialCustomersToServe = 10;
+    public nextLevel:string = "level_2b";
+    protected customerFrustratedTime = 40000;
+    protected customerAttackTime = 50000;
+    public initialCustomersToServe = 12;
 
     protected addItems () {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 2, 4, "FlourBag" )

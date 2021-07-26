@@ -7,7 +7,7 @@ import { Resources } from "../../resources";
 import { LevelBase } from "./levelBase";
 
 export class Level2 extends LevelBase {
-    public nextLevel: string = "level_2a";
+    public nextLevel: string = "level_3";
 
     protected borderWidth: number = 0;
     protected borderHeight: number = 0;
@@ -15,9 +15,9 @@ export class Level2 extends LevelBase {
 
     protected availableMeals: Recipe[] = [Recipes.Cookie, Recipes.CrunchyCake, Recipes.IceCream, Recipes.SpecialCrunchPie];
     public levelName = "level_2";
-    protected customerFrustratedTime = 35000;
-    protected customerAttackTime = 55000;
-    protected customerSpawnSpeed = 15000;
+    protected customerFrustratedTime = 45000;
+    protected customerAttackTime = 65000;
+    protected customerSpawnSpeed = 17000;
     
     public initialCustomersToServe = 8;
 
@@ -145,7 +145,7 @@ export class Level2 extends LevelBase {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 2, "FlourBag" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 3, "FlourBag" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 4, "EggRaw" );
-        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 5, "EggRaw" );
+        LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 5, "Skull" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 6, "YellowPot" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 7, "WhiteGem" );
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 10, 8, "PurpleGem" );

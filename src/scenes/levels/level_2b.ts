@@ -5,18 +5,18 @@ import { Resources } from "../../resources";
 import { Level2 } from "./level_2";
 
 export class Level2b extends Level2 {
-    public nextLevel: string = null;
+    public nextLevel: string = "level_3b";
 
     protected borderWidth: number = 0;
     protected borderHeight: number = 0;
     protected suppressBorder:boolean = true;
 
-    protected availableMeals: Recipe[] = [Recipes.EnergyDrink, Recipes.MonsterPie, Recipes.Cookie, Recipes.FriedEgg, Recipes.BananaPie, Recipes.CrunchyCake, Recipes.SpecialCrunchPie];
+    protected availableMeals: Recipe[] = [Recipes.EnergyDrink, Recipes.MonsterPie, Recipes.Cookie, Recipes.FriedEgg, Recipes.BananaPie, Recipes.SpecialCrunchPie];
     public levelName = "level_2b";
-    protected customerFrustratedTime = 45000;
-    protected customerAttackTime = 65000;
-    protected customerSpawnSpeed = 15000;
-    public initialCustomersToServe = 0;
+    protected customerFrustratedTime = 42000;
+    protected customerAttackTime = 50000;
+    protected customerSpawnSpeed = 5000;
+    public initialCustomersToServe = 15;
 
     protected addSeatsAndDoors() {
         this.customerSeats.push(LevelBuildingHelper.createSeat(this, InsideTileSprites.GreyStool, "u", 3, 8));

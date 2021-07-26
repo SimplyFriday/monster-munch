@@ -129,6 +129,10 @@ export abstract class ItemIconSprites {
     public static get Hotdog () {
         return this.iconSheet.getSprite(50);
     }
+
+    public static get Cheesedog () {
+        return this.iconSheet.getSprite(51);
+    }
     
     public static get PizzaPlain () {
         return this.iconSheet.getSprite(52);
@@ -303,11 +307,23 @@ export abstract class ItemIconSprites {
     }
 
     public static get CowboyBoots () {
-        return this.iconSheet.getSprite(0);
+        return this.iconSheet.getSprite(170);
     }
 
     public static get EnergyDrink () {
         return this.iconSheet.getSprite(68);
     }
     
+    public static get Starburst () {
+        return this.iconSheet.getSprite(15);
+    }
+
+    public static get Whirlwind () {
+        return this.iconSheet.getSprite(14);
+    }
+    
+    public static get Stick () {
+        return this.iconSheet.getSprite(113);
+    }
+       
 }

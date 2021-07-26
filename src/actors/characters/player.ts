@@ -132,7 +132,7 @@ export class Player extends Humanoid {
         ////////////// DEBUG ////////////
         /////////////////////////////////
         if (engine.input.keyboard.wasPressed(Input.Keys.Semicolon)) {
-            let val = prompt("goto level", "level_test");
+            let val = prompt("goto level", "level_");
             if (val) {
                 engine.goToScene(val);
             }

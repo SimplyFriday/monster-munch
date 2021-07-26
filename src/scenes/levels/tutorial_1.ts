@@ -16,7 +16,7 @@ export class Tutorial1 extends LevelBase {
     public isTutorial = true;
 
     protected initialCustomersToServe: number = 9001;
-    
+
     public override onInitialize(engine:Engine) {
         super.onInitialize(engine);
 
@@ -41,9 +41,6 @@ export class Tutorial1 extends LevelBase {
         LevelBuildingHelper.createLabelAcrossTiles(this, "Swing a pan over it with E", 13, 8, 4.5, Color.Magenta);
         LevelBuildingHelper.createLabelAcrossTiles(this, "when the pan turns golden", 13, 8.5, 4.5, Color.Magenta);
         LevelBuildingHelper.createLabelAcrossTiles(this, "to create a cooked meal.", 13, 9, 4.5, Color.Magenta);
-        LevelBuildingHelper.createLabelAcrossTiles(this, "You can eat a spare meal by", 13, 9.5, 4.5, Color.Magenta);
-        LevelBuildingHelper.createLabelAcrossTiles(this, "holding it and pressing E,", 13, 10, 4.5, Color.Magenta);
-        LevelBuildingHelper.createLabelAcrossTiles(this, "you'll get a short speed boost.", 13, 10.5, 4.5, Color.Magenta);
 
         LevelBuildingHelper.createLabelAcrossTiles(this, "Set down an ingredient or swing", 4, 5, 4.5, Color.Magenta);
         LevelBuildingHelper.createLabelAcrossTiles(this, "a pan over the trash can ", 4, 5.5, 4.5, Color.Magenta);
