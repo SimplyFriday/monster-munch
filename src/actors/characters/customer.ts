@@ -12,7 +12,7 @@ import { Humanoid } from "./humanoid";
 export class Customer extends Humanoid {
     private speed: number = 160;
     private actionTimer: CustomerTimer;
-    private mealCheckPos: Vector[];
+    private mealCheckPos: Vector;
     private initialPosition: Vector;
     private wantsBalloon: Sprite;
     private wantsSprite: Sprite;
@@ -67,13 +67,7 @@ export class Customer extends Humanoid {
             console.log("customer arrived at seat")
             this.facing = this.seat.facing;
             
-            let coreMealPos =this.getFacingTargetPos(0.5);
-
-            this.mealCheckPos = [coreMealPos, 
-                                 vec(coreMealPos.x - LevelBuildingHelper.tileWidth * 0.3, coreMealPos.y), 
-                                 vec(coreMealPos.x + LevelBuildingHelper.tileWidth * 0.3, coreMealPos.y), 
-                                 vec(coreMealPos.x, LevelBuildingHelper.tileHeight * coreMealPos.y - 0.3), 
-                                 vec(coreMealPos.x, LevelBuildingHelper.tileHeight * coreMealPos.y + 0.3)];
+            this.mealCheckPos = this.getFacingTargetPos(0.5);
 
             this.actionTimer = new CustomerTimer({
                 interval: this.tickSpeed,
@@ -103,11 +97,6 @@ export class Customer extends Humanoid {
                 });
             });
         });
-        // let p = this.actions.moveTo(this.initialPosition.x, this.initialPosition.y, this.speed).asPromise();
-
-        // p.then(() => {
-        //     this.kill();
-        // });
     }
 
     private routine() {
@@ -122,16 +111,32 @@ export class Customer extends Humanoid {
             if (!a.customer.isAttacking) {
                 let m: Actor[] = [];
                 
-                a.customer.mealCheckPos.forEach(pos => {
-                    if (m.length > 0) {
-                        return;
-                    }
-
+                let doneSearching = false;
+                let nextSearchX = a.customer.mealCheckPos.x - LevelBuildingHelper.tileWidth / 2;
+                let nextSearchY = a.customer.mealCheckPos.y - LevelBuildingHelper.tileHeight / 2;
+                let step = 15;
+                
+                while (!doneSearching) {
+                     console.log("customer at " + JSON.stringify(a.customer.pos) + "looking for meal at (" + nextSearchX + "," + nextSearchY + ")")
+                    //console.log(JSON.stringify(a.customer.pos))
                     m = a.customer.scene.actors.filter(x => x instanceof Meal &&
-                        x.name === a.customer.wantsMeal.resultName &&
-                        !x.isHeld &&
-                        x.contains(pos.x, pos.y))
-                });
+                                x.name === a.customer.wantsMeal.resultName &&
+                                !x.isHeld &&
+                                x.contains(nextSearchX, nextSearchY))
+                    
+                    if (m.length > 0) {
+                        doneSearching = true;
+                    } else {
+                        if (nextSearchX <= a.customer.mealCheckPos.x + LevelBuildingHelper.tileWidth / 2) {
+                            nextSearchX += step;
+                        } else if (nextSearchY <= a.customer.mealCheckPos.y + LevelBuildingHelper.tileHeight / 2) {
+                            nextSearchX = a.customer.mealCheckPos.x - LevelBuildingHelper.tileWidth / 2;
+                            nextSearchY += step;
+                        } else {
+                            doneSearching = true;
+                        }
+                    }
+                }
 
                 if (m.length > 0) {
                     // TODO eat animation or something
