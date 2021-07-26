@@ -116,6 +116,29 @@ export class Pan extends Item {
                                                    this.isHeld === false);
 
         if (stoves.length > 0) {
+            // find a free stove
+            let otherPans = this.scene.actors.filter(x => x instanceof Pan && x != this);
+            let foundStove = false;
+
+            stoves.forEach(stove => {
+                let stoveIsFree = true;
+                
+                otherPans.forEach(pan => {
+                    if (stove.contains(pan.pos.x, pan.pos.y)) {
+                        stoveIsFree = false;
+                    }
+                });
+
+                if (stoveIsFree) {
+                    this.pos = stove.pos.clone();
+                    foundStove = true;
+                }
+            });
+
+            if (!foundStove) {
+                return;
+            }
+            
             this.isOnStove = true;
 
             this.cookTime += delta;

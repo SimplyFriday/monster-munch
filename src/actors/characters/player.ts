@@ -202,16 +202,18 @@ export class Player extends Humanoid {
         
         if (this.heldItem instanceof Ingredient && pans.length > 0) {
             let p = pans[0] as Pan;
-            p.ingredients.push(this.heldItem.name);
-            this.heldItem.kill();
-            this.heldItem = null;
-            Resources.CookPop3.play(0.45);
-
+            
+            if (p.ingredients.length < 4) {
+                p.ingredients.push(this.heldItem.name);
+                this.heldItem.kill();
+                this.heldItem = null;
+                Resources.CookPop3.play(0.45);
+            }
             return;
         }
 
-        var targets = this.scene.actors.filter(x => x instanceof Item &&
-            !(x instanceof Pan) &&
+        var targets = this.scene.actors.filter(x => (x instanceof Item ||
+            x instanceof Pan) &&
             !(x === this.heldItem) &&
             x.contains(tPos.x, tPos.y));
 

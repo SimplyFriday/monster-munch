@@ -1,6 +1,7 @@
 import { Actor } from "excalibur";
 import { Item } from "./item";
 import { Meal } from "./meal";
+import { Pan } from "./pan";
 
 export class Appliance extends Actor {
     public applianceType:ApplianceType;
@@ -9,7 +10,7 @@ export class Appliance extends Actor {
         let ret = false;
 
         this.scene.actors.forEach(a => {
-            if (a instanceof Meal && this.body.collider.touching(a.body.collider)) {
+            if ((a instanceof Meal) && this.body.collider.touching(a.body.collider)) {
                 ret = true;
             }
         });
