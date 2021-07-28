@@ -1,6 +1,5 @@
-import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
-import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
-import { Recipe, Recipes } from "../../actors/objects/recipes";
+import { Recipe, Recipes } from "../../util/config/recipes";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
 import { Level1 } from "./level_1";
 
 export class Level1a extends Level1 {

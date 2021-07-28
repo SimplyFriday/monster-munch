@@ -1,16 +1,15 @@
 import { Actor, Body, Collider, CollisionType, Color, Engine, FontStyle, Label, Scene, ScreenElement, Shape, Sprite, SpriteSheet, TextAlign, Texture, vec, Vector } from "excalibur";
+import { Customer } from "../../actors/characters/customer";
+import { Appliance, ApplianceType } from "../../actors/objects/appliance";
+import { Ingredient } from "../../actors/objects/ingredient";
+import { IngredientSpawner } from "../../actors/objects/ingredientSpawner";
+import { Meal } from "../../actors/objects/meal";
+import { Pan } from "../../actors/objects/pan";
+import { Seat } from "../../actors/objects/seat";
 import { Resources } from "../../resources";
+import { InsideTileSprites } from "../spritesheet_wrappers/insideTileSprites";
+import { ItemIconSprites } from "../spritesheet_wrappers/itemIconSprites";
 import { AnimationHelper } from "./animationHelper";
-import { Appliance, ApplianceType } from "./appliance";
-import { Customer } from "../characters/customer";
-import { Ingredient } from "./ingredient";
-import { IngredientSpawner } from "./ingredientSpawner";
-import { InsideTileSprites } from "./insideTileSprites";
-import { Item } from "./item";
-import { Meal } from "./meal";
-import { Pan } from "./pan";
-import { Seat } from "./seat";
-import { ItemIconSprites } from "./itemIconSprites";
 
 export abstract class LevelBuildingHelper {
     static tileWidth = 50;

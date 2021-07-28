@@ -1,8 +1,8 @@
 import { Actor, Color, Engine, Sprite, Timer } from "excalibur";
 import { Resources } from "../../resources";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
 import { Ingredient } from "./ingredient";
 import { Item } from "./item";
-import { LevelBuildingHelper } from "./levelBuildingHelper";
 
 export class IngredientSpawner extends Actor {
     private newItemTimer:IngredientTimer;

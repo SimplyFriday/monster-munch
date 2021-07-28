@@ -1,6 +1,6 @@
 import { Actor, Engine, SpriteSheet, Texture, vec, Vector } from "excalibur";
-import { AnimationHelper } from "../objects/animationHelper";
-import { LevelBuildingHelper } from "../objects/levelBuildingHelper";
+import { AnimationHelper } from "../../util/helpers/animationHelper";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
 
 export abstract class Humanoid extends Actor {
     protected sprites: Texture;

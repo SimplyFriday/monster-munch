@@ -1,11 +1,8 @@
 import { Actor, Color, Engine, Resource, vec } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
-import { InsideFloorWallSprites } from "../../actors/objects/insideFloorWallSprites";
-import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
-import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
-import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
-import { Recipe, Recipes } from "../../actors/objects/recipes";
+import { Recipe, Recipes } from "../../util/config/recipes";
 import { Resources } from "../../resources";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
 import { LevelBase } from "./levelBase";
 import { Level3 } from "./level_3";
 

@@ -4,10 +4,10 @@ import { Resources } from "../../resources";
 import { DeathScreen } from "../../scenes/menu/death";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { AnimationHelper } from "./animationHelper";
-import { BalloonIconSprites } from "./balloonIconSprites";
-import { ItemIconSprites } from "./itemIconSprites";
 import { LevelBuildingHelper } from "./levelBuildingHelper";
-import { Recipe } from "./recipes";
+import { Recipe } from "../config/recipes";
+import { BalloonIconSprites } from "../spritesheet_wrappers/balloonIconSprites";
+import { ItemIconSprites } from "../spritesheet_wrappers/itemIconSprites";
 
 export abstract class UIHelper {
     private static iconWidth:number = 50;

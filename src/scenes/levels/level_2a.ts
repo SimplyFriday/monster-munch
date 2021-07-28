@@ -1,7 +1,7 @@
-import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
-import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
-import { Recipe, Recipes } from "../../actors/objects/recipes";
+import { Recipe, Recipes } from "../../util/config/recipes";
 import { Resources } from "../../resources";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
+import { InsideTileSprites } from "../../util/spritesheet_wrappers/insideTileSprites";
 import { Level2 } from "./level_2";
 
 export class Level2a extends Level2 {

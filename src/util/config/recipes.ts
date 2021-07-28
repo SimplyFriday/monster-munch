@@ -1,7 +1,5 @@
-import { Actor, Engine, ScreenElement, Sprite, SpriteSheet, UIActor, vec } from "excalibur";
-import { Resources } from "../../resources";
-import { AnimationHelper } from "./animationHelper";
-import { ItemIconSprites } from "./itemIconSprites";
+import { Sprite } from "excalibur";
+import { ItemIconSprites } from "../spritesheet_wrappers/itemIconSprites";
 
 export class Recipe {
     public ingredients:string[];

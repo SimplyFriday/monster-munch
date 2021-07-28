@@ -1,9 +1,9 @@
 import { Color, Engine, Label } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
-import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
-import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
-import { Recipe, Recipes } from "../../actors/objects/recipes";
-import { UIHelper } from "../../actors/objects/uiHelper";
+import { Recipe, Recipes } from "../../util/config/recipes";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
+import { UIHelper } from "../../util/helpers/uiHelper";
+import { InsideTileSprites } from "../../util/spritesheet_wrappers/insideTileSprites";
 import { LevelBase } from "./levelBase";
 
 export class Tutorial1 extends LevelBase {
@@ -17,7 +17,7 @@ export class Tutorial1 extends LevelBase {
 
     protected initialCustomersToServe: number = 9001;
 
-    public override onInitialize(engine:Engine) {
+    public onInitialize(engine:Engine) {
         super.onInitialize(engine);
 
         UIHelper.addTutorialButton(this, this.nextLevel);

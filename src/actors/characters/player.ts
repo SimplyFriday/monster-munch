@@ -3,15 +3,15 @@ import { Game } from '../..';
 import { Resources } from '../../resources';
 import { DeathScreen } from '../../scenes/menu/death';
 import { LevelBase } from '../../scenes/levels/levelBase';
-import { AnimationHelper } from '../objects/animationHelper';
 import { Appliance, ApplianceType } from '../objects/appliance';
 import { Ingredient } from '../objects/ingredient';
 import { Item } from '../objects/item';
-import { LevelBuildingHelper } from '../objects/levelBuildingHelper';
 import { Meal } from '../objects/meal';
 import { Pan } from '../objects/pan';
-import { Recipes } from '../objects/recipes';
+import { Recipes } from '../../util/config/recipes';
 import { Humanoid } from './humanoid';
+import { LevelBuildingHelper } from '../../util/helpers/levelBuildingHelper';
+import { AnimationHelper } from '../../util/helpers/animationHelper';
 
 export class Player extends Humanoid {
     constructor() {

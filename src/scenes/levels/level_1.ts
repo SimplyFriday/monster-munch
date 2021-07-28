@@ -1,9 +1,9 @@
 import { Actor, Engine } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
-import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
-import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
-import { Recipe, Recipes } from "../../actors/objects/recipes";
+import { Recipe, Recipes } from "../../util/config/recipes";
 import { Resources } from "../../resources";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
+import { InsideTileSprites } from "../../util/spritesheet_wrappers/insideTileSprites";
 import { LevelBase } from "./levelBase";
 
 export class Level1 extends LevelBase {

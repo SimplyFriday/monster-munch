@@ -1,5 +1,5 @@
 import { Color, Engine, Scene, ScreenElement } from "excalibur";
-import { UIHelper } from "../../actors/objects/uiHelper";
+import { UIHelper } from "../../util/helpers/uiHelper";
 import { LevelBase } from "../levels/levelBase";
 
 export class DeathScreen extends Scene {

@@ -1,11 +1,11 @@
 import { Actor, Animation, Engine, Sprite, SpriteSheet, Timer, vec, Vector } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
-import { AnimationHelper } from "../objects/animationHelper";
-import { BalloonIconSprites } from "../objects/balloonIconSprites";
-import { LevelBuildingHelper } from "../objects/levelBuildingHelper";
+import { AnimationHelper } from "../../util/helpers/animationHelper";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
+import { BalloonIconSprites } from "../../util/spritesheet_wrappers/balloonIconSprites";
 import { Meal } from "../objects/meal";
-import { Recipe } from "../objects/recipes";
+import { Recipe } from "../../util/config/recipes";
 import { Seat } from "../objects/seat";
 import { Humanoid } from "./humanoid";
 

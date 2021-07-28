@@ -1,9 +1,9 @@
 import { Actor, Color, Engine, Scene } from "excalibur";
 import { ApplianceType } from "../../actors/objects/appliance";
-import { InsideTileSprites } from "../../actors/objects/insideTileSprites";
-import { ItemIconSprites } from "../../actors/objects/itemIconSprites";
-import { LevelBuildingHelper } from "../../actors/objects/levelBuildingHelper";
-import { Recipe } from "../../actors/objects/recipes";
+import { Recipe } from "../../util/config/recipes";
+import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
+import { InsideTileSprites } from "../../util/spritesheet_wrappers/insideTileSprites";
+import { ItemIconSprites } from "../../util/spritesheet_wrappers/itemIconSprites";
 import { LevelBase } from "./levelBase";
 
 export class LevelTestRay extends LevelBase {
