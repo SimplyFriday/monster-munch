@@ -1,7 +1,7 @@
 import { Engine, Loader, DisplayMode, Color, Timer } from 'excalibur';
 import { Player } from './actors/characters/player';
 import { Resources } from './resources';
-import { DeathScreen } from './scenes/levels/death';
+import { DeathScreen } from './scenes/menu/death';
 import { LevelBase } from './scenes/levels/levelBase';
 import { LevelTest } from './scenes/levels/levelTest';
 import { LevelTestRay } from './scenes/levels/levelTestRay';

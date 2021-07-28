@@ -1,7 +1,7 @@
 import { Actor, CollisionType, Color, Engine, Input, vec, Shape, SpriteSheet, Animation, Vector, Resource } from 'excalibur';
 import { Game } from '../..';
 import { Resources } from '../../resources';
-import { DeathScreen } from '../../scenes/levels/death';
+import { DeathScreen } from '../../scenes/menu/death';
 import { LevelBase } from '../../scenes/levels/levelBase';
 import { AnimationHelper } from '../objects/animationHelper';
 import { Appliance, ApplianceType } from '../objects/appliance';

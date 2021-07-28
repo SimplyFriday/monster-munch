@@ -1,6 +1,6 @@
 import { Color, Engine, Scene, ScreenElement } from "excalibur";
 import { UIHelper } from "../../actors/objects/uiHelper";
-import { LevelBase } from "./levelBase";
+import { LevelBase } from "../levels/levelBase";
 
 export class DeathScreen extends Scene {
     public lastLevel:LevelBase;

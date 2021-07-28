@@ -1,7 +1,7 @@
 import { Scene, ScreenElement, Texture, vec, Sprite, Timer, Engine, Label } from "excalibur";
 import { Game } from "../..";
 import { Resources } from "../../resources";
-import { DeathScreen } from "../../scenes/levels/death";
+import { DeathScreen } from "../../scenes/menu/death";
 import { LevelBase } from "../../scenes/levels/levelBase";
 import { AnimationHelper } from "./animationHelper";
 import { BalloonIconSprites } from "./balloonIconSprites";
