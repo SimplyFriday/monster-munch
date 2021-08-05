@@ -20,6 +20,6 @@ All code is licensed under the [Business Source License 1.1](https://mariadb.com
 * Run `npm run build:prod` to produce Javascript bundles for production (minified) in the `dist/` folder
 
 ## Contributors
-Josh Greenlaw - Primary coding
-Ray Coulter - Level design
-Redd (R2-VE#8282) - Audio
+* Josh Greenlaw - Primary coding
+* Ray Coulter - Level design
+* Redd (R2-VE#8282) - BONK Sound Effect
