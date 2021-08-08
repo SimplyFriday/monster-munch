@@ -11,8 +11,7 @@ import { Pan } from '../objects/pan';
 import { Recipes } from '../../util/config/recipes';
 import { Humanoid } from './humanoid';
 import { LevelBuildingHelper } from '../../util/helpers/levelBuildingHelper';
-import { AnimationHelper } from '../../../../excalibur-bootstraps/src/helpers/animationHelper';
-import {TopDownMovementHelper} from 'excalibur-bootstraps';
+import {AnimationHelper, TopDownMovementHelper} from 'excalibur-bootstraps';
 
 export class Player extends Humanoid {
     constructor() {

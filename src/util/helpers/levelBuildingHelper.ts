@@ -1,5 +1,4 @@
-import { Actor, Body, Collider, CollisionType, Color, Engine, FontStyle, Label, Scene, ScreenElement, Shape, Sprite, SpriteSheet, TextAlign, Texture, vec, Vector } from "excalibur";
-import { AnimationHelper } from "../../../../excalibur-bootstraps/src/helpers/animationHelper";
+import { Actor, CollisionType, Color, Engine, Label, Scene, Shape, Sprite, SpriteSheet, TextAlign, vec, Vector } from "excalibur";
 import { Customer } from "../../actors/characters/customer";
 import { Appliance, ApplianceType } from "../../actors/objects/appliance";
 import { Ingredient } from "../../actors/objects/ingredient";
