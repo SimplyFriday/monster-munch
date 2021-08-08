@@ -61,7 +61,7 @@ export abstract class UIHelper {
         musicToggle.on ('pointerup', (event) =>{
             if (musicToggle.scene === Game.CurrentGame.currentScene) {
                 scene.toggleMusic();
-                console.log("music button clicked");
+                
                 if (Game.muteMusic) {
                     musicToggle.setDrawing("off");
                 } else {
@@ -177,7 +177,6 @@ export abstract class UIHelper {
             if (Game.CurrentGame.currentScene instanceof DeathScreen) {
                 scene.lastLevel.onInitialize(engine);
                 engine.goToScene(scene.lastLevel.levelName)
-                console.log("restart button clicked");
             }
         });
     }

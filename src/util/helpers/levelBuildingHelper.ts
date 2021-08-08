@@ -1,5 +1,6 @@
 import { Actor, CollisionType, Color, Engine, Label, Scene, Shape, Sprite, SpriteSheet, TextAlign, vec, Vector } from "excalibur";
 import { AnimationHelper } from "excalibur-bootstraps";
+import { Game } from "../..";
 import { Customer } from "../../actors/characters/customer";
 import { Appliance, ApplianceType } from "../../actors/objects/appliance";
 import { Ingredient } from "../../actors/objects/ingredient";
@@ -79,8 +80,10 @@ export abstract class LevelBuildingHelper {
                                                 ingredientName:string, 
                                                 spawnerSprite?: Sprite): IngredientSpawner {
         
-        console.log("adding spawner for: " + ingredientName);
-
+        if (Game.debugMode) {
+            console.log("adding spawner for: " + ingredientName);
+        }
+        
         let a = new IngredientSpawner({
             scene: scene,
             width: this.tileWidth,

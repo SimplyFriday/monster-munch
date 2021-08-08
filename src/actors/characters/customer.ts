@@ -8,6 +8,7 @@ import { Recipe } from "../../util/config/recipes";
 import { Seat } from "../objects/seat";
 import { Humanoid } from "./humanoid";
 import { AnimationHelper } from "excalibur-bootstraps";
+import { Game } from "../..";
 
 export class Customer extends Humanoid {
     private speed: number = 160;
@@ -64,7 +65,10 @@ export class Customer extends Humanoid {
         this.timeElapsed = 0;
 
         p.then(() => {
-            console.log("customer arrived at seat")
+            if (Game.debugMode){
+                console.log("customer arrived at seat")
+            }
+
             this.facing = this.seat.facing;
             
             this.mealCheckPos = this.getFacingTargetPos(0.5);
@@ -117,8 +121,6 @@ export class Customer extends Humanoid {
                 let step = 15;
                 
                 while (!doneSearching) {
-                     console.log("customer at " + JSON.stringify(a.customer.pos) + "looking for meal at (" + nextSearchX + "," + nextSearchY + ")")
-                    //console.log(JSON.stringify(a.customer.pos))
                     m = a.customer.scene.actors.filter(x => x instanceof Meal &&
                                 x.name === a.customer.wantsMeal.resultName &&
                                 !x.isHeld &&

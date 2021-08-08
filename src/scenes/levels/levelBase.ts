@@ -79,7 +79,9 @@ export abstract class LevelBase extends Scene {
         this.addSeatsAndDoors();
 
         for (let i = 0; i < this.availableMeals.length; i++) {
-            console.log("adding card for " + this.availableMeals[i].resultName);
+            if (Game.debugMode) {
+                console.log("adding card for " + this.availableMeals[i].resultName);
+            }
 
             let a = new RecipeCard ();
             a.x = 25 + i * -100;
@@ -97,7 +99,9 @@ export abstract class LevelBase extends Scene {
 
     public onPreUpdate(engine:Engine, delta:number) {
         if (this.customers.length < this.customerSeats.length) {
-            console.log("Found " + (this.customerSeats.length - this.customers.length) + " empty seats")
+            if (Game.debugMode) {
+                console.log("Found " + (this.customerSeats.length - this.customers.length) + " empty seats")
+            }
 
             let b = this.customerSpawnSpeed / 3;
             let v = this.customerSpawnSpeed * (4/3);

@@ -23,6 +23,7 @@ import { Tutorial2 } from './scenes/levels/tutorial_2';
 export class Game extends Engine {
     public static CurrentGame:Game;
     public static muteMusic:boolean = false;
+    public static debugMode = false;
 
     constructor() {
         super({ displayMode: DisplayMode.FullScreen });
@@ -30,6 +31,10 @@ export class Game extends Engine {
     }
 
     public start() {
+        if (window.location.host.startsWith("localhost")) {
+            Game.debugMode = true;
+        }
+
         this.addLevel(new LevelTest(this));
         this.addLevel(new Level1(this));
         this.addLevel(new LevelTestRay(this));
