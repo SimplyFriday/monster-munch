@@ -11,7 +11,8 @@ import { Pan } from '../objects/pan';
 import { Recipes } from '../../util/config/recipes';
 import { Humanoid } from './humanoid';
 import { LevelBuildingHelper } from '../../util/helpers/levelBuildingHelper';
-import { AnimationHelper } from '../../util/helpers/animationHelper';
+import { AnimationHelper } from '../../../../excalibur-bootstraps/src/helpers/animationHelper';
+import {TopDownMovementHelper} from 'excalibur-bootstraps';
 
 export class Player extends Humanoid {
     constructor() {
@@ -29,6 +30,7 @@ export class Player extends Humanoid {
     private heldItem: Item;
     private immunityTime = 0;
     private boostTime = 0;
+    private movementHelper:TopDownMovementHelper;
 
     public hp:number = 3;
     
@@ -39,6 +41,13 @@ export class Player extends Humanoid {
         this.body.collider.shape = Shape.Box(LevelBuildingHelper.tileHeight * this.hitboxScale, LevelBuildingHelper.tileHeight * this.hitboxScale);
         
         super.onInitialize(engine);
+
+        this.movementHelper = new TopDownMovementHelper(this, 
+            this.baseSpeed, 
+            [Input.Keys.W,Input.Keys.Up], 
+            [Input.Keys.S, Input.Keys.Down], 
+            [Input.Keys.A, Input.Keys.Left], 
+            [Input.Keys.D, Input.Keys.Right]);
     }
 
     public hurt() {
@@ -145,39 +154,7 @@ export class Player extends Humanoid {
     
 
     private doMovement(engine: Engine) {
-        let velX: number = 0, velY: number = 0;
-        let boost:number = 1;
-
-        if (this.boostTime > 0) {
-            boost = 1.3;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.W)) {
-            velY -= 1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.S)) {
-            velY += 1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.A)) {
-            velX -= 1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.D)) {
-            velX += 1;
-        }
-
-        let vecMag = Math.sqrt(Math.abs(velX) + Math.abs(velY));
-
-        let adjustedVelY = velY / vecMag * this.baseSpeed * boost;
-        let adjustedVelX = velX / vecMag * this.baseSpeed * boost;
-
-        if (vecMag > 0) {
-            this.vel = vec(adjustedVelX, adjustedVelY);
-        } else {
-            this.vel = vec(0, 0);
-        }
+        this.vel = this.movementHelper.GetVelocityKeyboard(engine);
     }
 
     private trySetDownItem() {

@@ -35,6 +35,7 @@
     "webpack-merge": "5.8.0"
   },
   "dependencies": {
-    "excalibur": "^0.24"
+    "excalibur": "^0.24",
+    "excalibur-bootstraps": "^0.1.7"
   }
 }

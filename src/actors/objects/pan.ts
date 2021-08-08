@@ -1,13 +1,13 @@
 import { Collider, CollisionStartEvent, CollisionType, Engine, Shape, Vector, Animation, isCollider, resetObsoleteCounter, Sound, Sprite, vec } from "excalibur";
 import { Resources } from "../../resources";
 import { LevelBase } from "../../scenes/levels/levelBase";
-import { AnimationHelper } from "../../util/helpers/animationHelper";
 import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
 import { ItemIconSprites } from "../../util/spritesheet_wrappers/itemIconSprites";
 import { Customer } from "../characters/customer";
 import { Appliance, ApplianceType } from "./appliance";
 import { Item } from "./item";
 import { Recipe, Recipes } from "../../util/config/recipes";
+import { AnimationHelper } from "excalibur-bootstraps";
 
 export class Pan extends Item {
     private cookTimeMultiplier: number = 3000; // ms per ingredient

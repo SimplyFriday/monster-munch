@@ -1,5 +1,5 @@
 import { Actor, Color, Engine, Scene, Sound, Sprite, TileMap, Timer, vec } from "excalibur";
-import { RecipeCard, UIHelper, UITimer } from "../../util/helpers/uiHelper";
+import { RecipeCard, UIHelper } from "../../util/helpers/uiHelper";
 import { Player } from "../../actors/characters/player";
 import { Resources } from "../../resources";
 import { Customer } from "../../actors/characters/customer";
@@ -7,6 +7,7 @@ import { Seat } from "../../actors/objects/seat";
 import { Recipe } from "../../util/config/recipes";
 import { Game } from "../..";
 import { LevelBuildingHelper } from "../../util/helpers/levelBuildingHelper";
+import { UITimer } from "excalibur-bootstraps";
 
 export abstract class LevelBase extends Scene {
     private uiInitialized:boolean = false;

@@ -1,4 +1,5 @@
 import { Actor, Body, Collider, CollisionType, Color, Engine, FontStyle, Label, Scene, ScreenElement, Shape, Sprite, SpriteSheet, TextAlign, Texture, vec, Vector } from "excalibur";
+import { AnimationHelper } from "../../../../excalibur-bootstraps/src/helpers/animationHelper";
 import { Customer } from "../../actors/characters/customer";
 import { Appliance, ApplianceType } from "../../actors/objects/appliance";
 import { Ingredient } from "../../actors/objects/ingredient";
@@ -9,7 +10,6 @@ import { Seat } from "../../actors/objects/seat";
 import { Resources } from "../../resources";
 import { InsideTileSprites } from "../spritesheet_wrappers/insideTileSprites";
 import { ItemIconSprites } from "../spritesheet_wrappers/itemIconSprites";
-import { AnimationHelper } from "./animationHelper";
 
 export abstract class LevelBuildingHelper {
     static tileWidth = 50;

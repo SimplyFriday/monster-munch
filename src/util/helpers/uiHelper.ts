@@ -1,13 +1,12 @@
-import { Scene, ScreenElement, Texture, vec, Sprite, Timer, Engine, Label } from "excalibur";
+import { ScreenElement, Texture, vec, Sprite, Timer, Engine, Label } from "excalibur";
 import { Game } from "../..";
 import { Resources } from "../../resources";
 import { DeathScreen } from "../../scenes/menu/death";
 import { LevelBase } from "../../scenes/levels/levelBase";
-import { AnimationHelper } from "./animationHelper";
-import { LevelBuildingHelper } from "./levelBuildingHelper";
 import { Recipe } from "../config/recipes";
 import { BalloonIconSprites } from "../spritesheet_wrappers/balloonIconSprites";
 import { ItemIconSprites } from "../spritesheet_wrappers/itemIconSprites";
+import { AnimationHelper, UITimer, ViewportLockedUIElement } from "excalibur-bootstraps";
 
 export abstract class UIHelper {
     private static iconWidth:number = 50;
@@ -83,7 +82,7 @@ export abstract class UIHelper {
         hp1.y = 50;
         hp1.name = "hp1";
         hp1.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
-
+        
         let hp2 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 90, 50);
         hp2.xRelativeTo = "center";
         hp2.x = 330;
@@ -91,12 +90,26 @@ export abstract class UIHelper {
         hp2.name = "hp2";
         hp2.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
 
+        hp2.customActions = () => {
+            let pHP = (scene as LevelBase).player.hp;
+            if (pHP < 2) {
+                hp2.setDrawing("hurt");
+            }
+        }
+
         let hp3 = this.createUIIcon(ItemIconSprites.Heart, window.innerWidth - 60, 50);
         hp3.xRelativeTo = "center";
         hp3.x = 360;
         hp3.y = 50;
         hp3.name = "hp3";
         hp3.addDrawing("hurt", AnimationHelper.getScaledSprite(ItemIconSprites.BlackHeart, 0.65))
+
+        hp3.customActions = () => {
+            let pHP = (scene as LevelBase).player.hp;
+            if (pHP < 3) {
+                hp2.setDrawing("hurt");
+            }
+        }
 
         scene.add (hp1);
         scene.add (hp2);
@@ -170,90 +183,6 @@ export abstract class UIHelper {
     }
 }
 
-export class ViewportLockedUIElement extends ScreenElement {
-    public x:number = 0;
-    public y:number = 0;
-    public xRelativeTo:string;
-    public yRelativeTo:string;
-    public name:string
-}
-export class UITimer extends Timer {
-    public uiElements:ViewportLockedUIElement[] = [];
-
-    constructor (interval:number) {
-        super({
-            interval:interval,
-            repeats: true
-        })
-
-        this.on(this.updateUI);
-    }
-
-    private updateUI () {
-        this.uiElements.forEach(element => {
-            let xPos:number, yPos:number;
-
-            if (element.xRelativeTo) {
-                switch(element.xRelativeTo) {
-                    case "right":
-                        xPos = window.innerWidth + element.x;
-                        break;
-                    case "left":
-                        xPos = element.x;
-                        break;
-                    case "center":
-                        xPos = (window.innerWidth / 2) - (element.width / 2) + element.x;
-                        break;
-                }
-            } else {
-                xPos = element.x;
-            }
-
-            if (element.yRelativeTo) {
-                switch(element.yRelativeTo) {
-                    case "bottom":
-                        yPos = window.innerHeight + element.y;
-                        break;
-                    case "top":
-                        yPos = element.y;
-                        break;
-                    case "center":
-                        yPos = (window.innerHeight / 2) - (element.height / 2) + element.y;
-                        break;
-                }
-            } else {
-                yPos = element.y
-            }
-
-            element.pos = vec(xPos, yPos);
-
-            if (element.name && element.name.startsWith("hp")) {
-                let pHP = (element.scene as LevelBase).player.hp;
-
-                if (element.name === "hp2" && pHP < 2) {
-                    element.setDrawing("hurt");
-                }  else if (element.name === "hp3" && pHP < 3) {
-                    element.setDrawing("hurt");
-                } else {
-                    element.setDrawing("default");
-                }
-            }
-
-            if (element.name === "feedlabel") {
-                let l = element.children[0];
-
-                if (l && l instanceof Label)
-                { 
-                    if ((element.scene as LevelBase).nextLevel) {
-                        l.text = "Customers Left: " + (element.scene as LevelBase).customersToServe;
-                    } else {
-                        l.text = "Customers Fed: " + (element.scene as LevelBase).customersToServe;
-                    }
-                }
-            }
-        });
-    }
-}
 
 export class RecipeCard extends ViewportLockedUIElement {
     private cardTargetWidth = 75;
