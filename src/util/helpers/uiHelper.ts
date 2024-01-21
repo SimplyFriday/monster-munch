@@ -115,11 +115,23 @@ export abstract class UIHelper {
         scene.add (hp2);
         scene.add (hp3);
 
-        let feedLabel = this.createUILabel("Customers Left: ", 0, 0, 140);
+        let feedLabel = this.createUILabel("", 0, 0, 140);
         feedLabel.xRelativeTo = "center";
         feedLabel.x = 270;
         feedLabel.y = 130;
         feedLabel.name = "feedlabel";
+        
+        feedLabel.customActions = () => {
+            let pCustLeft = (scene as LevelBase).customersToServe;
+            let label = feedLabel.children.map ( (a)=>{
+                if (a instanceof Label) {
+                    return a;
+                }
+            });
+
+            label[0].text = `Customers Left: ${pCustLeft}`
+        }
+
         scene.add(feedLabel);
 
         let timer = new UITimer(50);
