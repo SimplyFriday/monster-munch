@@ -18,7 +18,7 @@ export class Level3b extends Level3 {
     protected customerSpawnSpeed = 10000;
 
     public levelName = "level_3b";
-    protected initialCustomersToServe: number = 0;
+    protected initialCustomersToServe: number = 10;
 
     protected addItems() {
         LevelBuildingHelper.createIngrediantSpawnerOnTile(this, 1, 1, "FlourBag" );

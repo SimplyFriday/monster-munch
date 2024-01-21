@@ -19,7 +19,7 @@ export abstract class LevelBase extends Scene {
     protected doors:Actor[] = [];
     public customers:Customer[] = [];
     protected customerSpawnSpeed:number = 8000; // average number of seconds before a new customer spawns
-    protected customerFrustratedTime = 10000; // ms
+    protected customerFrustratedTime = 15000; // ms
     protected customerAttackTime = 25000; // ms
 
     protected abstract borderWidth:number;
